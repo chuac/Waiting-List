@@ -19,9 +19,22 @@
                 </div>
                 <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>
             </form>
-            <button v-on:click.prevent="clearList()" class="button is-info">Clear Waiting List</button>
+            <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-info">Clear Waiting List</button>
         </div>
-        
+        <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
+            <div v-on:click="clearListConfirmation = !clearListConfirmation" class="modal-background"></div>
+            <div class="modal-content">
+                <article class="message is-warning">
+                    <div class="message-header">
+                        Confirm clearing the waiting list?
+                        <button v-on:click="clearListConfirmation = !clearListConfirmation" class="delete"></button> <!-- bootstrap class of "delete" shows that small X to close modal -->
+                    </div>
+                    <div class="message-body">
+                        <button v-on:click.prevent="handleClearList()" class="button is-danger">CLEAR</button>
+                    </div>
+                </article>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -36,7 +49,8 @@ export default {
     data() {
         return {
             person: '',
-            deleteTarget: -1
+            deleteTarget: -1,
+            clearListConfirmation: false
         }
     },
     computed: {
@@ -59,6 +73,10 @@ export default {
             'clearList',
             'updateList'
         ]),
+        handleClearList: function() {
+            this.clearList();
+            this.clearListConfirmation = !this.clearListConfirmation;
+        },
         handleSubmit: function() {
             this.insertPerson({
                 person: this.person
@@ -121,6 +139,10 @@ export default {
 .ghost {
     border-left: 6px solid rgb(0, 183, 255);
     box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
+}
+
+.modal-content { /* confirmation modal */
+    width: 200px;
 }
 
 form {
