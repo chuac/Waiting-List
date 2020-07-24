@@ -30,6 +30,9 @@ export const store = new Vuex.Store({
             }]
             state.counter++;
         },
+        deletePerson: (state, payload) => {
+            state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
+        },
         clearList: (state) => {
             state.counter = 0;
             state.waitList = [];
@@ -43,6 +46,9 @@ export const store = new Vuex.Store({
         insertPerson: (context, payload) => {
             context.commit('insertPerson', payload);
         },
+        deletePerson: (context, payload) => {
+            context.commit('deletePerson', payload);
+        },
         clearList: (context) => {
             context.commit('clearList');
         },
@@ -52,6 +58,6 @@ export const store = new Vuex.Store({
     },
     plugins: [
         createPersistedState(),
-        createMutationsSharer({ predicate: ["insertPerson", "clearList", "updateList"] })
+        createMutationsSharer({ predicate: ["insertPerson", "deletePerson", "clearList", "updateList"] })
     ],
 })

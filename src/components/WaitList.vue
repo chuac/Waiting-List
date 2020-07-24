@@ -3,9 +3,10 @@
         <div class="column is-half">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
-                    <div class="list-item" v-for="obj in getWaitList" v-bind:key="obj.id">
+                    <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
                         {{ obj.person }}
+                        <i class="fa fa-times remove" v-on:click="handleDelete(index)"></i>
                     </div>
                 </transition-group>
             </draggable>
@@ -52,6 +53,7 @@ export default {
     methods: {
         ...mapActions([
             'insertPerson',
+            'deletePerson',
             'clearList',
             'updateList'
         ]),
@@ -60,6 +62,9 @@ export default {
                 person: this.person
             });
             this.person = '';
+        },
+        handleDelete: function(index) {
+            this.deletePerson(index);
         },
         onEnd: function(event) {
             console.log(event);
@@ -75,10 +80,14 @@ export default {
     background: white;
     padding: 1em;
     margin-bottom: 2px;
-    
+    // display: flex;
     .handle {
         margin-right: 0.8em;
         cursor: move;
+    }
+
+    .remove {
+        float: right;
     }
 }
 
