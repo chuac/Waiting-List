@@ -1,17 +1,18 @@
 <template>
-    <div class="columns is-centered">
+    <div class="columns is-centered" v-on:click="resetDeleteTarget()">
         <div class="column is-half">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
                     <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
                         {{ obj.person }}
-                        <i class="fa fa-times remove" v-on:click="handleDelete(index)"></i>
+                        <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
+                        <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                     </div>
                 </transition-group>
             </draggable>
 
-            <form>
+            <form autocomplete="off">
                 <div class="field">
                     <label class="label">Add a Person</label>
                     <input v-model.lazy="person" required class="input" placeholder="Details" name="person" />
@@ -34,7 +35,8 @@ export default {
     },
     data() {
         return {
-            person: ''
+            person: '',
+            deleteTarget: -1
         }
     },
     computed: {
@@ -61,10 +63,17 @@ export default {
             this.insertPerson({
                 person: this.person
             });
-            this.person = '';
+            this.person = ''; // reset the input field to empty
         },
         handleDelete: function(index) {
             this.deletePerson(index);
+            this.resetDeleteTarget(); // reset the delete target after successfully deleting one item
+        },
+        firstDeleteClick: function(index) {
+            this.deleteTarget = index;
+        },
+        resetDeleteTarget: function() {
+            this.deleteTarget = -1;
         },
         onEnd: function(event) {
             console.log(event);
@@ -81,14 +90,24 @@ export default {
     padding: 1em;
     margin-bottom: 2px;
     // display: flex;
+
     .handle {
         margin-right: 0.8em;
         cursor: move;
     }
 
-    .remove {
+    .delete-confirmation {
         float: right;
     }
+
+    .delete-button {
+        float: right;
+        background-color: red;
+    }
+}
+
+.hide {
+    display: none;
 }
 
 .list-item-drag {
