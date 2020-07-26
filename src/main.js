@@ -14,6 +14,8 @@ const router = new VueRouter({
     mode: 'history' // https://router.vuejs.org/guide/essentials/history-mode.html#html5-history-mode
 });
 
+export const bus = new Vue(); // creating an Event Bus
+
 new Vue({
     render: h => h(App),
     router: router,

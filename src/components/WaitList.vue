@@ -3,7 +3,7 @@
         <div class="column is-half">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
-                    <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+                    <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id" v-on:click.stop="clickPerson(obj)">
                         <i class="fa fa-align-justify handle"></i>
                         {{ obj.person }}
                         <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
@@ -42,6 +42,8 @@
 import draggable from 'vuedraggable';
 import { mapActions, mapGetters } from 'vuex';
 
+//import { bus } from '../main';
+
 export default {
     components: {
         draggable
@@ -71,7 +73,8 @@ export default {
             'insertPerson',
             'deletePerson',
             'clearList',
-            'updateList'
+            'updateList',
+            'addPersonToCall'
         ]),
         handleClearList: function() {
             this.clearList();
@@ -95,6 +98,11 @@ export default {
         },
         onEnd: function(event) {
             console.log(event);
+        },
+        clickPerson: function(obj) {
+             console.log('clicked' + obj.person);
+            // bus.$emit('personClicked', 'data');
+            this.addPersonToCall(obj.person)
         }
     }
 }

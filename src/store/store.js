@@ -9,11 +9,15 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         counter: 0,
-        waitList: []
+        waitList: [],
+        peopleToCall: []
     },
     getters: {
         getWaitList: (state) => {
             return state.waitList;
+        },
+        getPeopleToCall: (state) => {
+            return state.peopleToCall;
         }
     },
     mutations: {
@@ -40,6 +44,19 @@ export const store = new Vuex.Store({
         updateList: (state, payload) => {
             state.waitList = payload;
             //console.log(state);
+        },
+        addPersonToCall: (state, payload) => {
+            console.log(payload);
+            state.peopleToCall.push({
+                message: payload,
+                id: (Math.random().toString(36) + Date.now().toString(36)).substr(2) // generate random ID
+            });
+            console.log(state.peopleToCall);
+        },
+        removePersonToCall: (state, payload) => {
+            state.peopleToCall = state.peopleToCall.filter((notification) => {
+                return notification.id != payload.id
+            })
         }
     },
     actions: {
@@ -54,10 +71,16 @@ export const store = new Vuex.Store({
         },
         updateList: (context, payload) => {
             context.commit('updateList', payload);
+        },
+        addPersonToCall: (context, payload) => {
+            context.commit('addPersonToCall', payload);
+        },
+        removePersonToCall: (context, payload) => {
+            context.commit('removePersonToCall', payload);
         }
     },
     plugins: [
         createPersistedState(),
-        createMutationsSharer({ predicate: ["insertPerson", "deletePerson", "clearList", "updateList"] })
+        createMutationsSharer({ predicate: ["insertPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall"] })
     ],
 })
