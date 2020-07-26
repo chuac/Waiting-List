@@ -15,6 +15,15 @@
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Add a Person</label>
+                    <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
+                    <label for="pool">Pool</label>
+                    <input type="checkbox" id="snooker" value="Snooker" v-model="checkedGameTypes">
+                    <label for="snooker">Snooker</label>
+                    <input type="checkbox" id="pool_and_snooker" value="Pool and Snooker" v-model="checkedGameTypes">
+                    <label for="pool_and_snooker">Pool and Snooker</label>
+                    <input type="checkbox" id="table_tennis" value="Table Tennis" v-model="checkedGameTypes">
+                    <label for="table_tennis">Table Tennis</label>
+                    <br>
                     <input v-model.lazy="person" required class="input" placeholder="Details" name="person" />
                 </div>
                 <div class="buttons">
@@ -53,6 +62,7 @@ export default {
     data() {
         return {
             person: '',
+            checkedGameTypes: [],
             deleteTarget: -1,
             clearListConfirmation: false
         }
@@ -84,9 +94,10 @@ export default {
         },
         handleSubmit: function() {
             this.insertPerson({
-                person: this.person
+                person: this.checkedGameTypes.join(', ') + ' #' + this.person
             });
             this.person = ''; // reset the input field to empty
+            this.checkedGameTypes = []; // reset the checkboxes to empty
         },
         handleDelete: function(index) {
             this.deletePerson(index);
@@ -157,5 +168,13 @@ export default {
 
 form {
     margin-top: 2em;
+
+    input[type=checkbox] {
+        margin-right: 0.2em;
+    }
+
+    label {
+        margin-right: 0.4em;
+    }
 }
 </style>
