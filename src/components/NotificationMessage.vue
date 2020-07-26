@@ -2,11 +2,20 @@
     <div class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-content">
-            <!-- Any other Bulma elements you want -->
+            <div class="columns">
+                <div class="column is-full">
+                    <article class="message">
+                        <div class="message-header">
+                            NOW CALLING: 
+                        </div>
+                        <div class="message-body">
+                            {{ notification.message }}
+                        </div>
+                        
+                    </article>
+                </div>
+            </div>
             
-            <article class="message">
-                NOW CALLING {{ notification.message }}
-            </article>
         </div>
 
     </div>
@@ -41,10 +50,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .modal-content { /* delete confirmation modal */
-    width: 600px;
+    // width: 600px;
+    overflow: hidden; // to hide scrollbars for modal
 
-    article {
-        font-size: 8em;
+    .message {
+        font-size: 5rem;
+        text-align: center;
     }
 }
 </style>

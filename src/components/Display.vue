@@ -1,6 +1,6 @@
 <template>
     <div class="columns is-centered">
-        <div class="column is-half">
+        <div class="column is-narrow">
             <div class="content">
                 <ol type="1">
                     <li v-for="obj in getWaitList" v-bind:key="obj.id">
