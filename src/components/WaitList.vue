@@ -31,6 +31,7 @@
                     <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-info">Clear Waiting List</button>
                 </div>
             </form>
+            <button v-on:click="clearNotifications">Clear Notif</button>
         </div>
         <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
             <div v-on:click="clearListConfirmation = !clearListConfirmation" class="modal-background"></div>
@@ -86,7 +87,8 @@ export default {
             'deletePerson',
             'clearList',
             'updateList',
-            'addPersonToCall'
+            'addPersonToCall',
+            'clearNotifications'
         ]),
         handleClearList: function() {
             this.clearList();

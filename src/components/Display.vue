@@ -14,6 +14,7 @@
                 v-bind:key="notification.id"
                 v-bind:notification="notification"
             ></notification-message>
+            <!-- <notification-message v-if="getPeopleToCall" v-bind:notification="getPeopleToCall"/> -->
         </div>
     </div>
 </template>
@@ -40,7 +41,10 @@ export default {
         ])
     },
     methods: {
-
+        getPeople: async function() {
+            await this.$nextTick();
+            return this.$store.state.peopleToCall[0];
+        }
     },
     created() {
         // bus.$on('personClicked', (data) => {

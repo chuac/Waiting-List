@@ -18,6 +18,10 @@ export const store = new Vuex.Store({
         },
         getPeopleToCall: (state) => {
             return state.peopleToCall;
+        },
+        getIndexOfNotification: (state) => (notification) => {
+            console.log(`index: ${state.peopleToCall.indexOf(notification)}`);
+            return state.peopleToCall.indexOf(notification);
         }
     },
     mutations: {
@@ -57,6 +61,13 @@ export const store = new Vuex.Store({
             state.peopleToCall = state.peopleToCall.filter((notification) => {
                 return notification.id != payload.id
             })
+            // state.peopleToCall.shift();
+            
+        },
+        clearNotifications: (state) => {
+            state.peopleToCall = [];
+            console.log(`peopleToCall just cleared`);
+            console.log(state.peopleToCall);
         }
     },
     actions: {
@@ -77,10 +88,13 @@ export const store = new Vuex.Store({
         },
         removePersonToCall: (context, payload) => {
             context.commit('removePersonToCall', payload);
+        },
+        clearNotifications: (context) => {
+            context.commit('clearNotifications');
         }
     },
     plugins: [
         createPersistedState(),
-        createMutationsSharer({ predicate: ["insertPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall"] })
+        createMutationsSharer({ predicate: ["insertPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications"] })
     ],
 })
