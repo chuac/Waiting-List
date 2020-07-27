@@ -40,6 +40,7 @@ export default {
     },
     data() {
         return {
+            intervalTimer: null,
             timeout: null, // to store setTimeout ID,
             show: false
         }
@@ -67,13 +68,26 @@ export default {
         //         //this.close();
         //     }, 3000);
         // }
-        this.timeout = setTimeout(() => {
-            console.log('in timeout plus ID: ' + this.timeout);
-            this.removePersonToCall(this.notification);
-            //this.close();
-        }, 3000);
+        // this.timeout = setTimeout(() => {
+        //     console.log('in timeout plus ID: ' + this.timeout);
+        //     this.removePersonToCall(this.notification);
+        //     //this.close();
+        // }, 3000);
+        // this.intervalTimer = setInterval(this.showOrNot(), 100);
+        this.intervalTimer = setInterval(() => {
+            if (this.isAtStart()) {
+                clearInterval(this.intervalTimer);
+
+                this.timeout = setTimeout(() => {
+                    console.log('in timeout plus ID: ' + this.timeout);
+                    this.removePersonToCall(this.notification);
+                    //this.close();
+                }, 3000);
+            }
+        }, 100);
     },
     beforeDestroy() {
+        clearInterval(this.intervalTimer);
         clearTimeout(this.timeout);
     }
 }

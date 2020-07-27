@@ -58,11 +58,14 @@ export const store = new Vuex.Store({
             console.log(state.peopleToCall);
         },
         removePersonToCall: (state, payload) => {
+            
+            console.log('meant to be removing a person');
+            console.log(state.peopleToCall);
             state.peopleToCall = state.peopleToCall.filter((notification) => {
                 return notification.id != payload.id
             })
-            // state.peopleToCall.shift();
-            
+            //state.peopleToCall.shift();
+            console.log(state.peopleToCall);
         },
         clearNotifications: (state) => {
             state.peopleToCall = [];
