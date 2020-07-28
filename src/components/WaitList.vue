@@ -5,7 +5,7 @@
                 <transition-group type="transition" name="wait-list">
                     <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id" v-on:dblclick.stop="clickPerson(obj)">
                         <i class="fa fa-align-justify handle"></i>
-                        {{ obj.person }}
+                        {{ obj.person + ' ' + obj.gameTypes }}
                         <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
                         <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                     </div>
@@ -24,14 +24,16 @@
                     <input type="checkbox" id="table_tennis" value="Table Tennis" v-model="checkedGameTypes">
                     <label for="table_tennis">Table Tennis</label>
                     <br>
-                    <input v-model.lazy="person" required class="input" placeholder="Details" name="person" />
+                    <input v-model="gameTypes" type="text" ref="gameTypes" required class="input" placeholder="Game types">
+                    <input v-model="person" ref="person" required class="input" placeholder="Number" name="person" />
+                    {{ gameTypes }}
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>
                     <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-info">Clear Waiting List</button>
                 </div>
             </form>
-            <button v-on:click="clearNotifications">Clear Notif</button>
+            <!-- <button v-on:click="clearNotifications">Clear Notif</button> -->
         </div>
         <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
             <div v-on:click="clearListConfirmation = !clearListConfirmation" class="modal-background"></div>
@@ -63,6 +65,7 @@ export default {
     data() {
         return {
             person: '',
+            gameTypes: '',
             checkedGameTypes: [],
             deleteTarget: -1,
             clearListConfirmation: false
@@ -96,10 +99,14 @@ export default {
         },
         handleSubmit: function() {
             this.insertPerson({
-                person: this.checkedGameTypes.join(', ') + ' #' + this.person
+                person: this.person,
+                gameTypes: this.gameTypes
+                //gameTypes: this.checkedGameTypes.join(', ')
             });
             this.person = ''; // reset the input field to empty
+            this.gameTypes = '';
             this.checkedGameTypes = []; // reset the checkboxes to empty
+            this.reFocus();
         },
         handleDelete: function(index) {
             this.deletePerson(index);
@@ -118,7 +125,13 @@ export default {
              console.log('clicked' + obj.person);
             // bus.$emit('personClicked', 'data');
             this.addPersonToCall(obj.person)
+        },
+        reFocus: function() {
+            this.$refs.gameTypes.focus();
         }
+    },
+    mounted() {
+        this.reFocus();
     }
 }
 </script>

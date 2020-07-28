@@ -14,6 +14,25 @@ const router = new VueRouter({
     mode: 'history' // https://router.vuejs.org/guide/essentials/history-mode.html#html5-history-mode
 });
 
+Vue.filter('expandGameTypes', function(value) {
+    switch (value.toLowerCase()) {
+        case 'p':
+            return 'Pool';
+        case 's':
+            return 'Snooker';
+        case 'tt':
+            return 'Table Tennis';
+        case 'a':
+            return 'Any';
+        case 'pu':
+            return 'Pool or American Pool';
+        case 'u':
+            return 'American Pool';
+        case 'pt':
+            return 'Pool or Table Tennis';
+    }
+})
+
 export const bus = new Vue(); // creating an Event Bus
 
 new Vue({

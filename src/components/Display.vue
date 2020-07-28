@@ -2,11 +2,11 @@
     <div class="columns is-centered">
         <div class="column is-narrow">
             <div class="content">
-                <ol type="1">
-                    <li v-for="obj in getWaitList" v-bind:key="obj.id">
-                        <strong>{{ obj.person }}</strong>
+                <ul>
+                    <li class="display-list-item" v-for="obj in getWaitList" v-bind:key="obj.id">
+                        <strong>{{ obj.person + ' ' + obj.gameTypes }}</strong>
                     </li>
-                </ol>
+                </ul>
             </div>
 
             <notification-message 
@@ -57,8 +57,17 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 li {
+    list-style-type : none; // remove bullet points
+    
+}
+
+.display-list-item {
+    width: 100%;
+    background: white;
+    padding: 0.05em;
+    margin-bottom: 1px;
     font-size: 5em;
 }
 </style>
