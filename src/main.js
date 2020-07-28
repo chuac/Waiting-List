@@ -31,12 +31,53 @@ Vue.filter('expandGameTypes', function(value) {
         case 'pt':
             return 'Pool or Table Tennis';
     }
-})
+});
 
-export const bus = new Vue(); // creating an Event Bus
+// Vue.filter('gameTypeToClass', function(value) {
+//     switch (value.toLowerCase()) {
+//         case 'p':
+//             return 'pool';
+//         case 's':
+//             return 'snooker';
+//         case 'tt':
+//             return 'table-tennis';
+//         case 'a':
+//             return 'any';
+//         case 'pu':
+//             return 'pool-or-american';
+//         case 'u':
+//             return 'american-pool';
+//         case 'pt':
+//             return 'pool-or-table-tennis';
+//     }
+// })
+
+
+
+// export const bus = new Vue(); // creating an Event Bus
 
 new Vue({
     render: h => h(App),
     router: router,
-    store: store
+    store: store,
+    methods: {
+        gameTypeToClass: function(value) {
+            switch (value.toLowerCase()) {
+                case 'p':
+                    return 'pool';
+                case 's':
+                    return 'snooker';
+                case 'tt':
+                    return 'table-tennis';
+                case 'a':
+                    return 'any';
+                case 'pu':
+                    return 'pool-or-american';
+                case 'u':
+                    return 'american-pool';
+                case 'pt':
+                    return 'pool-or-table-tennis';
+            }
+        }
+    }
 }).$mount('#app')

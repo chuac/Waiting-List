@@ -8,8 +8,8 @@
                         <div class="message-header">
                             NOW CALLING: 
                         </div>
-                        <div class="message-body">
-                            {{ notification.message }}
+                        <div v-bind:class="$root.gameTypeToClass(notification.gameTypes)" class="message-body">
+                            {{ notification.person }}
                         </div>
                         
                     </article>
@@ -17,14 +17,19 @@
             </div>
             
         </div>
-
+        <text-to-speech v-if="isAtStart()" v-bind:message="`Calling number ${notification.person}`"/>
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import TextToSpeech from './TextToSpeech.vue'
+
 export default {
+    components: {
+        'text-to-speech': TextToSpeech
+    },
     props: ["notification"],
     computed: {
         ...mapGetters([

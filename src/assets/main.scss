@@ -1,2 +1,29 @@
 
+
+
+.snooker {
+    background-color: hsl(141, 71%, 48%);
+}
+
+.pool {
+    background-color: hsl(204, 86%, 53%);
+}
+
+.table-tennis {
+    background-color: hsl(48, 100%, 67%);
+}
+
+.pool-or-american {
+    background-color: white;
+    color: hsl(348, 100%, 61%); // text colour
+    
+    strong {
+        color: hsl(348, 100%, 61%); // text colour
+    }
+}
+
+.american-pool {
+    background-color: orange;
+}
+
 @import "~bulma/bulma";

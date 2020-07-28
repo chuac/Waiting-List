@@ -52,7 +52,7 @@ export const store = new Vuex.Store({
         addPersonToCall: (state, payload) => {
             console.log(payload);
             state.peopleToCall.push({
-                message: payload,
+                ...payload,
                 id: (Math.random().toString(36) + Date.now().toString(36)).substr(2) // generate random ID
             });
             console.log(state.peopleToCall);

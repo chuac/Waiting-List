@@ -3,9 +3,9 @@
         <div class="column is-half">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
-                    <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id" v-on:dblclick.stop="clickPerson(obj)">
+                    <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id" v-on:dblclick.stop="clickPerson(obj)">
                         <i class="fa fa-align-justify handle"></i>
-                        {{ obj.person + ' ' + obj.gameTypes }}
+                        {{ obj.person }} {{ obj.gameTypes | expandGameTypes }}
                         <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
                         <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                     </div>
@@ -15,7 +15,7 @@
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Add a Person</label>
-                    <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
+                    <!-- <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
                     <label for="pool">Pool</label>
                     <input type="checkbox" id="snooker" value="Snooker" v-model="checkedGameTypes">
                     <label for="snooker">Snooker</label>
@@ -23,7 +23,7 @@
                     <label for="pool_and_snooker">Pool and Snooker</label>
                     <input type="checkbox" id="table_tennis" value="Table Tennis" v-model="checkedGameTypes">
                     <label for="table_tennis">Table Tennis</label>
-                    <br>
+                    <br> -->
                     <input v-model="gameTypes" type="text" ref="gameTypes" required class="input" placeholder="Game types">
                     <input v-model="person" ref="person" required class="input" placeholder="Number" name="person" />
                     {{ gameTypes }}
@@ -57,6 +57,7 @@ import draggable from 'vuedraggable';
 import { mapActions, mapGetters } from 'vuex';
 
 //import { bus } from '../main';
+// import { gameTypeToClass } from '../main';
 
 export default {
     components: {
@@ -75,14 +76,14 @@ export default {
         ...mapGetters([
             'getWaitList',
         ]),
-        waitList: {
+        waitList: { // interaction between Vuex and draggable package
             get() {
                 return this.getWaitList;
             },
             set(value) {
                 this.updateList(value);
             }
-        }
+        },
     },
     methods: {
         ...mapActions([
@@ -124,11 +125,14 @@ export default {
         clickPerson: function(obj) {
              console.log('clicked' + obj.person);
             // bus.$emit('personClicked', 'data');
-            this.addPersonToCall(obj.person)
+            this.addPersonToCall({
+                person: obj.person,
+                gameTypes: obj.gameTypes
+            });
         },
         reFocus: function() {
             this.$refs.gameTypes.focus();
-        }
+        },
     },
     mounted() {
         this.reFocus();
@@ -140,7 +144,7 @@ export default {
 <style scoped lang="scss">
 .list-item {
     width: 100%;
-    background: white;
+    // background: white;
     padding: 1em;
     margin-bottom: 2px;
     // display: flex;

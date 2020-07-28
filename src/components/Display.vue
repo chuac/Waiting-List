@@ -3,8 +3,8 @@
         <div class="column is-narrow">
             <div class="content">
                 <ul>
-                    <li class="display-list-item" v-for="obj in getWaitList" v-bind:key="obj.id">
-                        <strong>{{ obj.person + ' ' + obj.gameTypes }}</strong>
+                    <li v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="display-list-item" v-for="obj in getWaitList" v-bind:key="obj.id">
+                        <strong>{{ obj.person }} {{ obj.gameTypes | expandGameTypes }}</strong>
                     </li>
                 </ul>
             </div>
@@ -65,7 +65,7 @@ li {
 
 .display-list-item {
     width: 100%;
-    background: white;
+    // background: white;
     padding: 0.05em;
     margin-bottom: 1px;
     font-size: 5em;
