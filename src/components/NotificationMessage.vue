@@ -8,7 +8,7 @@
                         <div class="message-header">
                             NOW CALLING: 
                         </div>
-                        <div v-bind:class="$root.gameTypeToClass(notification.gameTypes)" class="message-body">
+                        <div v-bind:class="$root.gameTypeToClass(notification.gameTypes)" class="message-body blinking">
                             {{ notification.person }}
                         </div>
                         
@@ -87,7 +87,7 @@ export default {
                     console.log('in timeout plus ID: ' + this.timeout);
                     this.removePersonToCall(this.notification);
                     //this.close();
-                }, 3000);
+                }, 5000);
             }
         }, 100);
     },
@@ -107,6 +107,22 @@ export default {
     .message {
         font-size: 5rem;
         text-align: center;
+
+        .message-body {
+            font-size: 5rem; // make this larger
+        }
     }
 }
+
+.blinking{
+    animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: #000;    }
+    49%{    color: #000; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #000;    }
+}
+
 </style>

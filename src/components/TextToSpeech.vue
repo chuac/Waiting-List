@@ -12,7 +12,6 @@ export default {
             let utterance = new SpeechSynthesisUtterance(this.message);
             utterance.lang = 'en-AU';
             speechSynthesis.speak(utterance);
-            //speechSynthesis.speak(new SpeechSynthesisUtterance(this.message));
         }
     },
     mounted() {
