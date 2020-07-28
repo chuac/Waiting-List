@@ -22,6 +22,11 @@ export const store = new Vuex.Store({
         getIndexOfNotification: (state) => (notification) => {
             console.log(`index: ${state.peopleToCall.indexOf(notification)}`);
             return state.peopleToCall.indexOf(notification);
+        },
+        getCountOfPool: (state) => {
+            return (state.waitList.filter((people) => {
+                return ((people.gameTypes === 'p') || (people.gameTypes === 'pu') || (people.gameTypes === 'u') || (people.gameTypes === 'a'))
+            }).length);
         }
     },
     mutations: {

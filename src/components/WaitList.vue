@@ -1,6 +1,8 @@
 <template>
     <div class="columns is-centered" v-on:click="resetDeleteTarget()">
         <div class="column is-half">
+            <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
+            <br>
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id" v-on:dblclick.stop="clickPerson(obj)">
@@ -75,6 +77,7 @@ export default {
     computed: {
         ...mapGetters([
             'getWaitList',
+            'getCountOfPool'
         ]),
         waitList: { // interaction between Vuex and draggable package
             get() {
@@ -101,7 +104,7 @@ export default {
         handleSubmit: function() {
             this.insertPerson({
                 person: this.person,
-                gameTypes: this.gameTypes
+                gameTypes: this.gameTypes.toLowerCase()
                 //gameTypes: this.checkedGameTypes.join(', ')
             });
             this.person = ''; // reset the input field to empty
