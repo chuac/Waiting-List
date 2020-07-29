@@ -32,7 +32,6 @@
                     <br> -->
                     <input v-model="gameTypes" type="text" ref="gameTypes" required class="input" placeholder="Game types">
                     <input v-model="person" ref="person" required class="input" placeholder="Number" name="person" />
-                    {{ gameTypes }}
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>

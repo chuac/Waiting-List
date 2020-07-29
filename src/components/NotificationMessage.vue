@@ -17,7 +17,7 @@
             </div>
             
         </div>
-        <text-to-speech v-if="isAtStart()" v-bind:message="`Calling ${notification.person}`"/>
+        <text-to-speech v-if="isAtStart()" v-bind:message="buildTTSMessage"/>
     </div>
 </template>
 
@@ -41,6 +41,14 @@ export default {
             } else {
                 return false;
             }
+        },
+        buildTTSMessage() {
+            let person = this.notification.person;
+            if ( !isNaN(parseFloat(person)) && isFinite(person) ) { // check if the string of person is a number...https://stackoverflow.com/a/52986361
+                return `Calling number ${this.notification.person}`;
+            } else {
+                return `Calling ${this.notification.person}`;
+            }
         }
     },
     data() {
@@ -63,33 +71,15 @@ export default {
         },
         isAtStart() {
             return (this.getIndexOfNotification(this.notification) === 0);
-        },
-        buildTTSMessage() {
-            
         }
     },
     created() {
-        // if (this.isAtStart()) {
-        //     this.timeout = setTimeout(() => {
-        //         console.log('in timeout plus ID: ' + this.timeout);
-        //         this.removePersonToCall(this.notification);
-        //         //this.close();
-        //     }, 3000);
-        // }
-        // this.timeout = setTimeout(() => {
-        //     console.log('in timeout plus ID: ' + this.timeout);
-        //     this.removePersonToCall(this.notification);
-        //     //this.close();
-        // }, 3000);
-        // this.intervalTimer = setInterval(this.showOrNot(), 100);
         this.intervalTimer = setInterval(() => {
-            if (this.isAtStart()) {
+            if (this.isAtStart()) { // if notification is at front of the queue then cancel the 100ms interval timer, and start our long timer for displaying this notification
                 clearInterval(this.intervalTimer);
 
                 this.timeout = setTimeout(() => {
-                    console.log('in timeout plus ID: ' + this.timeout);
                     this.removePersonToCall(this.notification);
-                    //this.close();
                 }, 5000);
             }
         }, 100); // check every 100ms if this notification is at the front of the queue
@@ -118,7 +108,7 @@ export default {
 }
 
 .blinking{
-    animation:blinkingText 1.2s infinite;
+    animation:blinkingText 1s infinite;
 }
 @keyframes blinkingText{
     0%{     color: #000;    }
