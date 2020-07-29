@@ -49,6 +49,7 @@ export const store = new Vuex.Store({
         clearList: (state) => {
             state.counter = 0;
             state.waitList = [];
+            state.peopleToCall = [];
         },
         updateList: (state, payload) => {
             state.waitList = payload;

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 //import { bus } from '../main';
 import NotificationMessage from './NotificationMessage';
@@ -41,6 +41,9 @@ export default {
         ])
     },
     methods: {
+        ...mapActions([
+            'clearNotifications'
+        ]),
         getPeople: async function() {
             await this.$nextTick();
             return this.$store.state.peopleToCall[0];
@@ -52,6 +55,7 @@ export default {
         //     console.log('in display');
         //     console.log(data);
         // });
+        this.clearNotifications(); // clear notifications on each display refresh (prevents odd bug that notifications persist)
     }
 }
 </script>

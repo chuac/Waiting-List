@@ -5,11 +5,15 @@
             <br>
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
-                    <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id" v-on:dblclick.stop="clickPerson(obj)">
+                    <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
                         {{ obj.person }} {{ obj.gameTypes | expandGameTypes }}
-                        <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
-                        <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                        <div class="control-buttons">
+                            <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
+                            <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
+                            <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                        </div>
+                        
                     </div>
                 </transition-group>
             </draggable>
@@ -35,7 +39,7 @@
                     <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-info">Clear Waiting List</button>
                 </div>
             </form>
-            <!-- <button v-on:click="clearNotifications">Clear Notif</button> -->
+            <button v-on:click="clearNotifications">Clear Notif</button>
         </div>
         <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
             <div v-on:click="clearListConfirmation = !clearListConfirmation" class="modal-background"></div>
@@ -157,14 +161,34 @@ export default {
         cursor: move;
     }
 
-    .delete-confirmation {
+    .control-buttons {
         float: right;
-    }
 
-    .delete-button {
-        float: right;
-        background-color: red;
+        .delete-confirmation {
+            float: right;
+            // display: inline-block;
+        }
+
+        .delete-button {
+            float: right;
+            // display: inline-block;
+            background-color: red;
+        }
+
+        .call-button {
+            float: left;
+            // display: inline-block;
+            margin-right: 5px;
+            margin-top: 2.5px;
+            color: hsl(252, 0%, 32%); // dark gray
+
+            
+        }
+        .call-button:hover {
+            color: black;
+        }
     }
+    
 }
 
 .hide {
