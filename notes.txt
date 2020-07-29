@@ -1,5 +1,5 @@
 allow editing game types,
-maybe move calling to speaker button/icon
+focus on the input when clicked edit button
 
 remarks column
 

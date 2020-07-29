@@ -6,14 +6,22 @@
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
-                        <i class="fa fa-align-justify handle"></i>
-                        {{ obj.person }} {{ obj.gameTypes | expandGameTypes }}
-                        <div class="control-buttons">
-                            <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
-                            <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
-                            <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                        <div v-if="editTarget !== index">
+                            <i class="fa fa-align-justify handle"></i>
+                            <strong>{{ obj.person }} {{ obj.gameTypes | expandGameTypes }}</strong>
+
+                            <div class="control-buttons">
+                                <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
+                                <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
+                                <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
+                                <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                            </div>
                         </div>
-                        
+                        <form v-if="editTarget === index" autocomplete="off">
+                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
+                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
+                            <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
+                        </form>
                     </div>
                 </transition-group>
             </draggable>
@@ -73,8 +81,13 @@ export default {
             person: '',
             gameTypes: '',
             checkedGameTypes: [],
-            deleteTarget: -1,
-            clearListConfirmation: false
+            clearListConfirmation: false,
+            deleteTarget: -1, // initialise these targets to -1 index
+            editTarget: -1,
+            toEdit: {
+                person: '',
+                gameTypes: ''
+            }
         }
     },
     computed: {
@@ -94,6 +107,7 @@ export default {
     methods: {
         ...mapActions([
             'insertPerson',
+            'editPerson',
             'deletePerson',
             'clearList',
             'updateList',
@@ -124,6 +138,26 @@ export default {
         },
         resetDeleteTarget: function() {
             this.deleteTarget = -1;
+        },
+        firstEditClick: function(index) {
+            let waitList = this.getWaitList;
+            this.editTarget = index;
+            this.toEdit.person = waitList[index].person;
+            this.toEdit.gameTypes = waitList[index].gameTypes;
+        },
+        handleEdit: function(id) {
+            this.editPerson({
+                editTargetID: id,
+                toEdit: this.toEdit
+            });
+            this.resetEditTarget();
+        },
+        resetEditTarget: function() {
+            this.editTarget = -1;
+            this.toEdit = {
+                person: '',
+                gameTypes: ''
+            } // reset the v-model placeholders to empty
         },
         onEnd: function(event) {
             console.log(event);
@@ -185,6 +219,11 @@ export default {
         }
         .call-button:hover {
             color: black;
+        }
+
+        .edit-button {
+            float: left;
+            margin-right: 10px;
         }
     }
     

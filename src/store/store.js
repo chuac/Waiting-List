@@ -43,6 +43,21 @@ export const store = new Vuex.Store({
             }]
             state.counter++;
         },
+        editPerson: (state, payload) => {
+            const { editTargetID, toEdit } = payload;
+
+            state.waitList = state.waitList.map((obj) => { // mapping will create a new object to satisfy Vuex reactivity to all components
+                if (obj.id === editTargetID) {
+                    return {
+                        ...obj,
+                        person: toEdit.person,
+                        gameTypes: toEdit.gameTypes
+                    };
+                } else {
+                    return obj;
+                }
+            })
+        },
         deletePerson: (state, payload) => {
             state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
         },
@@ -83,6 +98,9 @@ export const store = new Vuex.Store({
         insertPerson: (context, payload) => {
             context.commit('insertPerson', payload);
         },
+        editPerson: (context, payload) => {
+            context.commit('editPerson', payload);
+        },
         deletePerson: (context, payload) => {
             context.commit('deletePerson', payload);
         },
@@ -104,6 +122,6 @@ export const store = new Vuex.Store({
     },
     plugins: [
         createPersistedState(),
-        createMutationsSharer({ predicate: ["insertPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications"] })
+        createMutationsSharer({ predicate: ["insertPerson", "editPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications"] })
     ],
 })
