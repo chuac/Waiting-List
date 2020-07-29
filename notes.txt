@@ -1,0 +1,6 @@
+allow editing game types,
+maybe move calling to speaker button/icon
+
+remarks column
+
+extra button to hold notification

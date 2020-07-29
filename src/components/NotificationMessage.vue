@@ -17,7 +17,7 @@
             </div>
             
         </div>
-        <text-to-speech v-if="isAtStart()" v-bind:message="`Calling number ${notification.person}`"/>
+        <text-to-speech v-if="isAtStart()" v-bind:message="`Calling ${notification.person}`"/>
     </div>
 </template>
 
@@ -63,6 +63,9 @@ export default {
         },
         isAtStart() {
             return (this.getIndexOfNotification(this.notification) === 0);
+        },
+        buildTTSMessage() {
+            
         }
     },
     created() {
@@ -89,7 +92,7 @@ export default {
                     //this.close();
                 }, 5000);
             }
-        }, 100);
+        }, 100); // check every 100ms if this notification is at the front of the queue
     },
     beforeDestroy() {
         clearInterval(this.intervalTimer);
