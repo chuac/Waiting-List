@@ -1,6 +1,8 @@
 allow editing game types,
 focus on the input when clicked edit button
 
+re-ordering the tiles while you have an edit box open, gives an interesting bug
+
 remarks column
 
 extra button to hold notification

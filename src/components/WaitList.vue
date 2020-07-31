@@ -1,15 +1,14 @@
 <template>
-    <div class="columns is-centered" v-on:click="resetDeleteTarget()">
+    <div class="columns is-centered" v-on:click="resetDeleteTarget(); resetEditTarget()">
         <div class="column is-half">
             <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
             <br>
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+                        <i class="fa fa-align-justify handle"></i>
+                        <strong>{{ obj.person }} {{ obj.gameTypes | expandGameTypes }}</strong>
                         <div v-if="editTarget !== index">
-                            <i class="fa fa-align-justify handle"></i>
-                            <strong>{{ obj.person }} {{ obj.gameTypes | expandGameTypes }}</strong>
-
                             <div class="control-buttons">
                                 <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
                                 <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
@@ -17,7 +16,7 @@
                                 <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                             </div>
                         </div>
-                        <form v-if="editTarget === index" autocomplete="off">
+                        <form v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
                             <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
                             <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
@@ -39,7 +38,7 @@
                     <label for="table_tennis">Table Tennis</label>
                     <br> -->
                     <input v-model="gameTypes" type="text" ref="gameTypes" required class="input" placeholder="Game types">
-                    <input v-model="person" ref="person" required class="input" placeholder="Number" name="person" />
+                    <input v-model="person" ref="person" required class="input" placeholder="Number / Name" name="person" />
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>
