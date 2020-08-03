@@ -1,5 +1,91 @@
+.list-container {
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-evenly;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
 
+.list-item {
+    // width: 100%;
+    // // background: white;
+    // padding-top: 20px;
+    // margin-bottom: 2px;
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
 
+    display: table-row;
+    // border-bottom: 50px solid transparent;
+    
+
+    .handle {
+        // display: table-cell;
+        margin-left: 0.6em;
+        cursor: move;
+    }
+
+    .list-item-person {
+        // align-self: flex-start;
+        // // flex-grow: 1;
+        // flex: 0.2;
+        // padding: 0.3em;
+        border-left: 1em solid transparent;
+        border-bottom: 0.9em solid transparent;
+        border-top: 0.9em solid transparent;
+        display: table-cell;
+    }
+
+    .list-item-game {
+        // align-self: flex-start;
+        // flex-grow: 1;
+        border-left: 1em solid transparent;
+        
+        display: table-cell;
+    }
+
+    .list-item-control-buttons {
+        // float: right;
+        // padding-right: 1em;
+        display: table-cell;
+        border-left: 1em solid transparent;
+        border-right: 0.6em solid transparent;
+        // width: 500px;
+
+        .delete-confirmation {
+            // float: right;
+            padding: 5em;
+            // display: inline-block;
+        }
+
+        .delete-button {
+            // float: right;
+            
+            // display: inline-block;
+            background-color: red;
+        }
+
+        .call-button {
+            // float: left;
+            // display: inline-block;
+            margin-right: 5px;
+            margin-top: 2.5px;
+            color: hsl(252, 0%, 32%); // dark gray
+
+            
+        }
+        .call-button:hover {
+            color: black;
+        }
+
+        .edit-button {
+            // float: left;
+            margin-right: 10px;
+        }
+    }
+    
+}
 
 .snooker {
     background-color: hsl(141, 71%, 48%);

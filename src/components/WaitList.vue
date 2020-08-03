@@ -3,13 +3,14 @@
         <div class="column is-half">
             <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
             <br>
-            <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
+            <draggable class="list-container" v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
-                        <strong>{{ obj.person }} {{ obj.gameTypes | expandGameTypes }}</strong>
+                        <strong class="list-item-person">{{ obj.person }}</strong>
+                        <strong class="list-item-game">{{ obj.gameTypes | expandGameTypes }}</strong>
                         <div v-if="editTarget !== index">
-                            <div class="control-buttons">
+                            <div class="list-item-control-buttons">
                                 <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
                                 <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
                                 <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
@@ -181,52 +182,54 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.list-item {
-    width: 100%;
-    // background: white;
-    padding: 1em;
-    margin-bottom: 2px;
-    // display: flex;
+// .list-item {
+//     // width: 100%;
+//     // // background: white;
+//     padding: 1em;
+//     margin-bottom: 2px;
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
 
-    .handle {
-        margin-right: 0.8em;
-        cursor: move;
-    }
+//     .handle {
+//         margin-right: 0.8em;
+//         cursor: move;
+//     }
 
-    .control-buttons {
-        float: right;
+//     .control-buttons {
+//         float: right;
 
-        .delete-confirmation {
-            float: right;
-            // display: inline-block;
-        }
+//         .delete-confirmation {
+//             float: right;
+//             // display: inline-block;
+//         }
 
-        .delete-button {
-            float: right;
-            // display: inline-block;
-            background-color: red;
-        }
+//         .delete-button {
+//             float: right;
+//             // display: inline-block;
+//             background-color: red;
+//         }
 
-        .call-button {
-            float: left;
-            // display: inline-block;
-            margin-right: 5px;
-            margin-top: 2.5px;
-            color: hsl(252, 0%, 32%); // dark gray
+//         .call-button {
+//             float: left;
+//             // display: inline-block;
+//             margin-right: 5px;
+//             margin-top: 2.5px;
+//             color: hsl(252, 0%, 32%); // dark gray
 
             
-        }
-        .call-button:hover {
-            color: black;
-        }
+//         }
+//         .call-button:hover {
+//             color: black;
+//         }
 
-        .edit-button {
-            float: left;
-            margin-right: 10px;
-        }
-    }
+//         .edit-button {
+//             float: left;
+//             margin-right: 10px;
+//         }
+//     }
     
-}
+// }
 
 .hide {
     display: none;
