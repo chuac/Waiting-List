@@ -1,4 +1,7 @@
-
+body, html {
+    background-color: rgb(231, 231, 231);
+    min-height: 100vh; // to have bg colour all the way
+}
 
 .list-container {
     // display: flex;
