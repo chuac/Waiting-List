@@ -1,12 +1,11 @@
 <template>
     <div class="columns is-centered">
         <div class="column is-narrow">
-            <div class="content">
-                <ul>
-                    <li v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="display-list-item" v-for="obj in getWaitList" v-bind:key="obj.id">
-                        <strong>{{ obj.person }} {{ obj.gameTypes | expandGameTypes }}</strong>
-                    </li>
-                </ul>
+            <div class="display-list-container">
+                <div class="display-list-item" v-bind:class="$root.gameTypeToClass(obj.gameTypes)" v-for="obj in getWaitList" v-bind:key="obj.id">
+                    <span class="display-list-item-person has-text-weight-bold">{{ obj.person }}</span>
+                    <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
+                </div>
             </div>
 
             <notification-message 
@@ -62,16 +61,31 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-li {
-    list-style-type : none; // remove bullet points
-    
+
+.display-list-container {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 0 8px;
 }
 
 .display-list-item {
-    width: 100%;
-    // background: white;
-    padding: 0.05em;
-    margin-bottom: 1px;
+    // width: 100%;
+    // // background: white;
+    // padding: 0.05em;
+    // margin-bottom: 1px;
     font-size: 5em;
+    display: table-row;
+
+    .display-list-item-person {
+        display: table-cell;
+        border-left: 0.5em solid transparent;
+    }
+
+    .display-list-item-game {
+        display: table-cell;
+        border-left: 1em solid transparent;
+        border-right: 0.5em solid transparent;
+    }
 }
+
 </style>

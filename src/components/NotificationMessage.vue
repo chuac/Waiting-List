@@ -8,15 +8,16 @@
                         <div class="message-header">
                             NOW CALLING: 
                         </div>
-                        <div v-bind:class="$root.gameTypeToClass(notification.gameTypes)" class="message-body blinking">
-                            {{ notification.person }}
-                        </div>
+                        <section v-bind:class="$root.gameTypeToClass(notification.gameTypes)" class="blinking">
+                            <span>{{ notification.person }}</span>
+                        </section>
                         
                     </article>
                 </div>
             </div>
             
         </div>
+        {{ notification.person }}
         <text-to-speech v-if="isAtStart()" v-bind:message="buildTTSMessage"/>
     </div>
 </template>
@@ -93,16 +94,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.modal-content { /* delete confirmation modal */
-    // width: 600px;
+.modal-content {
+    //  width: 600px;
     overflow: hidden; // to hide scrollbars for modal
 
     .message {
         font-size: 5rem;
         text-align: center;
 
-        .message-body {
-            font-size: 5rem; // make this larger
+        section {
+            padding: 1em;
+
+            span {
+                font-size: 10rem; // make this larger
+            }
         }
     }
 }
@@ -110,12 +115,19 @@ export default {
 .blinking{
     animation:blinkingText 1s infinite;
 }
+// @keyframes blinkingText{
+//     0%{     color: #000;    }
+//     49%{    color: #000; }
+//     60%{    color: transparent; }
+//     99%{    color: transparent;  }
+//     100%{   color: #000;    }
+// }
 @keyframes blinkingText{
-    0%{     color: #000;    }
-    49%{    color: #000; }
+    0%{     color: inherit;    }
+    49%{    color: inherit; }
     60%{    color: transparent; }
-    99%{    color:transparent;  }
-    100%{   color: #000;    }
+    99%{    color: transparent;  }
+    100%{   color: inherit;    }
 }
 
 </style>
