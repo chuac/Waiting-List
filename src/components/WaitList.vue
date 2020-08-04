@@ -1,10 +1,10 @@
 <template>
-    <div class="columns is-centered" v-on:click="resetDeleteTarget(); resetEditTarget()">
-        <div class="column is-half">
+    <div class="columns is-centered is-vcentered" v-on:click="resetDeleteTarget(); resetEditTarget()">
+        <div class="column is-offset-1 is-narrow">
             <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
             <br>
-            <draggable class="list-container" v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
-                <transition-group type="transition" name="wait-list">
+            <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
+                <transition-group class="list-container" type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
                         <span class="list-item-person is-size-4 has-text-weight-bold">{{ obj.person }}</span>
@@ -47,7 +47,8 @@
                     </div>
                 </transition-group>
             </draggable>
-
+        </div>
+        <div class="column is-offset-1 is-narrow">
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Add a Person</label>

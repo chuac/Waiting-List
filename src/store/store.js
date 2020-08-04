@@ -68,7 +68,7 @@ export const store = new Vuex.Store({
         },
         updateList: (state, payload) => {
             state.waitList = payload;
-            //console.log(state);
+            console.log(state);
         },
         addPersonToCall: (state, payload) => {
             console.log(payload);
