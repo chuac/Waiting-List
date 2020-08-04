@@ -9,7 +9,21 @@
                         <i class="fa fa-align-justify handle"></i>
                         <strong class="list-item-person">{{ obj.person }}</strong>
                         <strong class="list-item-game">{{ obj.gameTypes | expandGameTypes }}</strong>
-                        <div v-if="editTarget !== index">
+                        <div v-if="editTarget !== index" class="list-item-control-buttons">
+                            <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
+                            <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
+                            <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
+                            <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                        </div>
+                        <form v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
+                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input is-small" type="text">
+                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input is-small" type="text">
+                            <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
+                        </form>
+                        <!-- <div v-if="editTarget !== index">
+                            <i class="fa fa-align-justify handle"></i>
+                            <strong class="list-item-person">{{ obj.person }}</strong>
+                            <strong class="list-item-game">{{ obj.gameTypes | expandGameTypes }}</strong>
                             <div class="list-item-control-buttons">
                                 <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
                                 <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
@@ -17,11 +31,19 @@
                                 <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                             </div>
                         </div>
-                        <form v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
-                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
-                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
-                            <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
-                        </form>
+                        <template v-if="editTarget === index">
+                            <i class="fa fa-align-justify handle"></i>
+                            <strong class="list-item-person">{{ obj.person }}</strong>
+                            <strong class="list-item-game">{{ obj.gameTypes | expandGameTypes }}x</strong>
+                            <form v-on:click.stop autocomplete="off"> 
+                                <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
+                                <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
+                                <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
+                            </form>
+                            <div class="list-item-control-buttons">
+                            </div>
+                        </template> -->
+                        
                     </div>
                 </transition-group>
             </draggable>
