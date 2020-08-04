@@ -7,8 +7,8 @@
                 <transition-group type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
-                        <strong class="list-item-person">{{ obj.person }}</strong>
-                        <strong class="list-item-game">{{ obj.gameTypes | expandGameTypes }}</strong>
+                        <span class="list-item-person is-size-4 has-text-weight-bold">{{ obj.person }}</span>
+                        <span class="list-item-game is-size-6 has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
                         <div v-if="editTarget !== index" class="list-item-control-buttons">
                             <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
                             <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
