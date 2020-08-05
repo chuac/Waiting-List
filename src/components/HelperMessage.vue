@@ -7,7 +7,14 @@
                 <button v-on:click="closeMessage()" class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <h4 class="title">Adding new person to wait list</h4>
+                <div class="content">
+                    <h4 class="title">Adding new person to wait list</h4>
+                    Enter one of these Game Type codes:
+                    <p>
+                        Enter one of these Game Type codes:
+                    </p>
+                </div>
+                
                 <!-- https://bulma.io/documentation/elements/title/ -->
             </section>
             <footer class="modal-card-foot">

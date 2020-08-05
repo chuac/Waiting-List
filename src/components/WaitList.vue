@@ -99,12 +99,12 @@ const isValidGameType = (val) => { // custom validator for Vuelidate
     const value = val.toLowerCase();
     return (
         !helpers.req(val) || // lets this validator behave well if this custom validator is used without 'required' validator
-        value === 'a' ||
-        value === 'p' ||
-        value === 's' ||
-        value === 'tt' ||
-        value === 'pu' ||
-        value === 'u' ||
+        value === 'a'   ||
+        value === 'p'   ||
+        value === 's'   ||
+        value === 'tt'  ||
+        value === 'pu'  ||
+        value === 'u'   ||
         value === 'pt'
     )
 }
@@ -308,9 +308,6 @@ form {
         margin-right: 0.2em;
     }
 
-    label {
-        // margin-right: 0.4em;
-    }
 }
 
 .fa-question-circle {
