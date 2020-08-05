@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-centered" v-on:click="resetDeleteTarget(); resetEditTarget()">
+    <div class="columns is-centered" v-on:click="resetDeleteTarget(); resetEditTarget();">
         <div class="column is-offset-1 is-narrow">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group class="list-container" type="transition" name="wait-list">
@@ -33,6 +33,8 @@
             <br>
             <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
             <hr>
+            <i v-on:click.stop="showHelperMessage = !showHelperMessage" class="far fa-question-circle fa-2x"></i>
+            <helper-message v-if="showHelperMessage" v-on:close-message="resetShowHelper()"></helper-message>
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Game Type</label>
@@ -91,6 +93,8 @@ import draggable from 'vuedraggable';
 import { mapActions, mapGetters } from 'vuex';
 import { helpers, required, maxLength } from 'vuelidate/lib/validators';
 
+import HelperMessage from './HelperMessage';
+
 const isValidGameType = (val) => { // custom validator for Vuelidate
     const value = val.toLowerCase();
     return (
@@ -110,7 +114,8 @@ const isValidGameType = (val) => { // custom validator for Vuelidate
 
 export default {
     components: {
-        draggable
+        draggable,
+        'helper-message': HelperMessage
     },
     data() {
         return {
@@ -119,6 +124,7 @@ export default {
             remarks: '',
             checkedGameTypes: [],
             clearListConfirmation: false,
+            showHelperMessage: false,
             deleteTarget: -1, // initialise these targets to -1 index
             editTarget: -1,
             toEdit: {
@@ -127,7 +133,7 @@ export default {
                 remarks: ''
             },
             newPersonFormSubmitted: false,
-            editPersonFormSubmitted: false,
+            editPersonFormSubmitted: false
         }
     },
     validations: {
@@ -248,6 +254,9 @@ export default {
                 gameTypes: ''
             } // reset the v-model placeholders to empty
         },
+        resetShowHelper: function() {
+            this.showHelperMessage = false;
+        },
         onEnd: function(event) {
             console.log(event);
         },
@@ -302,6 +311,14 @@ form {
     label {
         // margin-right: 0.4em;
     }
+}
+
+.fa-question-circle {
+    float: right;
+    color: hsl(252, 0%, 32%); // dark gray
+}
+.fa-question-circle:hover {
+    color: hsl(0, 0%, 15%);
 }
 
 .edit-input {
