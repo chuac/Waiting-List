@@ -59,16 +59,16 @@
                     <hr>
                     <h4 class="title is-4 is-spaced">Clearing the whole waiting list</h4>
                     <p class="subtitle is-6 has-text-justified">
-                        Waiting list data isn't deleted even if the browser is closed so use the yellow 
-                        <button class="button is-small is-warning">Clear Waiting List</button> button to clear all data.
+                        Waiting list data isn't deleted even if the browser is closed so use the <i>yellow button</i>
+                        <button class="button is-small is-warning">Clear Waiting List</button> to clear all data.
                     </p>
                     <hr>
                 </div>
                 
             </section>
-            <footer class="modal-card-foot">
+            <!-- <footer class="modal-card-foot">
                 <button v-on:click="closeMessage()" class="button is-primary">Close</button>
-            </footer>
+            </footer> -->
         </div>
     </div>
 </template>
