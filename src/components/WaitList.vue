@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-centered is-vcentered" v-on:click="resetDeleteTarget(); resetEditTarget()">
+    <div class="columns is-centered" v-on:click="resetDeleteTarget(); resetEditTarget()">
         <div class="column is-offset-1 is-narrow">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group class="list-container" type="transition" name="wait-list">
@@ -29,12 +29,16 @@
             </draggable>
         </div>
         <div class="column is-offset-1 is-narrow">
+            <br>
             <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
             <hr>
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Game Type</label>
-                    <input v-model="gameTypes" type="text" ref="gameTypes" required class="input new-input" placeholder="Game Type"/>
+                    <input v-model="$v.gameTypes.$model" type="text" ref="gameTypes" required class="input new-input" placeholder="Game Type"/>
+                    
+                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.required">This field is required</p>
+                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.isValidGameType">Must be a valid game type code</p>
                     <!-- <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
                     <label for="pool">Pool</label>
                     <input type="checkbox" id="snooker" value="Snooker" v-model="checkedGameTypes">
@@ -47,15 +51,20 @@
                 </div>
                 <div class="field">
                     <label class="label">Name / Number</label>
-                    <input v-model="person" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
+                    <input v-model.lazy="$v.person.$model" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
+
+                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.required">This field is required</p>
+                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.maxLength">Must be less than 20 characters</p>
                 </div>
                 <div class="field">
                     <label class="label">Remarks</label>
-                    <input v-model="remarks" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
+                    <input v-model.lazy="$v.remarks.$model" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
+
+                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.remarks.maxLength">Must be less than 30 characters</p>
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>
-                    <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-info">Clear Waiting List</button>
+                    <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-warning">Clear Waiting List</button>
                 </div>
             </form>
         </div>
@@ -64,7 +73,7 @@
             <div class="modal-content">
                 <article class="message is-warning">
                     <div class="message-header">
-                        Confirm to clear the waiting list
+                        Confirm?
                         <button v-on:click="clearListConfirmation = !clearListConfirmation" class="delete"></button> <!-- bootstrap class of "delete" shows that small X to close modal -->
                     </div>
                     <div class="message-body">
@@ -79,6 +88,21 @@
 <script>
 import draggable from 'vuedraggable';
 import { mapActions, mapGetters } from 'vuex';
+import { helpers, required, maxLength } from 'vuelidate/lib/validators';
+
+const isValidGameType = (val) => { // custom validator for Vuelidate
+    const value = val.toLowerCase();
+    return (
+        !helpers.req(val) || // lets this validator behave well if this custom validator is used without 'required' validator
+        value === 'a' ||
+        value === 'p' ||
+        value === 's' ||
+        value === 'tt' ||
+        value === 'pu' ||
+        value === 'u' ||
+        value === 'pt'
+    )
+}
 
 //import { bus } from '../main';
 // import { gameTypeToClass } from '../main';
@@ -100,7 +124,21 @@ export default {
                 person: '',
                 gameTypes: '',
                 remarks: ''
-            }
+            },
+            newPersonFormSubmitted: false
+        }
+    },
+    validations: {
+        person: {
+            required,
+            maxLength: maxLength(20)
+        },
+        gameTypes: {
+            required,
+            isValidGameType
+        },
+        remarks: {
+            maxLength: maxLength(30)
         }
     },
     computed: {
@@ -132,6 +170,15 @@ export default {
             this.clearListConfirmation = !this.clearListConfirmation;
         },
         handleSubmit: function() {
+            this.newPersonFormSubmitted = true; // flip to true to now show validation errors (we only want to show errors on form submit)
+
+            this.$v.gameTypes.$touch(); // make these inputs "dirty"
+            this.$v.person.$touch();
+            this.$v.remarks.$touch();
+            if (this.$v.gameTypes.$invalid || this.$v.person.$invalid || this.$v.remarks.$invalid) {
+                return; // code will stop here and show errors, if there are any (without hitting insertPerson)
+            }
+
             this.insertPerson({
                 person: this.person,
                 gameTypes: this.gameTypes.toLowerCase(),
@@ -141,6 +188,7 @@ export default {
             this.person = ''; // reset the input field to empty
             this.gameTypes = '';
             this.remarks = '';
+            this.newPersonFormSubmitted = false;
             // this.checkedGameTypes = []; // reset the checkboxes to empty
             this.reFocus();
         },
@@ -214,8 +262,9 @@ export default {
     box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
 }
 
-.modal-content { /* confirmation modal */
-    width: 200px;
+.modal-content { /* clear waitlist confirmation modal */
+    width: 150px;
+    overflow: hidden; // to hide scrollbars for modal
 }
 
 form {

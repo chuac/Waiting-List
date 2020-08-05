@@ -25,7 +25,7 @@ export const store = new Vuex.Store({
         },
         getCountOfPool: (state) => {
             return (state.waitList.filter((people) => {
-                return ((people.gameTypes === 'p') || (people.gameTypes === 'pu') || (people.gameTypes === 'u') || (people.gameTypes === 'a'))
+                return ((people.gameTypes === 'p') || (people.gameTypes === 'pu') || (people.gameTypes === 'u') || (people.gameTypes === 'pt') || (people.gameTypes === 'a'))
             }).length);
         }
     },

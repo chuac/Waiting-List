@@ -1,12 +1,15 @@
 import Vue from 'vue' // vue/dist/vue.js
 import App from './App.vue'
 import Routes from './routes'
+import Vuelidate from 'vuelidate'
 import VueRouter from 'vue-router'
 import { store } from './store/store' // import in the store we created and added data to
 
 Vue.config.productionTip = false
 
 require("./assets/main.scss"); // our Sass file, which imports Bulma
+
+Vue.use(Vuelidate);
 
 Vue.use(VueRouter); // vue-router package
 const router = new VueRouter({
