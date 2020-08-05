@@ -11,10 +11,6 @@ body, html {
     border-collapse: separate;
     border-spacing: 0 8px;
 
-    // border-radius: 4px; // trying to created rounded borders?
-    // -moz-border-radius: 4px;
-    // -webkit-border-radius: 4px;
-    // overflow: hidden; /*notice*/
 }
 
 .list-item {
@@ -27,7 +23,7 @@ body, html {
     // align-items: center;
 
     display: table-row;
-    // border-bottom: 50px solid transparent;
+    // trying rounded table row corners https://stackoverflow.com/a/16971333/3024923
     
 
     .handle {
@@ -53,9 +49,23 @@ body, html {
         border-left: 1em solid transparent;
         
         display: table-cell;
-        align-items: center;
-        border-bottom: 1em solid transparent;
+        // align-items: center;
+        vertical-align: middle;
+        // border-bottom: 1em solid transparent;
         // text-align: center; // makes text center aligned (horizontally)
+        .list-item-remarks {
+            display: table-cell; // to make the div wrap tightly around the text
+            background-color: rgb(231, 231, 231);
+            padding: 0.1em;
+
+            border: 1px solid #000;
+            border-right-style: solid;
+            // border-top-left-radius: 10px; 
+            // border-bottom-left-radius: 10px;
+            // border-bottom-right-radius: 10px; 
+            // border-top-right-radius: 10px; 
+            border-radius: 0.7em 0.7em 0.7em 0.7em;
+        }
     }
 
     .list-item-control-buttons {
@@ -64,12 +74,14 @@ body, html {
         display: table-cell;
         border-left: 1em solid transparent;
         border-right: 0.6em solid transparent;
+        vertical-align: middle;
         // width: 500px;
 
         .delete-confirmation {
             // float: right;
             // padding: 5em;
             // display: inline-block;
+
             margin-top: 3px;
         }
 
@@ -83,6 +95,7 @@ body, html {
         .call-button {
             // float: left;
             // display: inline-block;
+
             margin-right: 5px;
             margin-top: 3px;
             color: hsl(252, 0%, 32%); // dark gray
@@ -95,6 +108,7 @@ body, html {
 
         .edit-button {
             // float: left;
+
             margin-right: 10px;
         }
     }

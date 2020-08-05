@@ -73,18 +73,22 @@ export default {
     // // background: white;
     // padding: 0.05em;
     // margin-bottom: 1px;
-    font-size: 5em;
+    
     display: table-row;
 
     .display-list-item-person {
         display: table-cell;
+        font-size: 5em;
         border-left: 0.5em solid transparent;
     }
 
     .display-list-item-game {
         display: table-cell;
+        font-size: 3.5em;
         border-left: 1em solid transparent;
         border-right: 0.5em solid transparent;
+        // border-bottom: 0.3em solid transparent;
+        // margin-bottom: 10px;
     }
 }
 

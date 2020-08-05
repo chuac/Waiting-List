@@ -8,7 +8,12 @@
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
                         <span class="list-item-person is-size-4 has-text-weight-bold">{{ obj.person }}</span>
-                        <span class="list-item-game is-size-6 has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
+                        <span class="list-item-game is-size-6 has-text-weight-semibold">
+                            {{ obj.gameTypes | expandGameTypes }}
+                            <span v-if="obj.remarks" class="list-item-remarks">
+                                {{ obj.remarks }}
+                            </span>
+                        </span>
                         <div v-if="editTarget !== index" class="list-item-control-buttons">
                             <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
                             <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
@@ -16,8 +21,8 @@
                             <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                         </div>
                         <form v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
-                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input is-small" type="text">
-                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input is-small" type="text">
+                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" type="text">
+                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
                         </form>
                         <!-- <div v-if="editTarget !== index">
@@ -51,6 +56,7 @@
         <div class="column is-offset-1 is-narrow">
             <form autocomplete="off">
                 <div class="field">
+                    <h1>Add a Person</h1>
                     <label class="label">Add a Person</label>
                     <!-- <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
                     <label for="pool">Pool</label>
@@ -61,8 +67,9 @@
                     <input type="checkbox" id="table_tennis" value="Table Tennis" v-model="checkedGameTypes">
                     <label for="table_tennis">Table Tennis</label>
                     <br> -->
-                    <input v-model="gameTypes" type="text" ref="gameTypes" required class="input" placeholder="Game types">
-                    <input v-model="person" ref="person" required class="input" placeholder="Number / Name" name="person" />
+                    <input v-model="gameTypes" type="text" ref="gameTypes" required class="input new-input" placeholder="Game types"/>
+                    <input v-model="person" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
+                    <input v-model="remarks" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>
@@ -103,6 +110,7 @@ export default {
         return {
             person: '',
             gameTypes: '',
+            remarks: '',
             checkedGameTypes: [],
             clearListConfirmation: false,
             deleteTarget: -1, // initialise these targets to -1 index
@@ -144,12 +152,14 @@ export default {
         handleSubmit: function() {
             this.insertPerson({
                 person: this.person,
-                gameTypes: this.gameTypes.toLowerCase()
+                gameTypes: this.gameTypes.toLowerCase(),
+                remarks: this.remarks
                 //gameTypes: this.checkedGameTypes.join(', ')
             });
             this.person = ''; // reset the input field to empty
             this.gameTypes = '';
-            this.checkedGameTypes = []; // reset the checkboxes to empty
+            this.remarks = '';
+            // this.checkedGameTypes = []; // reset the checkboxes to empty
             this.reFocus();
         },
         handleDelete: function(index) {
@@ -205,54 +215,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-// .list-item {
-//     // width: 100%;
-//     // // background: white;
-//     padding: 1em;
-//     margin-bottom: 2px;
-//     display: flex;
-//     flex-direction: row;
-//     align-items: center;
-
-//     .handle {
-//         margin-right: 0.8em;
-//         cursor: move;
-//     }
-
-//     .control-buttons {
-//         float: right;
-
-//         .delete-confirmation {
-//             float: right;
-//             // display: inline-block;
-//         }
-
-//         .delete-button {
-//             float: right;
-//             // display: inline-block;
-//             background-color: red;
-//         }
-
-//         .call-button {
-//             float: left;
-//             // display: inline-block;
-//             margin-right: 5px;
-//             margin-top: 2.5px;
-//             color: hsl(252, 0%, 32%); // dark gray
-
-            
-//         }
-//         .call-button:hover {
-//             color: black;
-//         }
-
-//         .edit-button {
-//             float: left;
-//             margin-right: 10px;
-//         }
-//     }
-    
-// }
 
 .hide {
     display: none;
@@ -285,5 +247,13 @@ form {
     label {
         margin-right: 0.4em;
     }
+}
+
+.edit-input {
+    width: 5em;
+}
+
+.new-input {
+    width: 10em;
 }
 </style>
