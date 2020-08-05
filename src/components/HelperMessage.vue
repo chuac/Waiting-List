@@ -2,12 +2,13 @@
     <div class="modal is-active">
         <div v-on:click="closeMessage()" class="modal-background"></div>
         <div class="modal-card">
-            <header class="modal-card-head">
+            <header class="modal-card-head has-background-info">
                 <p class="modal-card-title">Help Page</p>
                 <button v-on:click="closeMessage()" class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                
+                <h4 class="title">Adding new person to wait list</h4>
+                <!-- https://bulma.io/documentation/elements/title/ -->
             </section>
             <footer class="modal-card-foot">
                 <button v-on:click="closeMessage()" class="button is-info">Close</button>
