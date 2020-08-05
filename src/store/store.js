@@ -47,11 +47,12 @@ export const store = new Vuex.Store({
             const { editTargetID, toEdit } = payload;
 
             state.waitList = state.waitList.map((obj) => { // mapping will create a new object to satisfy Vuex reactivity to all components
-                if (obj.id === editTargetID) {
+                if (obj.id === editTargetID) { // if found the object with our editTargetID
                     return {
                         ...obj,
                         person: toEdit.person,
-                        gameTypes: toEdit.gameTypes
+                        gameTypes: toEdit.gameTypes,
+                        remarks: toEdit.remarks
                     };
                 } else {
                     return obj;

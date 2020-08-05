@@ -21,8 +21,9 @@
                             <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                         </div>
                         <form v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
-                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" type="text">
-                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" type="text">
+                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Number / Name" type="text">
+                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Game types" type="text">
+                            <input v-model="toEdit.remarks" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Remarks" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
                         </form>
                         <!-- <div v-if="editTarget !== index">
@@ -117,7 +118,8 @@ export default {
             editTarget: -1,
             toEdit: {
                 person: '',
-                gameTypes: ''
+                gameTypes: '',
+                remarks: ''
             }
         }
     },
@@ -177,6 +179,7 @@ export default {
             this.editTarget = index;
             this.toEdit.person = waitList[index].person;
             this.toEdit.gameTypes = waitList[index].gameTypes;
+            this.toEdit.remarks = waitList[index].remarks;
         },
         handleEdit: function(id) {
             this.editPerson({
