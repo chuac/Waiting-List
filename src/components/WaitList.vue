@@ -22,7 +22,7 @@
                         </div>
                         <form v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
                             <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Number / Name" type="text">
-                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Game types" type="text">
+                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Game Type" type="text">
                             <input v-model="toEdit.remarks" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Remarks" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
                         </form>
@@ -57,8 +57,8 @@
         <div class="column is-offset-1 is-narrow">
             <form autocomplete="off">
                 <div class="field">
-                    <h1>Add a Person</h1>
-                    <label class="label">Add a Person</label>
+                    <label class="label">Game Type</label>
+                    <input v-model="gameTypes" type="text" ref="gameTypes" required class="input new-input" placeholder="Game Type"/>
                     <!-- <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
                     <label for="pool">Pool</label>
                     <input type="checkbox" id="snooker" value="Snooker" v-model="checkedGameTypes">
@@ -68,8 +68,13 @@
                     <input type="checkbox" id="table_tennis" value="Table Tennis" v-model="checkedGameTypes">
                     <label for="table_tennis">Table Tennis</label>
                     <br> -->
-                    <input v-model="gameTypes" type="text" ref="gameTypes" required class="input new-input" placeholder="Game types"/>
+                </div>
+                <div class="field">
+                    <label class="label">Name / Number</label>
                     <input v-model="person" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
+                </div>
+                <div class="field">
+                    <label class="label">Remarks</label>
                     <input v-model="remarks" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
                 </div>
                 <div class="buttons">
