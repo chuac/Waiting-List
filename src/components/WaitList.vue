@@ -19,9 +19,10 @@
                             <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                         </div>
                         <form class="edit-form" v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
-                            <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Number / Name" type="text">
-                            <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Game Type" type="text">
-                            <input v-model="toEdit.remarks" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Remarks" type="text">
+                            <input v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input is-small" placeholder="Number / Name" type="text">
+                            
+                            <input v-model="$v.toEdit.gameTypes.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.gameTypes.$invalid}" class="input edit-input is-small" placeholder="Game Type" type="text">
+                            <input v-model="$v.toEdit.remarks.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.remarks.$invalid}" placeholder="Remarks" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
                         </form>
                     </div>
@@ -35,7 +36,7 @@
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Game Type</label>
-                    <input v-model="$v.gameTypes.$model" type="text" ref="gameTypes" required class="input new-input" placeholder="Game Type"/>
+                    <input v-model="$v.gameTypes.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.gameTypes.$invalid}" type="text" ref="gameTypes" required class="input new-input" placeholder="Game Type"/>
                     
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.required">This field is required</p>
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.isValidGameType">Must be a valid game type code</p>
@@ -51,14 +52,14 @@
                 </div>
                 <div class="field">
                     <label class="label">Name / Number</label>
-                    <input v-model.lazy="$v.person.$model" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
+                    <input v-model.lazy="$v.person.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.person.$invalid}" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
 
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.required">This field is required</p>
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.maxLength">Must be less than 20 characters</p>
                 </div>
                 <div class="field">
                     <label class="label">Remarks</label>
-                    <input v-model.lazy="$v.remarks.$model" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
+                    <input v-model.lazy="$v.remarks.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.remarks.$invalid}" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
 
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.remarks.maxLength">Must be less than 30 characters</p>
                 </div>
@@ -125,7 +126,8 @@ export default {
                 gameTypes: '',
                 remarks: ''
             },
-            newPersonFormSubmitted: false
+            newPersonFormSubmitted: false,
+            editPersonFormSubmitted: false,
         }
     },
     validations: {
@@ -139,6 +141,19 @@ export default {
         },
         remarks: {
             maxLength: maxLength(30)
+        },
+        toEdit: {
+            person: {
+                required,
+                maxLength: maxLength(20)
+            },
+            gameTypes: {
+                required,
+                isValidGameType
+            },
+            remarks: {
+                maxLength: maxLength(30)
+            }
         }
     },
     computed: {
@@ -210,11 +225,21 @@ export default {
             this.toEdit.remarks = waitList[index].remarks;
         },
         handleEdit: function(id) {
+            this.editPersonFormSubmitted = true; // flip to true to now show validation errors (we only want to show errors on form submit)
+
+            this.$v.toEdit.gameTypes.$touch(); // make these inputs "dirty"
+            this.$v.toEdit.person.$touch();
+            this.$v.toEdit.remarks.$touch();
+            if (this.$v.toEdit.gameTypes.$invalid || this.$v.toEdit.person.$invalid || this.$v.toEdit.remarks.$invalid) {
+                return; // code will stop here and show errors, if there are any (without hitting insertPerson)
+            }
+
             this.editPerson({
                 editTargetID: id,
                 toEdit: this.toEdit
             });
             this.resetEditTarget();
+            this.editPersonFormSubmitted = false;
         },
         resetEditTarget: function() {
             this.editTarget = -1;
