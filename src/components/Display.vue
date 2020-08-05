@@ -87,6 +87,7 @@ export default {
         font-size: 3.5em;
         border-left: 1em solid transparent;
         border-right: 0.5em solid transparent;
+        vertical-align: middle;
         // border-bottom: 0.3em solid transparent;
         // margin-bottom: 10px;
     }

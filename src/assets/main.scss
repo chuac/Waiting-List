@@ -1,6 +1,9 @@
+$text: hsl(0, 0%, 15%);
+
 body, html {
     background-color: rgb(231, 231, 231);
     min-height: 100vh; // to have bg colour all the way
+    min-width: 100vw;
 }
 
 .list-container {
@@ -10,7 +13,7 @@ body, html {
     display: table;
     border-collapse: separate;
     border-spacing: 0 8px;
-
+    padding-top: 0.6em;
 }
 
 .list-item {
@@ -56,9 +59,10 @@ body, html {
         .list-item-remarks {
             display: table-cell; // to make the div wrap tightly around the text
             background-color: rgb(231, 231, 231);
+            color: hsl(0, 0%, 15%);
             padding: 0.1em;
-            padding-left: 0.2em;
-            padding-right: 0.2em;
+            padding-left: 0.3em;
+            padding-right: 0.3em;
 
             border: 1px solid #000;
             border-right-style: solid;
@@ -106,16 +110,43 @@ body, html {
             
         }
         .call-button:hover {
-            color: black;
+            color: hsl(0, 0%, 15%);
         }
 
         .edit-button {
-            // float: left;
-
             margin-right: 10px;
+            color: hsl(252, 0%, 32%); // dark gray
+        }
+        .edit-button:hover {
+            color: hsl(0, 0%, 15%);
         }
     }
     
+    .edit-form {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        // vertical-align: middle;
+        input {
+            margin-left: 0.2em;
+        }
+
+        i {
+            margin-left: 0.3em;
+            margin-right: 0.6em;
+            // text-shadow: 0 0 1px #000;
+            // text-shadow:
+            // -1px -1px 0 #000,  
+            //  1px -1px 0 #000,
+            //  -1px 1px 0 #000,
+            //   1px 1px 0 #000;
+            // color: hsl(141, 53%, 53%);
+            color: hsl(252, 0%, 32%);
+        }
+        i:hover {
+            color: black;
+        }
+    }
 }
 
 .snooker {
@@ -132,9 +163,8 @@ body, html {
 
 .pool-or-american {
     background-color: white;
-    color: hsl(348, 100%, 61%); // text colour
     
-    strong {
+    span {
         color: hsl(348, 100%, 61%); // text colour
     }
 }

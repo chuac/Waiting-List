@@ -1,14 +1,12 @@
 <template>
     <div class="columns is-centered is-vcentered" v-on:click="resetDeleteTarget(); resetEditTarget()">
         <div class="column is-offset-1 is-narrow">
-            <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
-            <br>
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group class="list-container" type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
                         <span class="list-item-person is-size-4 has-text-weight-bold">{{ obj.person }}</span>
-                        <span class="list-item-game is-size-6 has-text-weight-semibold">
+                        <span class="list-item-game is-size-6 has-text-weight-semibold is-unselectable">
                             {{ obj.gameTypes | expandGameTypes }}
                             <span v-if="obj.remarks" class="list-item-remarks">
                                 {{ obj.remarks }}
@@ -20,41 +18,19 @@
                             <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
                             <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                         </div>
-                        <form v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
+                        <form class="edit-form" v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
                             <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Number / Name" type="text">
                             <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Game Type" type="text">
                             <input v-model="toEdit.remarks" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" placeholder="Remarks" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
                         </form>
-                        <!-- <div v-if="editTarget !== index">
-                            <i class="fa fa-align-justify handle"></i>
-                            <strong class="list-item-person">{{ obj.person }}</strong>
-                            <strong class="list-item-game">{{ obj.gameTypes | expandGameTypes }}</strong>
-                            <div class="list-item-control-buttons">
-                                <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
-                                <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
-                                <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
-                                <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
-                            </div>
-                        </div>
-                        <template v-if="editTarget === index">
-                            <i class="fa fa-align-justify handle"></i>
-                            <strong class="list-item-person">{{ obj.person }}</strong>
-                            <strong class="list-item-game">{{ obj.gameTypes | expandGameTypes }}x</strong>
-                            <form v-on:click.stop autocomplete="off"> 
-                                <input v-model="toEdit.person" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
-                                <input v-model="toEdit.gameTypes" v-on:keyup.enter.stop="handleEdit(obj.id)" type="text">
-                                <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
-                            </form>
-                            <div class="list-item-control-buttons">
-                            </div>
-                        </template> -->
-                        
                     </div>
                 </transition-group>
             </draggable>
         </div>
         <div class="column is-offset-1 is-narrow">
+            <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
+            <hr>
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Game Type</label>
@@ -82,7 +58,6 @@
                     <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-info">Clear Waiting List</button>
                 </div>
             </form>
-            <button v-on:click="clearNotifications">Clear Notif</button>
         </div>
         <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
             <div v-on:click="clearListConfirmation = !clearListConfirmation" class="modal-background"></div>
@@ -204,8 +179,6 @@ export default {
             console.log(event);
         },
         clickPerson: function(obj) {
-             console.log('clicked' + obj.person);
-            // bus.$emit('personClicked', 'data');
             this.addPersonToCall({
                 person: obj.person,
                 gameTypes: obj.gameTypes
@@ -246,14 +219,14 @@ export default {
 }
 
 form {
-    margin-top: 2em;
+    // margin-top: 2em;
 
     input[type=checkbox] {
         margin-right: 0.2em;
     }
 
     label {
-        margin-right: 0.4em;
+        // margin-right: 0.4em;
     }
 }
 
