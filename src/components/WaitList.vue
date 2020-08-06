@@ -85,6 +85,8 @@
                 </article>
             </div>
         </div>
+
+        <text-to-speech v-if="fireTextToSpeech" v-bind:message="getTTSMessage" v-on:finished-speaking="fireTextToSpeech = false"/>
     </div>
 </template>
 
@@ -93,7 +95,8 @@ import draggable from 'vuedraggable';
 import { mapActions, mapGetters } from 'vuex';
 import { helpers, required, maxLength } from 'vuelidate/lib/validators';
 
-import HelperMessage from './HelperMessage';
+import HelperMessage from './HelperMessage.vue';
+import TextToSpeech from './TextToSpeech.vue';
 
 const isValidGameType = (val) => { // custom validator for Vuelidate
     const value = val.toLowerCase();
@@ -115,7 +118,8 @@ const isValidGameType = (val) => { // custom validator for Vuelidate
 export default {
     components: {
         draggable,
-        'helper-message': HelperMessage
+        'helper-message': HelperMessage,
+        'text-to-speech': TextToSpeech
     },
     data() {
         return {
@@ -133,7 +137,8 @@ export default {
                 remarks: ''
             },
             newPersonFormSubmitted: false,
-            editPersonFormSubmitted: false
+            editPersonFormSubmitted: false,
+            fireTextToSpeech: false
         }
     },
     validations: {
@@ -165,7 +170,8 @@ export default {
     computed: {
         ...mapGetters([
             'getWaitList',
-            'getCountOfPool'
+            'getCountOfPool',
+            'getTTSMessage'
         ]),
         waitList: { // interaction between Vuex and draggable package
             get() {
@@ -272,6 +278,17 @@ export default {
     },
     mounted() {
         this.reFocus();
+        
+    },
+    created() {
+        this.unsubscribe = this.$store.subscribe((mutation) => { // subscribe to check for mutation, if TTSMessage has been updated/mutated, then fire it off
+            if (mutation.type === 'updateTTSMessage') {
+                this.fireTextToSpeech = true;
+            }
+        });
+    },
+    beforeDestroy() {
+        this.unsubscribe();
     }
 }
 </script>

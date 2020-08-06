@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-centered">
+    <div class="columns is-centered" ref="columns">
         <div class="column is-narrow">
             <div class="display-list-container">
                 <div class="display-list-item" v-bind:class="$root.gameTypeToClass(obj.gameTypes)" v-for="obj in getWaitList" v-bind:key="obj.id">
@@ -13,6 +13,7 @@
                 v-bind:key="notification.id"
                 v-bind:notification="notification"
             ></notification-message>
+            <!-- <button ref="button"></button> invisible button to help firing speechSynthesis.speak() -->
             <!-- <notification-message v-if="getPeopleToCall" v-bind:notification="getPeopleToCall"/> -->
         </div>
     </div>
@@ -55,6 +56,10 @@ export default {
         //     console.log(data);
         // });
         this.clearNotifications(); // clear notifications on each display refresh (prevents odd bug that notifications persist)
+    },
+    mounted() {
+        // this.$refs.button.click(); // click an invisible button for Chrome to fire speechSynthesis.speak() https://www.chromestatus.com/feature/5687444770914304
+        this.$refs.columns.click();
     }
 }
 </script>

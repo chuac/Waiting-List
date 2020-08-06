@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
     state: {
         counter: 0,
         waitList: [],
-        peopleToCall: []
+        peopleToCall: [],
+        TTSMessage: ''
     },
     getters: {
         getWaitList: (state) => {
@@ -20,23 +21,19 @@ export const store = new Vuex.Store({
             return state.peopleToCall;
         },
         getIndexOfNotification: (state) => (notification) => {
-            console.log(`index: ${state.peopleToCall.indexOf(notification)}`);
             return state.peopleToCall.indexOf(notification);
         },
         getCountOfPool: (state) => {
             return (state.waitList.filter((people) => {
                 return ((people.gameTypes === 'p') || (people.gameTypes === 'pu') || (people.gameTypes === 'u') || (people.gameTypes === 'pt') || (people.gameTypes === 'a'))
             }).length);
+        },
+        getTTSMessage: (state) => {
+            return state.TTSMessage;
         }
     },
     mutations: {
         insertPerson: (state, payload) => {
-            //const { person } = payload;
-            console.log(payload);
-            // state.waitList.push({
-            //     id: state.counter, // give each person object a unique id
-            //     ...payload
-            // });
             state.waitList = [...state.waitList, { 
                 id: state.counter,
                 ...payload
@@ -66,32 +63,28 @@ export const store = new Vuex.Store({
             state.counter = 0;
             state.waitList = [];
             state.peopleToCall = [];
+            state.TTSMessage = '';
         },
         updateList: (state, payload) => {
             state.waitList = payload;
         },
         addPersonToCall: (state, payload) => {
-            console.log(payload);
             state.peopleToCall.push({
                 ...payload,
                 id: (Math.random().toString(36) + Date.now().toString(36)).substr(2) // generate random ID
             });
-            console.log(state.peopleToCall);
         },
         removePersonToCall: (state, payload) => {
-            
-            console.log('meant to be removing a person');
-            console.log(state.peopleToCall);
             state.peopleToCall = state.peopleToCall.filter((notification) => {
                 return notification.id != payload.id
             })
-            //state.peopleToCall.shift();
-            console.log(state.peopleToCall);
+            //state.peopleToCall.shift(); // could we use this?
         },
         clearNotifications: (state) => {
             state.peopleToCall = [];
-            console.log(`peopleToCall just cleared`);
-            console.log(state.peopleToCall);
+        },
+        updateTTSMessage: (state, payload) => {
+            state.TTSMessage = payload;
         }
     },
     actions: {
@@ -118,10 +111,13 @@ export const store = new Vuex.Store({
         },
         clearNotifications: (context) => {
             context.commit('clearNotifications');
+        },
+        updateTTSMessage: (context, payload) => {
+            context.commit('updateTTSMessage', payload);
         }
     },
     plugins: [
         createPersistedState(),
-        createMutationsSharer({ predicate: ["insertPerson", "editPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications"] })
+        createMutationsSharer({ predicate: ["insertPerson", "editPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications", "updateTTSMessage"] })
     ],
 })

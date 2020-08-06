@@ -17,19 +17,18 @@
             </div>
             
         </div>
-        {{ notification.person }}
-        <text-to-speech v-if="isAtStart()" v-bind:message="buildTTSMessage"/>
+        <!-- <text-to-speech v-if="isAtStart()" v-bind:message="buildTTSMessage"/> --> <!-- old location of TTS component which doesn't play nicely with Chrome -->
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import TextToSpeech from './TextToSpeech.vue'
+// import TextToSpeech from './TextToSpeech.vue'
 
 export default {
     components: {
-        'text-to-speech': TextToSpeech
+        // 'text-to-speech': TextToSpeech
     },
     props: ["notification"],
     computed: {
@@ -61,7 +60,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'removePersonToCall'
+            'removePersonToCall',
+            'updateTTSMessage'
         ]),
         close () {
           // destroy the vue listeners, etc
@@ -79,6 +79,7 @@ export default {
             if (this.isAtStart()) { // if notification is at front of the queue then cancel the 100ms interval timer, and start our long timer for displaying this notification
                 clearInterval(this.intervalTimer);
 
+                this.updateTTSMessage(this.buildTTSMessage); // send the TTSMessage to another component through Vuex
                 this.timeout = setTimeout(() => {
                     this.removePersonToCall(this.notification);
                 }, 5000);
