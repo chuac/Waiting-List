@@ -7,9 +7,12 @@
                         <i class="fa fa-align-justify handle"></i>
                         <span class="list-item-person is-size-4 has-text-weight-bold">{{ obj.person }}</span>
                         <span class="list-item-game is-size-6 has-text-weight-semibold is-unselectable">
-                            {{ obj.gameTypes | expandGameTypes }}
+                            {{ obj.gameTypes | expandGameTypes }} <br>
                             <span v-if="obj.remarks" class="list-item-remarks">
                                 {{ obj.remarks }}
+                            </span>
+                            <span class="list-item-time is-size-7 is-italic has-text-weight-light">
+                                <relative-time v-bind:created_at="obj.created_at"></relative-time>
                             </span>
                         </span>
                         <div v-if="editTarget !== index" class="list-item-control-buttons">
@@ -92,13 +95,15 @@
 </template>
 
 <script>
+import moment from 'moment';
 import draggable from 'vuedraggable';
 import { mapActions, mapGetters } from 'vuex';
 import { helpers, required, maxLength } from 'vuelidate/lib/validators';
 
 import HelperMessage from './HelperMessage.vue';
 import TextToSpeech from './TextToSpeech.vue';
-import { store } from '../store/store'
+import RelativeTime from './RelativeTime.vue';
+import { store } from '../store/store';
 
 const isValidGameType = (val) => { // custom validator for Vuelidate
     const value = val.toLowerCase();
@@ -125,7 +130,8 @@ export default {
     components: {
         draggable,
         'helper-message': HelperMessage,
-        'text-to-speech': TextToSpeech
+        'text-to-speech': TextToSpeech,
+        'relative-time': RelativeTime
     },
     data() {
         return {
@@ -216,7 +222,8 @@ export default {
             this.insertPerson({
                 person: this.person,
                 gameTypes: this.gameTypes.toLowerCase(),
-                remarks: this.remarks
+                remarks: this.remarks,
+                created_at: moment() // save current date & time that this person was inserted into the wait list
                 //gameTypes: this.checkedGameTypes.join(', ')
             });
             this.person = ''; // reset the input field to empty
@@ -281,7 +288,7 @@ export default {
         },
         reFocus: function() {
             this.$refs.gameTypes.focus();
-        },
+        }
     },
     mounted() {
         this.reFocus();

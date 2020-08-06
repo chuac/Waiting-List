@@ -56,11 +56,13 @@ body, html {
         vertical-align: middle;
         // border-bottom: 1em solid transparent;
         // text-align: center; // makes text center aligned (horizontally)
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
         .list-item-remarks {
             display: table-cell; // to make the div wrap tightly around the text
             background-color: rgb(231, 231, 231);
             color: hsl(0, 0%, 15%);
-            padding: 0.1em;
+            // padding: 0.1em;
             padding-left: 0.3em;
             padding-right: 0.3em;
 
@@ -71,6 +73,13 @@ body, html {
             // border-bottom-right-radius: 10px; 
             // border-top-right-radius: 10px; 
             border-radius: 0.7em 0.7em 0.7em 0.7em;
+        }
+
+        .list-item-time {
+            // display: table-cell;
+            // justify-content: space-evenly;
+            // margin-bottom: 0px;
+            color: hsl(0, 0%, 15%);
         }
     }
 
