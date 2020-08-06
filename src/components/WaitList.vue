@@ -57,6 +57,7 @@
                     <input v-model.lazy="$v.person.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.person.$invalid}" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
 
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.required">This field is required</p>
+                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.isPersonUnique">That name or number already exists</p>
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.maxLength">Must be less than 20 characters</p>
                 </div>
                 <div class="field">
@@ -97,6 +98,7 @@ import { helpers, required, maxLength } from 'vuelidate/lib/validators';
 
 import HelperMessage from './HelperMessage.vue';
 import TextToSpeech from './TextToSpeech.vue';
+import { store } from '../store/store'
 
 const isValidGameType = (val) => { // custom validator for Vuelidate
     const value = val.toLowerCase();
@@ -110,6 +112,10 @@ const isValidGameType = (val) => { // custom validator for Vuelidate
         value === 'u'   ||
         value === 'pt'
     )
+}
+
+const isPersonUnique = (val) => { // true if person doesn't already exist in the waitlist
+    return ((store.state.waitList).find((obj) => obj.person === val) === undefined); // find will return 'undefined' if that person is not found in the waitlist
 }
 
 //import { bus } from '../main';
@@ -144,6 +150,7 @@ export default {
     validations: {
         person: {
             required,
+            isPersonUnique,
             maxLength: maxLength(20)
         },
         gameTypes: {
