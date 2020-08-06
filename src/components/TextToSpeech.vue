@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <button ref="button"></button> <!-- invisible button to help firing speechSynthesis.speak() -->
     </div>
 </template>
 
@@ -9,6 +9,7 @@ export default {
     props: ['message'],
     methods: {
         speak() {
+            
             let utterance = new SpeechSynthesisUtterance(this.message);
             utterance.lang = 'en-GB';
             utterance.rate = 1; // set the speed, accepts between [0.1 - 10], defaults to 1
@@ -18,6 +19,7 @@ export default {
         }
     },
     mounted() {
+        this.$refs.button.click(); // click an invisible button for Chrome to fire speechSynthesis.speak() https://www.chromestatus.com/feature/5687444770914304
         this.speak();
     }
 }
