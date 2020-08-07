@@ -55,6 +55,7 @@ export default {
         //     console.log('in display');
         //     console.log(data);
         // });
+        document.title = 'Wait List Display';
         this.clearNotifications(); // clear notifications on each display refresh (prevents odd bug that notifications persist)
     },
     mounted() {

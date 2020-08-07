@@ -298,6 +298,7 @@ export default {
         
     },
     created() {
+        document.title = 'Wait List Control';
         this.unsubscribe = this.$store.subscribe((mutation) => { // subscribe to check for mutation, if TTSMessage has been updated/mutated, then fire it off
             if (mutation.type === 'updateTTSMessage') {
                 this.fireTextToSpeech = true;
@@ -306,7 +307,7 @@ export default {
     },
     beforeDestroy() {
         this.unsubscribe();
-    }
+    },
 }
 </script>
 
