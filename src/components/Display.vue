@@ -83,21 +83,22 @@ export default {
     .display-list-item-index{
         display: table-cell;
         background-color: rgb(231, 231, 231); // same as body's bg color
+        color: hsl(0, 0%, 15%);
         font-size: 4.3em;
-        border-right: 0.3em solid transparent;
+        border-right: 1.5vw solid transparent;
     }
 
     .display-list-item-person {
         display: table-cell;
         font-size: 5em;
-        border-left: 0.5em solid transparent;
+        border-left: 3vw solid transparent;
     }
 
     .display-list-item-game {
         display: table-cell;
         font-size: 3.5em;
-        border-left: 1em solid transparent;
-        border-right: 0.5em solid transparent;
+        border-left: 18vw solid transparent; // old value was 1em
+        border-right: 10vw solid transparent;
         vertical-align: middle;
         // border-bottom: 0.3em solid transparent;
         // margin-bottom: 10px;

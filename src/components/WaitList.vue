@@ -5,13 +5,13 @@
                 <transition-group class="list-container" type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
-                        <span class="list-item-person is-size-4 has-text-weight-bold">{{ obj.person }}</span>
-                        <span class="list-item-game is-size-6 has-text-weight-semibold is-unselectable">
+                        <span class="list-item-person is-size-3 has-text-weight-bold">{{ obj.person }}</span>
+                        <span class="list-item-game is-size-5 has-text-weight-semibold is-unselectable">
                             {{ obj.gameTypes | expandGameTypes }} <br>
                             <span v-if="obj.remarks" class="list-item-remarks">
                                 {{ obj.remarks }}
                             </span>
-                            <span class="list-item-time is-size-7 is-italic has-text-weight-light">
+                            <span class="list-item-time is-size-7 is-italic has-text-weight-normal">
                                 <relative-time v-bind:created_at="obj.created_at"></relative-time>
                             </span>
                         </span>
@@ -33,7 +33,7 @@
         </div>
         <div class="column is-offset-1 is-narrow">
             <br>
-            <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
+            <strong class="is-size-4">{{ getCountOfPool }} groups currently waiting for pool</strong>
             <hr>
             <div v-on:click.stop="showHelperMessage = !showHelperMessage" class="helper-button">
                 <i class="far fa-question-circle fa-2x"></i>
@@ -47,7 +47,7 @@
             </router-link>
             <form autocomplete="off">
                 <div class="field">
-                    <label class="label">Game Type</label>
+                    <label class="label is-size-5">Game Type</label>
                     <input v-model="$v.gameTypes.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.gameTypes.$invalid}" type="text" ref="gameTypes" required class="input new-input" placeholder="Game Type"/>
                     
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.required">This field is required</p>
@@ -63,7 +63,7 @@
                     <br> -->
                 </div>
                 <div class="field">
-                    <label class="label">Name / Number</label>
+                    <label class="label is-size-5">Name / Number</label>
                     <input v-model.lazy="$v.person.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.person.$invalid}" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
 
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.required">This field is required</p>
@@ -71,15 +71,15 @@
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.maxLength">Must be less than 20 characters</p>
                 </div>
                 <div class="field">
-                    <label class="label">Remarks</label>
+                    <label class="label is-size-5">Remarks</label>
                     <input v-model.lazy="$v.remarks.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.remarks.$invalid}" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
 
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.remarks.maxLength">Must be less than 30 characters</p>
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="add-to-waitlist-button">Add to Waiting List</button>
-                    
                 </div>
+                <hr>
                 <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-danger clear-list-button">Clear Waiting List</button>
             </form>
         </div>

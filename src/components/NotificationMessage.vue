@@ -82,7 +82,7 @@ export default {
                 this.updateTTSMessage(this.buildTTSMessage); // send the TTSMessage to another component through Vuex
                 this.timeout = setTimeout(() => {
                     this.removePersonToCall(this.notification);
-                }, 5000);
+                }, 7000);
             }
         }, 100); // check every 100ms if this notification is at the front of the queue
     },
