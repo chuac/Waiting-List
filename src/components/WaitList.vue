@@ -36,7 +36,11 @@
             <br>
             <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
             <hr>
+            <div>
+
+            </div>
             <i v-on:click.stop="showHelperMessage = !showHelperMessage" class="far fa-question-circle fa-2x"></i>
+            
             <helper-message v-if="showHelperMessage" v-on:close-message="resetShowHelper()"></helper-message>
             <router-link class="fa fa-desktop fa-2x" :to="{ name: '/display', path: '/display'}" target="_blank">
                 

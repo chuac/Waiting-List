@@ -2,9 +2,11 @@
     <div class="columns is-centered" ref="columns">
         <div class="column is-narrow">
             <div class="display-list-container">
-                <div class="display-list-item" v-bind:class="$root.gameTypeToClass(obj.gameTypes)" v-for="obj in getWaitList" v-bind:key="obj.id">
+                <div class="display-list-item" v-bind:class="$root.gameTypeToClass(obj.gameTypes)" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+                    <span class="display-list-item-index">{{ index + 1 }}.</span>
                     <span class="display-list-item-person has-text-weight-bold">{{ obj.person }}</span>
                     <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
+                    
                 </div>
             </div>
 
@@ -50,11 +52,6 @@ export default {
         }
     },
     created() {
-        // bus.$on('personClicked', (data) => {
-        //     this.test = data;
-        //     console.log('in display');
-        //     console.log(data);
-        // });
         document.title = 'Wait List Display';
         this.clearNotifications(); // clear notifications on each display refresh (prevents odd bug that notifications persist)
     },
@@ -81,6 +78,14 @@ export default {
     // margin-bottom: 1px;
     
     display: table-row;
+    // align-items: center;
+
+    .display-list-item-index{
+        display: table-cell;
+        background-color: rgb(231, 231, 231); // same as body's bg color
+        font-size: 4.3em;
+        border-right: 0.3em solid transparent;
+    }
 
     .display-list-item-person {
         display: table-cell;
