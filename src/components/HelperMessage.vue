@@ -59,8 +59,8 @@
                     <hr>
                     <h4 class="title is-4 is-spaced">Clearing the whole waiting list</h4>
                     <p class="subtitle is-6 has-text-justified">
-                        Waiting list data isn't deleted even if the browser is closed so use the <i>yellow button</i>
-                        <button class="button is-small is-warning">Clear Waiting List</button> to clear all data.
+                        Waiting list data isn't deleted even if the browser is closed so use the <i>red button</i>
+                        <button class="button is-small is-danger">Clear Waiting List</button> to clear all data.
                     </p>
                     <hr>
                     <h4 class="title is-4 is-spaced">Opening the Display page</h4>
