@@ -38,6 +38,9 @@
             <hr>
             <i v-on:click.stop="showHelperMessage = !showHelperMessage" class="far fa-question-circle fa-2x"></i>
             <helper-message v-if="showHelperMessage" v-on:close-message="resetShowHelper()"></helper-message>
+            <router-link class="fa fa-desktop fa-2x" :to="{ name: '/display', path: '/display'}" target="_blank">
+                
+            </router-link>
             <form autocomplete="off">
                 <div class="field">
                     <label class="label">Game Type</label>
@@ -339,6 +342,15 @@ form {
         margin-right: 0.2em;
     }
 
+}
+
+.fa-desktop {
+    float: right;
+    margin-right: 0.3em;
+    color: hsl(252, 0%, 32%); // dark gray
+}
+.fa-desktop:hover {
+    color: hsl(0, 0%, 15%);
 }
 
 .fa-question-circle {

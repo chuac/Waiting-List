@@ -24,7 +24,7 @@
                             </ul>
                         </li>
                         <li>
-                            Enter their name or number
+                            Enter their name or number. This has to be unique.
                         </li>
                         <li>
                             Add any optional remarks
@@ -62,6 +62,13 @@
                         Waiting list data isn't deleted even if the browser is closed so use the <i>yellow button</i>
                         <button class="button is-small is-warning">Clear Waiting List</button> to clear all data.
                     </p>
+                    <hr>
+                    <h4 class="title is-4 is-spaced">Opening the Display page</h4>
+                    <p class="subtitle is-6 has-text-justified">
+                        Click on the <i>display icon</i> <i class="fa fa-desktop"></i> to open the Display page
+                        in another tab.
+                    </p>
+                    
                     <hr>
                 </div>
                 
