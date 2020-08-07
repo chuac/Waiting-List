@@ -35,10 +35,11 @@
             <br>
             <strong>{{ getCountOfPool }} groups currently waiting for pool</strong>
             <hr>
-            <div>
-
+            <div v-on:click.stop="showHelperMessage = !showHelperMessage" class="helper-button">
+                <i class="far fa-question-circle fa-2x"></i>
+                <span class="helper-button-text">Help</span>
             </div>
-            <i v-on:click.stop="showHelperMessage = !showHelperMessage" class="far fa-question-circle fa-2x"></i>
+            
             
             <helper-message v-if="showHelperMessage" v-on:close-message="resetShowHelper()"></helper-message>
             <router-link class="fa fa-desktop fa-2x" :to="{ name: '/display', path: '/display'}" target="_blank">
@@ -76,7 +77,7 @@
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.remarks.maxLength">Must be less than 30 characters</p>
                 </div>
                 <div class="buttons">
-                    <button v-on:click.prevent="handleSubmit()" class="button is-success">Add to Waiting List</button>
+                    <button v-on:click.prevent="handleSubmit()" class="add-to-waitlist-button">Add to Waiting List</button>
                     
                 </div>
                 <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-danger clear-list-button">Clear Waiting List</button>
@@ -360,7 +361,18 @@ form {
 
 }
 
+.add-to-waitlist-button {
+    color: hsl(0, 0%, 15%);
+    background-color: hsl(141, 53%, 53%);
+    border: none;
+    padding: 0.7em;
+    border-radius: 4px;
+    font-size: 1.1em;
+    font-weight: 500; // medium boldness
+}
+
 .fa-desktop {
+    display: none; // hide this icon for now
     float: right;
     margin-right: 0.3em;
     color: hsl(252, 0%, 32%); // dark gray
@@ -369,12 +381,23 @@ form {
     color: hsl(0, 0%, 15%);
 }
 
-.fa-question-circle {
+
+
+.helper-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     float: right;
+
     color: hsl(252, 0%, 32%); // dark gray
+
+    .helper-button-text {
+        font-size: 1em;
+    }
 }
-.fa-question-circle:hover {
-    color: hsl(0, 0%, 15%);
+.helper-button:hover {
+        color: hsl(0, 0%, 15%);
 }
 
 .edit-input {
