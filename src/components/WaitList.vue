@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-centered" v-on:click="resetDeleteTarget(); resetEditTarget();">
+    <div class="columns is-centered" v-on:click="resetDeleteTarget(); handleEdit(editTargetObjId);">
         <div class="column is-offset-1 is-narrow">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group class="list-container" type="transition" name="wait-list">
@@ -16,14 +16,13 @@
                             </span>
                         </span>
                         <div v-if="editTarget !== index" class="list-item-control-buttons">
-                            <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index)"></i>
+                            <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index, obj.id)"></i>
                             <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
                             <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
                             <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                         </div>
                         <form class="edit-form" v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
-                            <input v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input is-small" placeholder="Number / Name" type="text">
-                            
+                            <input ref="editInputPerson" v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input is-small" placeholder="Number / Name" type="text">
                             <input v-model="$v.toEdit.gameTypes.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.gameTypes.$invalid}" class="input edit-input is-small" placeholder="Game Type" type="text">
                             <input v-model="$v.toEdit.remarks.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.remarks.$invalid}" placeholder="Remarks" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
@@ -74,8 +73,9 @@
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>
-                    <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-warning">Clear Waiting List</button>
+                    
                 </div>
+                <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-danger clear-list-button">Clear Waiting List</button>
             </form>
         </div>
         <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
@@ -146,6 +146,7 @@ export default {
             showHelperMessage: false,
             deleteTarget: -1, // initialise these targets to -1 index
             editTarget: -1,
+            editTargetObjId: -1,
             toEdit: {
                 person: '',
                 gameTypes: '',
@@ -246,14 +247,19 @@ export default {
         resetDeleteTarget: function() {
             this.deleteTarget = -1;
         },
-        firstEditClick: function(index) {
+        firstEditClick: function(index, objId) {
+            // this.$refs.editInputPerson.focus();
             let waitList = this.getWaitList;
             this.editTarget = index;
+            this.editTargetObjId = objId; // the actual object's ID in the Vuex store
             this.toEdit.person = waitList[index].person;
             this.toEdit.gameTypes = waitList[index].gameTypes;
             this.toEdit.remarks = waitList[index].remarks;
         },
         handleEdit: function(id) {
+            if (id === -1) { // skip handling edit if id given to us is the placeholder of -1
+                return;
+            }
             this.editPersonFormSubmitted = true; // flip to true to now show validation errors (we only want to show errors on form submit)
 
             this.$v.toEdit.gameTypes.$touch(); // make these inputs "dirty"
@@ -272,6 +278,7 @@ export default {
         },
         resetEditTarget: function() {
             this.editTarget = -1;
+            this.editTargetObjId = -1;
             this.toEdit = {
                 person: '',
                 gameTypes: ''
@@ -313,6 +320,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+.clear-list-button {
+    margin-top: 10em;
+}
 
 .hide {
     display: none;
