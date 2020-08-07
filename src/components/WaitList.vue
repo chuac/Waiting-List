@@ -76,7 +76,7 @@
                     <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.remarks.maxLength">Must be less than 30 characters</p>
                 </div>
                 <div class="buttons">
-                    <button v-on:click.prevent="handleSubmit()" class="button is-primary">Add to Waiting List</button>
+                    <button v-on:click.prevent="handleSubmit()" class="button is-success">Add to Waiting List</button>
                     
                 </div>
                 <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-danger clear-list-button">Clear Waiting List</button>
