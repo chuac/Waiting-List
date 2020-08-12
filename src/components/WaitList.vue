@@ -18,8 +18,8 @@
                         <div v-if="editTarget !== index" class="list-item-control-buttons">
                             <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index, obj.id)"></i>
                             <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
-                            <i v-bind:class="{hide: deleteTarget === index}" class="delete delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
-                            <i v-bind:class="{hide: deleteTarget !== index}" class="delete delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                            <i v-bind:class="{hide: deleteTarget === index}" class="delete is-medium delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
+                            <i v-bind:class="{hide: deleteTarget !== index}" class="delete is-medium delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                         </div>
                         <form class="edit-form" v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
                             <input ref="editInputPerson" v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input is-small" placeholder="Number / Name" type="text">
