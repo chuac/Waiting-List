@@ -38,7 +38,8 @@ body, html {
     // flex-direction: row;
     // align-items: center;
     display: grid;
-    grid-template-columns: 1% minmax(2rem, 30%) minmax(15rem, 35%) 10rem; //1% 37% 37% 25%, 1% 37% 40% 20rem
+    grid-template-columns: 3rem 1% minmax(2rem, 30%) minmax(15rem, 35%) 10rem; //1% 37% 37% 25%, 1% 37% 40% 20rem
+    // grid-template-columns: 1% 20% 20% 10%;
     // grid-template-rows: auto;
     // overflow: hidden;
     // row-gap: 1rem; // not working?
@@ -46,13 +47,29 @@ body, html {
     // place-items: center;
     align-items: center; // align in the vertical axis
 
-    border-radius: 0.8rem;
+    border-radius: 0 0.8rem 0.8rem 0;
     margin-bottom: 0.3rem;
+
+    
+
+    .list-item-index {
+        height: 100%; // to make the grey background colour fill this whole grid cell
+        display: grid; // to make align-items work with height: 100%
+        align-items: center;
+
+        background-color: rgb(231, 231, 231); // same as body's bg color
+        color: hsl(0, 0%, 15%);
+        font-size: 2rem;
+        // border-right: 3rem solid transparent;
+        padding-right: 1rem;
+    }
 
     .handle {
         // display: table-cell;
         margin-left: 0.7em;
         cursor: move;
+
+        border-radius: 0.8rem 0 0 0.8rem;
     }
 
     .list-item-person {
@@ -91,10 +108,7 @@ body, html {
 
             border: 1px solid #000;
             border-right-style: solid;
-            // border-top-left-radius: 10px; 
-            // border-bottom-left-radius: 10px;
-            // border-bottom-right-radius: 10px; 
-            // border-top-right-radius: 10px; 
+            
             border-radius: 0.7em 0.7em 0.7em 0.7em;
         }
 
@@ -102,6 +116,8 @@ body, html {
             // display: table-cell;
             // justify-content: space-evenly;
             // margin-bottom: 0px;
+            // padding-top: 0.4rem;
+            // border-top: 0.4rem solid transparent;
             color: hsl(0, 0%, 15%);
         }
     }
@@ -185,6 +201,13 @@ body, html {
             color: hsl(0, 0%, 15%);
         }
     }
+}
+
+.list-item :nth-child(2) {
+    // height: 100%;
+    
+    // display: grid;
+    // border-bottom-left-radius: 0.8rem;
 }
 
 .snooker {

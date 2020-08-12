@@ -86,7 +86,7 @@ new Vue({
             let len = string.length;
             if (len < 4) {
                 return 'big-text';
-            } else if (len < 10) {
+            } else if (len < 12) {
                 return 'smaller-text';
             } else {
                 return 'smallest-text';

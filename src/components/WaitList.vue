@@ -4,6 +4,7 @@
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group class="list-container" type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+                        <span class="list-item-index">{{ index + 1 }}.</span>
                         <i class="fa fa-align-justify handle"></i>
                         <span class="list-item-person has-text-weight-bold" v-bind:class="$root.fontSize(obj.person)">{{ obj.person }}</span>
                         <span class="list-item-game is-size-5 has-text-weight-semibold is-unselectable">
