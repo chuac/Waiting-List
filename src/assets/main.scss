@@ -26,15 +26,16 @@ body, html {
     // flex-direction: row;
     // align-items: center;
     display: grid;
-    grid-template-columns: 5% 35% 35% 25%;
+    grid-template-columns: 1% 30% minmax(15rem, 35%) minmax(10rem, 15%); //1% 37% 37% 25%, 1% 37% 40% 20rem
     grid-template-rows: auto;
-    row-gap: 1rem; // not working?
+    // overflow: hidden;
+    // row-gap: 1rem; // not working?
     column-gap: 0.5rem;
     // place-items: center;
     align-items: center; // align in the vertical axis
-    // display: table-row;
-    // trying rounded table row corners https://stackoverflow.com/a/16971333/3024923
-    
+
+    border-radius: 0.8rem;
+    margin-bottom: 0.2rem;
 
     .handle {
         // display: table-cell;
@@ -56,7 +57,7 @@ body, html {
     .list-item-game {
         // align-self: flex-start;
         // flex-grow: 1;
-        border-left: 1em solid transparent;
+        border-left: 1.5rem solid transparent;
         
         // display: table-cell;
         // align-items: center;
@@ -72,6 +73,7 @@ body, html {
             // padding: 0.1em;
             padding-left: 0.3em;
             padding-right: 0.3em;
+            padding-bottom: 0.1em; // some letters like g, would clip the bottom border
 
             border: 1px solid #000;
             border-right-style: solid;
@@ -91,27 +93,33 @@ body, html {
     }
 
     .list-item-control-buttons {
-        float: right;
+        justify-self: end;
+        // align-self: center;
+        // float: right;
         // padding-right: 1em;
         // display: table-cell;
-        border-left: 1em solid transparent;
-        border-right: 0.7em solid transparent;
-        vertical-align: middle;
+        // border-left: 1em solid transparent;
+        // border-right: 1rem solid transparent;
+        // margin-right: 5.5rem;
+        // margin-right: -10rem;
+        padding-right: 2.6rem;
+        // vertical-align: middle;
         // width: 500px;
+        font-size: 24px;
 
         .delete-confirmation {
             // float: right;
             // padding: 5em;
             // display: inline-block;
 
-            margin-top: 3px;
+            margin-top: 7px;
         }
 
         .delete-button {
             // float: right;
             
             // display: inline-block;
-            margin-top: 3px;
+            margin-top: 7px;
             background-color: red;
         }
 
@@ -119,7 +127,7 @@ body, html {
             // float: left;
             // display: inline-block;
 
-            margin-right: 5px;
+            margin-right: 7.5px;
             margin-top: 3px;
             color: hsl(252, 0%, 32%); // dark gray
 
