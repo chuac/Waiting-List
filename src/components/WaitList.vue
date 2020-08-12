@@ -5,7 +5,7 @@
                 <transition-group class="list-container" type="transition" name="wait-list">
                     <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <i class="fa fa-align-justify handle"></i>
-                        <span class="list-item-person is-size-3 has-text-weight-bold">{{ obj.person }}</span>
+                        <span class="list-item-person has-text-weight-bold" v-bind:class="$root.fontSize(obj.person)">{{ obj.person }}</span>
                         <span class="list-item-game is-size-5 has-text-weight-semibold is-unselectable">
                             {{ obj.gameTypes | expandGameTypes }} <br>
                             <span v-if="obj.remarks" class="list-item-remarks">
@@ -42,7 +42,7 @@
             
             
             <helper-message v-if="showHelperMessage" v-on:close-message="resetShowHelper()"></helper-message>
-            <router-link class="fa fa-desktop fa-2x" :to="{ name: '/display', path: '/display'}" target="_blank">
+            <router-link class="fa fa-desktop fa-2x" :to="{ path: '/display'}" target="_blank">
                 
             </router-link>
             <form autocomplete="off">

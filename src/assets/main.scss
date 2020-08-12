@@ -6,6 +6,18 @@ body, html {
     min-width: 100vw;
 }
 
+.big-text {
+    font-size: 3rem;
+}
+
+.smaller-text {
+    font-size: 2rem;
+}
+
+.smallest-text {
+    font-size: 1.3rem;
+}
+
 .list-container {
     display: flex;
     flex-direction: column;
@@ -14,7 +26,7 @@ body, html {
     // border-collapse: separate;
     // border-spacing: 0 8px;
     
-    padding-top: 0.6em;
+    padding-top: 0.6rem;
 }
 
 .list-item {
@@ -35,7 +47,7 @@ body, html {
     align-items: center; // align in the vertical axis
 
     border-radius: 0.8rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.3rem;
 
     .handle {
         // display: table-cell;
@@ -48,10 +60,12 @@ body, html {
         // // flex-grow: 1;
         // flex: 0.2;
         // padding: 0.3em;
-        border-left: 1em solid transparent;
-        border-bottom: 0.9em solid transparent;
-        border-top: 0.9em solid transparent;
+        border-left: 2rem solid transparent;
+        // justify-self: start;
+        // border-bottom: 0.9em solid transparent;
+        // border-top: 0.9em solid transparent;
         // display: table-cell;
+        
     }
 
     .list-item-game {
@@ -64,8 +78,8 @@ body, html {
         // vertical-align: middle;
         // border-bottom: 1em solid transparent;
         // text-align: center; // makes text center aligned (horizontally)
-        padding-top: 0.4em;
-        padding-bottom: 0.4em;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
         .list-item-remarks {
             // display: table-cell; // to make the div wrap tightly around the text
             background-color: rgb(231, 231, 231);

@@ -81,6 +81,16 @@ new Vue({
                 case 'pt':
                     return 'pool-or-table-tennis';
             }
+        },
+        fontSize: function(string) { // return different CSS classes (for font-size) depending on how long the string is
+            let len = string.length;
+            if (len < 4) {
+                return 'big-text';
+            } else if (len < 10) {
+                return 'smaller-text';
+            } else {
+                return 'smallest-text';
+            }
         }
     }
 }).$mount('#app')
