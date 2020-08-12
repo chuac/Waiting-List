@@ -69,6 +69,7 @@ export default {
     display: table;
     border-collapse: separate;
     border-spacing: 0 8px;
+    width: 80vw;
 }
 
 .display-list-item {
@@ -78,7 +79,7 @@ export default {
     // margin-bottom: 1px;
     
     display: table-row;
-    // align-items: center;
+    align-items: center;
 
     .display-list-item-index{
         display: table-cell;
@@ -103,6 +104,14 @@ export default {
         // border-bottom: 0.3em solid transparent;
         // margin-bottom: 10px;
     }
+}
+
+@media (max-width: 300px) {
+    .display-list-item-person {
+        font-size: 2em;
+    }
+
+
 }
 
 </style>
