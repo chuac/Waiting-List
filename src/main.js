@@ -40,6 +40,14 @@ Vue.filter('expandGameTypes', function(value) {
     }
 });
 
+Vue.filter('pluralGroupsText', function(num) {
+    if (num === 1) { // if value is only 1, the correct grammar would be '1 group'
+        return '1 group';
+    } else { // if value more or less than 1, the correct grammar would be 'x groups'
+        return `${num} groups`;
+    }
+})
+
 // export const bus = new Vue(); // creating an Event Bus
 
 new Vue({

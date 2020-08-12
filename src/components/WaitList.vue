@@ -36,13 +36,13 @@
             <br>
             <ul>
                 <li class="pool-li">
-                    <strong class="is-size-3">{{ getCountOfPool }} groups waiting for Pool</strong>
+                    <strong class="is-size-3">{{ getCountOfPool | pluralGroupsText }} waiting for Pool</strong>
                 </li>
                 <li class="snooker-li">
-                    <strong class="is-size-3">{{ getCountOfSnooker }} groups waiting for Snooker</strong>
+                    <strong class="is-size-3">{{ getCountOfSnooker | pluralGroupsText }} waiting for Snooker</strong>
                 </li>
                 <li class="table-tennis-li">
-                    <strong class="is-size-3">{{ getCountOfTableTennis }} groups waiting for Table Tennis</strong>
+                    <strong class="is-size-3">{{ getCountOfTableTennis | pluralGroupsText }} waiting for Table Tennis</strong>
                 </li>
             </ul>
             <hr>
@@ -209,7 +209,7 @@ export default {
             set(value) {
                 this.updateList(value);
             }
-        },
+        }
     },
     methods: {
         ...mapActions([
