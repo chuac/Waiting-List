@@ -3,31 +3,33 @@
         <div class="column is-offset-1 is-narrow">
             <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
                 <transition-group class="list-container" type="transition" name="wait-list">
-                    <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+                    <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <span class="list-item-index">{{ index + 1 }}.</span>
-                        <i class="fa fa-align-justify handle"></i>
-                        <span class="list-item-person has-text-weight-bold" v-bind:class="$root.fontSize(obj.person)">{{ obj.person }}</span>
-                        <span class="list-item-game is-size-5 has-text-weight-semibold is-unselectable">
-                            {{ obj.gameTypes | expandGameTypes }} <br>
-                            <span v-if="obj.remarks" class="list-item-remarks">
-                                {{ obj.remarks }}
+                        <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item-data">
+                            <i class="fa fa-align-justify handle"></i>
+                            <span class="list-item-person has-text-weight-bold" v-bind:class="$root.fontSize(obj.person)">{{ obj.person }}</span>
+                            <span class="list-item-game is-size-5 has-text-weight-semibold is-unselectable">
+                                {{ obj.gameTypes | expandGameTypes }} <br>
+                                <span v-if="obj.remarks" class="list-item-remarks">
+                                    {{ obj.remarks }}
+                                </span>
+                                <span class="list-item-time is-size-7 is-italic has-text-weight-normal">
+                                    <relative-time v-bind:created_at="obj.created_at"></relative-time>
+                                </span>
                             </span>
-                            <span class="list-item-time is-size-7 is-italic has-text-weight-normal">
-                                <relative-time v-bind:created_at="obj.created_at"></relative-time>
-                            </span>
-                        </span>
-                        <div v-if="editTarget !== index" class="list-item-control-buttons">
-                            <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index, obj.id)"></i>
-                            <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
-                            <i v-bind:class="{hide: deleteTarget === index}" class="delete is-medium delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
-                            <i v-bind:class="{hide: deleteTarget !== index}" class="delete is-medium delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                            <div v-if="editTarget !== index" class="list-item-control-buttons">
+                                <i class="far fa-edit edit-button" v-on:click.stop="firstEditClick(index, obj.id)"></i>
+                                <i class="fa fa-volume-up call-button" v-on:click.stop="clickPerson(obj)"></i>
+                                <i v-bind:class="{hide: deleteTarget === index}" class="delete is-medium delete-confirmation" v-on:click.stop="firstDeleteClick(index)"></i>
+                                <i v-bind:class="{hide: deleteTarget !== index}" class="delete is-medium delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
+                            </div>
+                            <form class="edit-form" v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
+                                <input ref="editInputPerson" v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input-person " placeholder="Number / Name" type="text">
+                                <input v-model="$v.toEdit.gameTypes.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.gameTypes.$invalid}" class="input edit-input-game " placeholder="Game Type" type="text">
+                                <input v-model="$v.toEdit.remarks.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input-remarks " v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.remarks.$invalid}" placeholder="Remarks" type="text">
+                                <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
+                            </form>
                         </div>
-                        <form class="edit-form" v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
-                            <input ref="editInputPerson" v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input-person " placeholder="Number / Name" type="text">
-                            <input v-model="$v.toEdit.gameTypes.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.gameTypes.$invalid}" class="input edit-input-game " placeholder="Game Type" type="text">
-                            <input v-model="$v.toEdit.remarks.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input-remarks " v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.remarks.$invalid}" placeholder="Remarks" type="text">
-                            <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
-                        </form>
                     </div>
                 </transition-group>
             </draggable>

@@ -37,24 +37,25 @@ body, html {
     // display: flex;
     // flex-direction: row;
     // align-items: center;
-    display: grid;
-    grid-template-columns: 3rem 1% minmax(2rem, 30%) minmax(15rem, 35%) 10rem; //1% 37% 37% 25%, 1% 37% 40% 20rem
+    // display: grid;
+    // grid-template-columns: 3rem 1% minmax(2rem, 30%) minmax(15rem, 35%) 10rem; //1% 37% 37% 25%, 1% 37% 40% 20rem
     // grid-template-columns: 1% 20% 20% 10%;
     // grid-template-rows: auto;
     // overflow: hidden;
     // row-gap: 1rem; // not working?
-    column-gap: 0.5rem;
+    // column-gap: 0.5rem;
     // place-items: center;
+    display: flex;
     align-items: center; // align in the vertical axis
 
-    border-radius: 0 0.8rem 0.8rem 0;
+    // border-radius: 0 0.8rem 0.8rem 0;
     margin-bottom: 0.3rem;
 
     
 
     .list-item-index {
-        height: 100%; // to make the grey background colour fill this whole grid cell
-        display: grid; // to make align-items work with height: 100%
+        // height: 100%; // to make the grey background colour fill this whole grid cell
+        // display: grid; // to make align-items work with height: 100%
         align-items: center;
 
         background-color: rgb(231, 231, 231); // same as body's bg color
@@ -64,12 +65,23 @@ body, html {
         padding-right: 1rem;
     }
 
+    .list-item-data {
+        display: grid;
+        grid-template-columns: 1% minmax(2rem, 11.5rem) minmax(15rem, 35%) 10rem; //1% 37% 37% 25%, 1% 37% 40% 20rem
+        // grid-template-columns: 1% 20% 20% 10%;
+        // grid-template-rows: auto;
+        // overflow: hidden;
+        // row-gap: 1rem; // not working?
+        column-gap: 0.5rem;
+        // place-items: center;
+        align-items: center; // align in the vertical axis
+        border-radius: 1rem;
+    }
+
     .handle {
         // display: table-cell;
         margin-left: 0.7em;
         cursor: move;
-
-        border-radius: 0.8rem 0 0 0.8rem; // doesn't seem to work to add rounded corners to left side?
     }
 
     .list-item-person {
@@ -90,11 +102,6 @@ body, html {
         // flex-grow: 1;
         border-left: 1.5rem solid transparent;
         
-        // display: table-cell;
-        // align-items: center;
-        // vertical-align: middle;
-        // border-bottom: 1em solid transparent;
-        // text-align: center; // makes text center aligned (horizontally)
         padding-top: 1rem;
         padding-bottom: 1rem;
         .list-item-remarks {
@@ -132,7 +139,7 @@ body, html {
         // border-right: 1rem solid transparent;
         // margin-right: 5.5rem;
         // margin-right: -10rem;
-        padding-right: 0.5rem;
+        // padding-right: 0.5rem;
         // vertical-align: middle;
         // width: 500px;
         font-size: 24px;
