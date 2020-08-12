@@ -23,9 +23,9 @@
                             <i v-bind:class="{hide: deleteTarget !== index}" class="delete is-medium delete-button" v-on:click.stop="handleDelete(index)">Delete</i>
                         </div>
                         <form class="edit-form" v-if="editTarget === index" v-on:click.stop autocomplete="off"> <!-- stopping a click event from bubbling up here to prevent clearing editTarget if user clicks in this div (like clicking into the input) -->
-                            <input ref="editInputPerson" v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input is-small" placeholder="Number / Name" type="text">
-                            <input v-model="$v.toEdit.gameTypes.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.gameTypes.$invalid}" class="input edit-input is-small" placeholder="Game Type" type="text">
-                            <input v-model="$v.toEdit.remarks.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input is-small" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.remarks.$invalid}" placeholder="Remarks" type="text">
+                            <input ref="editInputPerson" v-model="$v.toEdit.person.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.person.$invalid}" class="input edit-input-person " placeholder="Number / Name" type="text">
+                            <input v-model="$v.toEdit.gameTypes.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.gameTypes.$invalid}" class="input edit-input-game " placeholder="Game Type" type="text">
+                            <input v-model="$v.toEdit.remarks.$model" v-on:keyup.enter.stop="handleEdit(obj.id)" class="input edit-input-remarks " v-bind:class="{'is-danger': editPersonFormSubmitted && $v.toEdit.remarks.$invalid}" placeholder="Remarks" type="text">
                             <i class="fas fa-check-square fa-lg" v-on:click.stop.prevent="handleEdit(obj.id)"></i>
                         </form>
                     </div>
@@ -411,9 +411,9 @@ form {
         color: hsl(0, 0%, 15%);
 }
 
-.edit-input {
-    width: 5em;
-}
+// .edit-input {
+//     // width: 5em;
+// }
 
 .new-input {
     width: 10em;

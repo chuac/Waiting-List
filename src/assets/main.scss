@@ -181,8 +181,27 @@ body, html {
         // flex-direction: row;
         // align-items: center;
         // vertical-align: middle;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        padding-right: 0.5rem;
+
         input {
             margin-left: 0.2em;
+            font-size: 1.2rem;
+            font-weight: 650;
+        }
+
+        .edit-input-person {
+            width: 9.3rem;
+            
+        }
+
+        .edit-input-game {
+            width: 5rem;
+        }
+
+        .edit-input-remarks {
+            width: 9.3rem; // exactly person input width + game input width + margin-left
         }
 
         i {
@@ -250,7 +269,7 @@ body, html {
     background-color: hsl(314, 100%, 76%); // pink
 }
 
-.pool-li:before { // styles the bullet points for UL on the control page
+.pool-li:before { // styles the bullet points for UL on the control page. https://stackoverflow.com/a/31797858
     background-color: hsl(204, 86%, 53%);
     border-radius: 50%;
     content: "";
