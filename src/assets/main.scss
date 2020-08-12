@@ -26,8 +26,8 @@ body, html {
     // flex-direction: row;
     // align-items: center;
     display: grid;
-    grid-template-columns: 1% 30% minmax(15rem, 35%) minmax(10rem, 15%); //1% 37% 37% 25%, 1% 37% 40% 20rem
-    grid-template-rows: auto;
+    grid-template-columns: 1% minmax(2rem, 30%) minmax(15rem, 35%) 10rem; //1% 37% 37% 25%, 1% 37% 40% 20rem
+    // grid-template-rows: auto;
     // overflow: hidden;
     // row-gap: 1rem; // not working?
     column-gap: 0.5rem;
@@ -102,7 +102,7 @@ body, html {
         // border-right: 1rem solid transparent;
         // margin-right: 5.5rem;
         // margin-right: -10rem;
-        padding-right: 2.6rem;
+        padding-right: 0.5rem;
         // vertical-align: middle;
         // width: 500px;
         font-size: 24px;
@@ -202,7 +202,7 @@ body, html {
 }
 
 .any {
-    background-color: white;
+    background-color: hsl(314, 100%, 76%); // pink
 }
 
 @import "~bulma/bulma";
