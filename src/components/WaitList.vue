@@ -48,11 +48,11 @@
             </router-link>
             <form autocomplete="off">
                 <div class="field">
-                    <label class="label is-size-5">Game Type</label>
-                    <input v-model="$v.gameTypes.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.gameTypes.$invalid}" type="text" ref="gameTypes" required class="input new-input" placeholder="Game Type"/>
+                    <label class="label is-size-3">Game Type</label>
+                    <input v-model="$v.gameTypes.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.gameTypes.$invalid}" type="text" ref="gameTypes" required class="input is-medium new-input" placeholder="Game Type"/>
                     
-                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.required">This field is required</p>
-                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.isValidGameType">Must be a valid game type code</p>
+                    <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.required">This field is required</p>
+                    <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.isValidGameType">Must be a valid game type code</p>
                     <!-- <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
                     <label for="pool">Pool</label>
                     <input type="checkbox" id="snooker" value="Snooker" v-model="checkedGameTypes">
@@ -64,18 +64,18 @@
                     <br> -->
                 </div>
                 <div class="field">
-                    <label class="label is-size-5">Name / Number</label>
-                    <input v-model.lazy="$v.person.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.person.$invalid}" type="text" ref="person" required class="input new-input" placeholder="Number / Name"/>
+                    <label class="label is-size-3">Name / Number</label>
+                    <input v-model.lazy="$v.person.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.person.$invalid}" type="text" ref="person" required class="input is-medium new-input" placeholder="Number / Name"/>
 
-                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.required">This field is required</p>
-                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.isPersonUnique">That name or number already exists</p>
-                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.person.maxLength">Must be less than 20 characters</p>
+                    <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.person.required">This field is required</p>
+                    <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.person.isPersonUnique">That name or number already exists</p>
+                    <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.person.maxLength">Must be less than 20 characters</p>
                 </div>
                 <div class="field">
-                    <label class="label is-size-5">Remarks</label>
-                    <input v-model.lazy="$v.remarks.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.remarks.$invalid}" type="text" ref="remarks" class="input new-input" placeholder="Remarks"/>
+                    <label class="label is-size-3">Remarks (optional)</label>
+                    <input v-model.lazy="$v.remarks.$model" v-bind:class="{'is-danger': newPersonFormSubmitted && $v.remarks.$invalid}" type="text" ref="remarks" class="input is-medium new-input" placeholder="Remarks"/>
 
-                    <p class="help is-danger" v-if="newPersonFormSubmitted && !$v.remarks.maxLength">Must be less than 30 characters</p>
+                    <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.remarks.maxLength">Must be less than 30 characters</p>
                 </div>
                 <div class="buttons">
                     <button v-on:click.prevent="handleSubmit()" class="add-to-waitlist-button">Add to Waiting List</button>
