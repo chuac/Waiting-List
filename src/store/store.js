@@ -17,6 +17,9 @@ export const store = new Vuex.Store({
         getWaitList: (state) => {
             return state.waitList;
         },
+        getWaitListPaginate: (state) => (page, numPerPage) => {
+            return state.waitList.slice((page - 1) * numPerPage, page * numPerPage);
+        },
         getPeopleToCall: (state) => {
             return state.peopleToCall;
         },

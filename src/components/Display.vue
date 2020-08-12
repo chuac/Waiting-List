@@ -1,6 +1,6 @@
 <template>
     <div class="columns is-centered" ref="columns">
-        <div class="column is-narrow">
+        <div v-if="getWaitList.length < 9" class="column is-narrow">
             <div>
                 <div class="display-list-item"  v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                     <span class="display-list-item-index">{{ index + 1 }}.</span>
@@ -22,14 +22,15 @@
                 </ol> -->
             </div>
 
-            <notification-message 
-                v-for="notification in getPeopleToCall" 
-                v-bind:key="notification.id"
-                v-bind:notification="notification"
-            ></notification-message>
+            
             <!-- <button ref="button"></button> invisible button to help firing speechSynthesis.speak() -->
             <!-- <notification-message v-if="getPeopleToCall" v-bind:notification="getPeopleToCall"/> -->
         </div>
+        <notification-message 
+            v-for="notification in getPeopleToCall" 
+            v-bind:key="notification.id"
+            v-bind:notification="notification"
+        ></notification-message>
     </div>
 </template>
 
