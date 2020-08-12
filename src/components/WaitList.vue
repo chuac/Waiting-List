@@ -121,7 +121,8 @@ const isValidGameType = (val) => { // custom validator for Vuelidate
         value === 'a'   ||
         value === 'p'   ||
         value === 's'   ||
-        value === 'tt'  ||
+        value === 'ps'  ||
+        value === 't'   ||
         value === 'pu'  ||
         value === 'u'   ||
         value === 'pt'

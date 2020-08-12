@@ -23,7 +23,9 @@ Vue.filter('expandGameTypes', function(value) {
             return 'Pool';
         case 's':
             return 'Snooker';
-        case 'tt':
+        case 'ps':
+            return 'Pool or Snooker';
+        case 't':
             return 'Table Tennis';
         case 'a':
             return 'Any';
@@ -35,27 +37,6 @@ Vue.filter('expandGameTypes', function(value) {
             return 'Pool or Table Tennis';
     }
 });
-
-// Vue.filter('gameTypeToClass', function(value) {
-//     switch (value.toLowerCase()) {
-//         case 'p':
-//             return 'pool';
-//         case 's':
-//             return 'snooker';
-//         case 'tt':
-//             return 'table-tennis';
-//         case 'a':
-//             return 'any';
-//         case 'pu':
-//             return 'pool-or-american';
-//         case 'u':
-//             return 'american-pool';
-//         case 'pt':
-//             return 'pool-or-table-tennis';
-//     }
-// })
-
-
 
 // export const bus = new Vue(); // creating an Event Bus
 
@@ -70,7 +51,9 @@ new Vue({
                     return 'pool';
                 case 's':
                     return 'snooker';
-                case 'tt':
+                case 'ps':
+                    return 'pool-or-snooker';
+                case 't':
                     return 'table-tennis';
                 case 'a':
                     return 'any';

@@ -17,7 +17,8 @@
                                 <li><span class="is-italic has-text-weight-semibold">A</span> for Any</li>
                                 <li><span class="is-italic has-text-weight-semibold">P</span> for Pool</li>
                                 <li><span class="is-italic has-text-weight-semibold">S</span> for Snooker</li>
-                                <li><span class="is-italic has-text-weight-semibold">TT</span> for Table Tennis</li>
+                                <li><span class="is-italic has-text-weight-semibold">PS</span> for Pool or Snooker</li>
+                                <li><span class="is-italic has-text-weight-semibold">T</span> for Table Tennis</li>
                                 <li><span class="is-italic has-text-weight-semibold">U</span> for American Pool</li>
                                 <li><span class="is-italic has-text-weight-semibold">PU</span> for Pool or American Pool</li>
                                 <li><span class="is-italic has-text-weight-semibold">PT</span> for Pool or Table Tennis</li>
