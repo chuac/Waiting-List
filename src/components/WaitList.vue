@@ -185,6 +185,7 @@ export default {
         toEdit: {
             person: {
                 required,
+                isPersonUnique,
                 maxLength: maxLength(20)
             },
             gameTypes: {
