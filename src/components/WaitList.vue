@@ -34,7 +34,20 @@
         </div>
         <div class="column is-offset-1 is-narrow">
             <br>
-            <strong class="is-size-4">{{ getCountOfPool }} groups currently waiting for pool</strong>
+            <ul>
+                <li>
+                    <strong class="is-size-3">{{ getCountOfPool }} groups waiting for </strong><strong class="is-size-3 pool">Pool</strong>
+                </li>
+                <li>
+                    <strong class="is-size-3 snooker">{{ getCountOfSnooker }} groups waiting for Snooker</strong>
+                </li>
+                <li>
+                    <strong class="is-size-3 table-tennis">{{ getCountOfTableTennis }} groups waiting for Table Tennis</strong>
+                </li>
+            </ul>
+            <br>
+            <br>
+            
             <hr>
             <div v-on:click.stop="showHelperMessage = !showHelperMessage" class="helper-button">
                 <i class="far fa-question-circle fa-2x"></i>
@@ -53,15 +66,7 @@
                     
                     <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.required">This field is required</p>
                     <p class="help is-size-5 is-danger" v-if="newPersonFormSubmitted && !$v.gameTypes.isValidGameType">Must be a valid game type code</p>
-                    <!-- <input type="checkbox" id="pool" value="Pool" v-model="checkedGameTypes">
-                    <label for="pool">Pool</label>
-                    <input type="checkbox" id="snooker" value="Snooker" v-model="checkedGameTypes">
-                    <label for="snooker">Snooker</label>
-                    <input type="checkbox" id="pool_and_snooker" value="Pool and Snooker" v-model="checkedGameTypes">
-                    <label for="pool_and_snooker">Pool and Snooker</label>
-                    <input type="checkbox" id="table_tennis" value="Table Tennis" v-model="checkedGameTypes">
-                    <label for="table_tennis">Table Tennis</label>
-                    <br> -->
+
                 </div>
                 <div class="field">
                     <label class="label is-size-3">Name / Number</label>
@@ -123,6 +128,7 @@ const isValidGameType = (val) => { // custom validator for Vuelidate
         value === 's'   ||
         value === 'ps'  ||
         value === 't'   ||
+        value === 'st'  ||
         value === 'pu'  ||
         value === 'u'   ||
         value === 'pt'
@@ -195,6 +201,8 @@ export default {
         ...mapGetters([
             'getWaitList',
             'getCountOfPool',
+            'getCountOfSnooker',
+            'getCountOfTableTennis',
             'getTTSMessage'
         ]),
         waitList: { // interaction between Vuex and draggable package
@@ -328,7 +336,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-.clear-list-button {
+.clear-list-button { // move the clear list button down, and far away..
     margin-top: 10em;
 }
 

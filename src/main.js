@@ -27,6 +27,8 @@ Vue.filter('expandGameTypes', function(value) {
             return 'Pool or Snooker';
         case 't':
             return 'Table Tennis';
+        case 'st':
+            return 'Snooker or Table Tennis';
         case 'a':
             return 'Any';
         case 'pu':
@@ -55,6 +57,8 @@ new Vue({
                     return 'pool-or-snooker';
                 case 't':
                     return 'table-tennis';
+                case 'st':
+                    return 'snooker-or-table-tennis';
                 case 'a':
                     return 'any';
                 case 'pu':

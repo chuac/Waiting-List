@@ -28,6 +28,16 @@ export const store = new Vuex.Store({
                 return ((people.gameTypes === 'p') || (people.gameTypes === 'pu') || (people.gameTypes === 'u') || (people.gameTypes === 'pt') || (people.gameTypes === 'a'))
             }).length);
         },
+        getCountOfSnooker: (state) => {
+            return (state.waitList.filter((people) => {
+                return ((people.gameTypes === 's') || (people.gameTypes === 'ps') || (people.gameTypes === 'st') || (people.gameTypes === 'a'))
+            }).length);
+        },
+        getCountOfTableTennis: (state) => {
+            return (state.waitList.filter((people) => {
+                return ((people.gameTypes === 't') || (people.gameTypes === 'pt') || (people.gameTypes === 'st') || (people.gameTypes === 'a'))
+            }).length);
+        },
         getTTSMessage: (state) => {
             return state.TTSMessage;
         }
