@@ -1,13 +1,25 @@
 <template>
     <div class="columns is-centered" ref="columns">
         <div class="column is-narrow">
-            <div class="display-list-container">
-                <div class="display-list-item" v-bind:class="$root.gameTypeToClass(obj.gameTypes)" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+            <div>
+                <div class="display-list-item"  v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                     <span class="display-list-item-index">{{ index + 1 }}.</span>
-                    <span class="display-list-item-person has-text-weight-bold">{{ obj.person }}</span>
-                    <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
-                    
+                    <div class="display-list-item-data" v-bind:class="$root.gameTypeToClass(obj.gameTypes)">
+                        <span class="display-list-item-person has-text-weight-bold">{{ obj.person }}</span>
+                        <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
+                    </div>
                 </div>
+                <!-- <ol>
+                    <li>hi</li>
+                    <li>hello</li>
+                </ol>
+                <ol type="1" class="display-list-container">
+                    <span class="display-list-item-index">{{ index + 1 }}.</span> -->
+                    <!-- <li class="display-list-item" v-bind:class="$root.gameTypeToClass(obj.gameTypes)" v-for="(obj) in getWaitList" v-bind:key="obj.id">
+                        <span class="display-list-item-person has-text-weight-bold">{{ obj.person }}</span>
+                        <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
+                    </li>
+                </ol> -->
             </div>
 
             <notification-message 
@@ -66,9 +78,16 @@ export default {
 <style scoped lang="scss">
 
 .display-list-container {
-    display: table;
-    border-collapse: separate;
-    border-spacing: 0 8px;
+    // display: table;
+    // border-collapse: separate;
+    // border-spacing: 0 8px;
+    display: flex;
+    flex-direction: column;
+    // list-style-type: decimal;
+    // list-style-position: inside;
+    // display: grid;
+    // align-items: center;
+    // grid-template-columns: 30% 30%;
 }
 
 .display-list-item {
@@ -76,33 +95,46 @@ export default {
     // // background: white;
     // padding: 0.05em;
     // margin-bottom: 1px;
-    
-    display: table-row;
-    // align-items: center;
+    // width: 400px;
+    display: flex;
+    align-items: center;
+    // grid-template-columns: 40% 60%;
+    padding-bottom: 0.3rem;
 
     .display-list-item-index{
-        display: table-cell;
+        // display: table-cell;
         background-color: rgb(231, 231, 231); // same as body's bg color
         color: hsl(0, 0%, 15%);
         font-size: 4.3em;
         border-right: 1.5vw solid transparent;
     }
 
-    .display-list-item-person {
-        display: table-cell;
-        font-size: 5em;
-        border-left: 3vw solid transparent;
+    .display-list-item-data {
+        display: grid;
+        grid-template-columns: 40vw 40vw;
+        column-gap: 0.5rem;
+        align-items: center;
+        border-radius: 1rem;
+
+        .display-list-item-person {
+            // display: table-cell;
+            font-size: 5rem;
+            padding-left: 3rem;
+            // border-left: 3vw solid transparent;
+        }
+
+        .display-list-item-game {
+            // display: table-cell;
+            font-size: 3.5rem;
+            // border-left: 18vw solid transparent; // old value was 1em
+            // border-right: 10vw solid transparent;
+            // vertical-align: middle;
+            // border-bottom: 0.3em solid transparent;
+            // margin-bottom: 10px;
+        }
     }
 
-    .display-list-item-game {
-        display: table-cell;
-        font-size: 3.5em;
-        border-left: 18vw solid transparent; // old value was 1em
-        border-right: 10vw solid transparent;
-        vertical-align: middle;
-        // border-bottom: 0.3em solid transparent;
-        // margin-bottom: 10px;
-    }
+    
 }
 
 </style>
