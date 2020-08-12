@@ -35,19 +35,16 @@
         <div class="column is-offset-1 is-narrow">
             <br>
             <ul>
-                <li>
-                    <strong class="is-size-3">{{ getCountOfPool }} groups waiting for </strong><strong class="is-size-3 pool">Pool</strong>
+                <li class="pool-li">
+                    <strong class="is-size-3">{{ getCountOfPool }} groups waiting for Pool</strong>
                 </li>
-                <li>
-                    <strong class="is-size-3 snooker">{{ getCountOfSnooker }} groups waiting for Snooker</strong>
+                <li class="snooker-li">
+                    <strong class="is-size-3">{{ getCountOfSnooker }} groups waiting for Snooker</strong>
                 </li>
-                <li>
-                    <strong class="is-size-3 table-tennis">{{ getCountOfTableTennis }} groups waiting for Table Tennis</strong>
+                <li class="table-tennis-li">
+                    <strong class="is-size-3">{{ getCountOfTableTennis }} groups waiting for Table Tennis</strong>
                 </li>
             </ul>
-            <br>
-            <br>
-            
             <hr>
             <div v-on:click.stop="showHelperMessage = !showHelperMessage" class="helper-button">
                 <i class="far fa-question-circle fa-2x"></i>
@@ -335,6 +332,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+ul {
+    list-style: none; // remove default bullets
+}
 
 .clear-list-button { // move the clear list button down, and far away..
     margin-top: 10em;
