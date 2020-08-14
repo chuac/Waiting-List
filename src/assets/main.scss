@@ -260,7 +260,12 @@ body, html {
 }
 
 .table-tennis-or-american {
-    background-color: hsl(187, 84%, 56%);
+    background-color: white;
+
+    .list-item-game,
+    .display-list-item-game {
+        color: hsl(183, 100%, 24%); // text colour
+    }
 }
 
 .pool-or-american {
