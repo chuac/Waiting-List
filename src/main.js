@@ -86,6 +86,16 @@ new Vue({
             } else {
                 return 'smallest-text';
             }
+        },
+        displayFontSize: function(string) {
+            let len = string.length;
+            if (len < 4) {
+                return 'big-display-text';
+            } else if (len < 12) {
+                return 'smaller-display-text';
+            } else {
+                return 'smallest-display-text';
+            }
         }
     }
 }).$mount('#app')

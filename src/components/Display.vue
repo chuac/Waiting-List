@@ -2,13 +2,20 @@
     <div>
         <div class="display-blah-container">
             <div class="display-container">
-                <div class="display-list-item"  v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
-                    <span class="display-list-item-index">{{ index + 1 }}.</span>
-                    <div class="display-list-item-data" v-bind:class="$root.gameTypeToClass(obj.gameTypes)">
-                        <span class="display-list-item-person has-text-weight-bold">{{ obj.person }}</span>
-                        <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
+                <div v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+                    <hr v-if="index === 15 || index === 20 || index === 25 || index === 30 || index === 35 || index === 40"> <!-- draw horizontal line if it's column below -->
+                    <div class="display-list-item">
+                        <span class="display-list-item-index">{{ index + 1 }}.</span>
+                        <div class="display-list-item-data" v-bind:class="$root.gameTypeToClass(obj.gameTypes)">
+                            <span class="display-list-item-person has-text-weight-bold" v-bind:class="$root.displayFontSize(obj.person)">{{ obj.person }}</span>
+                            <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes }}</span>
+                        </div>
                     </div>
+                    
+                    
+                    
                 </div>
+                <!-- <hr v-if="getWaitList.length > 15"> -->
                 <!-- <ol>
                     <li>hi</li>
                     <li>hello</li>
@@ -71,7 +78,7 @@ export default {
     },
     mounted() {
         // this.$refs.button.click(); // click an invisible button for Chrome to fire speechSynthesis.speak() https://www.chromestatus.com/feature/5687444770914304
-        this.$refs.columns.click();
+        // this.$refs.columns.click();
     }
 }
 </script>
@@ -79,24 +86,46 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.big-display-text {
+    font-size: 5rem;
+}
+
+.smaller-display-text {
+    font-size: 2.9rem;
+}
+
+.smallest-display-text {
+    font-size: 1.5rem;
+}
+
 .display-container { // https://stackoverflow.com/a/51221889
     display: grid;
     // grid-template-columns: 25vw 25vw 25vw;
+    align-items: center;
     grid-template-columns: repeat(3, 1fr);
+    // grid-template-rows: repeat(5, minmax(20%, 1fr));
     grid-auto-flow: row dense;
     column-gap: 0.5rem;
     padding: 0.3rem;
+    padding-right: 1.5rem;
+    padding-left: 1rem;
 }
 
-.display-container > :nth-child(-n + 5) {
+.display-container > :nth-child(-n + 5),
+.display-container > :nth-child(n + 16):nth-child(-n + 20),
+.display-container > :nth-child(n + 31):nth-child(-n + 35) {
     grid-column: 1;
 }
 
-.display-container > :nth-child(n + 6):nth-child(-n + 10) {
+.display-container > :nth-child(n + 6):nth-child(-n + 10),
+.display-container > :nth-child(n + 21):nth-child(-n + 25),
+.display-container > :nth-child(n + 36):nth-child(-n + 40) {
     grid-column: 2;
 }
 
-.display-container > :nth-child(n + 11):nth-child(-n + 15) {
+.display-container > :nth-child(n + 11):nth-child(-n + 15),
+.display-container > :nth-child(n + 26):nth-child(-n + 30),
+.display-container > :nth-child(n + 41):nth-child(-n + 45) {
     grid-column: 3;
 }
 
@@ -115,6 +144,11 @@ export default {
 //     // grid-template-rows: auto;
 // }
 
+// hr {
+//     // position: absolute;
+//     display: contents;
+// }
+
 .display-list-item {
     // width: 100%;
     // // background: white;
@@ -124,6 +158,7 @@ export default {
     // display: flex;
     display: grid;
     grid-template-columns: 13% 1fr; // 4rem 1fr
+    // grid-template-rows: 1fr;
     align-items: center;
     // grid-template-columns: 40% 60%;
     padding-bottom: 0.3rem; // gap between each item
@@ -133,7 +168,7 @@ export default {
         background-color: rgb(231, 231, 231); // same as body's bg color
         color: hsl(0, 0%, 15%);
         font-size: 3rem;
-        border-right: 0.5rem solid transparent;
+        // border-right: 0.5rem solid transparent;
         // justify-self: left;
     }
 
@@ -147,7 +182,7 @@ export default {
 
         .display-list-item-person {
             // display: table-cell;
-            font-size: 5rem;
+            // font-size: 5rem; // now dynamically provided
             padding-left: 2rem;
             // border-left: 3vw solid transparent;
         }
@@ -155,6 +190,7 @@ export default {
         .display-list-item-game {
             // display: table-cell;
             font-size: 2rem;
+            // padding-right: 0.3rem;
             // border-left: 18vw solid transparent; // old value was 1em
             // border-right: 10vw solid transparent;
             // vertical-align: middle;

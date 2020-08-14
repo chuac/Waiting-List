@@ -45,8 +45,10 @@ body, html {
     // row-gap: 1rem; // not working?
     // column-gap: 0.5rem;
     // place-items: center;
-    display: flex;
+    // display: flex;
     align-items: center; // align in the vertical axis
+    display: grid;
+    grid-template-columns: 7% 1fr;
 
     // border-radius: 0 0.8rem 0.8rem 0;
     margin-bottom: 0.3rem;
@@ -80,7 +82,7 @@ body, html {
 
     .handle {
         // display: table-cell;
-        margin-left: 0.7em;
+        margin-left: 1rem;
         cursor: move;
     }
 
@@ -88,7 +90,8 @@ body, html {
         // align-self: flex-start;
         // // flex-grow: 1;
         // flex: 0.2;
-        // padding: 0.3em;
+        // margin-bottom: 0.1em;
+        // align-self: center;
         border-left: 2rem solid transparent;
         // justify-self: start;
         // border-bottom: 0.9em solid transparent;
@@ -259,7 +262,8 @@ body, html {
 .pool-or-american {
     background-color: white;
     
-    span {
+    .list-item-game,
+    .display-list-item-game {
         color: hsl(348, 100%, 61%); // text colour
     }
 }

@@ -6,7 +6,7 @@
                     <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <span class="list-item-index">{{ index + 1 }}.</span>
                         <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item-data">
-                            <i class="fa fa-align-justify handle"></i>
+                            <i class="fa fa-align-justify fa-lg handle"></i>
                             <span class="list-item-person has-text-weight-bold" v-bind:class="$root.fontSize(obj.person)">{{ obj.person }}</span>
                             <span class="list-item-game is-size-5 has-text-weight-semibold is-unselectable">
                                 {{ obj.gameTypes | expandGameTypes }} <br>
