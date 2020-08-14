@@ -138,6 +138,22 @@ const isPersonUnique = (val) => { // true if person doesn't already exist in the
     return ((store.state.waitList).find((obj) => obj.person === val) === undefined); // find will return 'undefined' if that person is not found in the waitlist
 }
 
+const isEditPersonUnique = (val) => {
+    let currentEditTarget = store.state.editTargetObjId; // get the ID of the person the user is currently trying to update
+    let obj = store.state.waitList.find((obj) => obj.person === val); // find a person by this name/number in the wait list
+
+    // if (val === store.state.waitList[id].person) {
+    //     return true;
+    // }
+    console.log(currentEditTarget);
+    if (obj === undefined) { // no person found by that name in the waitlist means that new updated name/number is unique!
+        return true;
+    } else if (obj.id === currentEditTarget) { // if a person is found but has the same id as our current edit target, that means that we should ignore this "match", and allow the form to be submitted
+        return true;
+    }
+    return (val !== obj.person); // could just return false here?
+}
+
 //import { bus } from '../main';
 // import { gameTypeToClass } from '../main';
 
@@ -185,7 +201,7 @@ export default {
         toEdit: {
             person: {
                 required,
-                isPersonUnique,
+                isEditPersonUnique,
                 maxLength: maxLength(20)
             },
             gameTypes: {
@@ -222,7 +238,8 @@ export default {
             'clearList',
             'updateList',
             'addPersonToCall',
-            'clearNotifications'
+            'clearNotifications',
+            'updateEditTarget'
         ]),
         handleClearList: function() {
             this.clearList();
@@ -267,6 +284,7 @@ export default {
             let waitList = this.getWaitList;
             this.editTarget = index;
             this.editTargetObjId = objId; // the actual object's ID in the Vuex store
+            this.updateEditTarget(objId); // pass the target object's ID to hold in Vuex, for the form validator
             this.toEdit.person = waitList[index].person;
             this.toEdit.gameTypes = waitList[index].gameTypes;
             this.toEdit.remarks = waitList[index].remarks;
@@ -280,11 +298,16 @@ export default {
             this.$v.toEdit.gameTypes.$touch(); // make these inputs "dirty"
             this.$v.toEdit.person.$touch();
             this.$v.toEdit.remarks.$touch();
+            // console.log(this.$v.toEdit.person);
+            // if (this.$v.toEdit.person.$model === this.toEdit.person) {
+            //     console.log('yay');
+            //     this.$v.toEdit.person.$invalid = false;
+            // }
             if (this.$v.toEdit.gameTypes.$invalid || this.$v.toEdit.person.$invalid || this.$v.toEdit.remarks.$invalid) {
                 return; // code will stop here and show errors, if there are any (without hitting insertPerson)
             }
 
-            this.editPerson({
+            this.editPerson({ // send action to Vuex store
                 editTargetID: id,
                 toEdit: this.toEdit
             });

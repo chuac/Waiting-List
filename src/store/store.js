@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
         counter: 0,
         waitList: [],
         peopleToCall: [],
-        TTSMessage: ''
+        TTSMessage: '',
+        editTargetObjId: ''
     },
     getters: {
         getWaitList: (state) => {
@@ -77,6 +78,7 @@ export const store = new Vuex.Store({
             state.waitList = [];
             state.peopleToCall = [];
             state.TTSMessage = '';
+            state.editTargetObjId = '';
         },
         updateList: (state, payload) => {
             state.waitList = payload;
@@ -98,6 +100,9 @@ export const store = new Vuex.Store({
         },
         updateTTSMessage: (state, payload) => {
             state.TTSMessage = payload;
+        },
+        updateEditTarget: (state, payload) => {
+            state.editTargetObjId = payload;
         }
     },
     actions: {
@@ -127,6 +132,9 @@ export const store = new Vuex.Store({
         },
         updateTTSMessage: (context, payload) => {
             context.commit('updateTTSMessage', payload);
+        },
+        updateEditTarget: (context, payload) => {
+            context.commit('updateEditTarget', payload);
         }
     },
     plugins: [
