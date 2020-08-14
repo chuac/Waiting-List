@@ -1,7 +1,7 @@
 <template>
-    <div class="columns is-centered" ref="columns">
-        <div v-if="getWaitList.length < 9" class="column is-narrow">
-            <div>
+    <div>
+        <div class="display-blah-container">
+            <div class="display-container">
                 <div class="display-list-item"  v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                     <span class="display-list-item-index">{{ index + 1 }}.</span>
                     <div class="display-list-item-data" v-bind:class="$root.gameTypeToClass(obj.gameTypes)">
@@ -26,6 +26,7 @@
             <!-- <button ref="button"></button> invisible button to help firing speechSynthesis.speak() -->
             <!-- <notification-message v-if="getPeopleToCall" v-bind:notification="getPeopleToCall"/> -->
         </div>
+        
         <notification-message 
             v-for="notification in getPeopleToCall" 
             v-bind:key="notification.id"
@@ -78,18 +79,41 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-.display-list-container {
-    // display: table;
-    // border-collapse: separate;
-    // border-spacing: 0 8px;
-    display: flex;
-    flex-direction: column;
-    // list-style-type: decimal;
-    // list-style-position: inside;
-    // display: grid;
-    // align-items: center;
-    // grid-template-columns: 30% 30%;
+.display-container { // https://stackoverflow.com/a/51221889
+    display: grid;
+    // grid-template-columns: 25vw 25vw 25vw;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: row dense;
+    column-gap: 0.5rem;
+    padding: 0.3rem;
 }
+
+.display-container > :nth-child(-n + 5) {
+    grid-column: 1;
+}
+
+.display-container > :nth-child(n + 6):nth-child(-n + 10) {
+    grid-column: 2;
+}
+
+.display-container > :nth-child(n + 11):nth-child(-n + 15) {
+    grid-column: 3;
+}
+
+// .display-list-container {
+//     // display: table;
+//     // border-collapse: separate;
+//     // border-spacing: 0 8px;
+//     // display: grid;
+//     display: flex;
+//     flex-direction: column;
+//     // // list-style-type: decimal;
+//     // // list-style-position: inside;
+//     // // display: grid;
+//     // // align-items: center;
+//     // grid-template-columns: 1fr 1fr;
+//     // grid-template-rows: auto;
+// }
 
 .display-list-item {
     // width: 100%;
@@ -97,22 +121,26 @@ export default {
     // padding: 0.05em;
     // margin-bottom: 1px;
     // width: 400px;
-    display: flex;
+    // display: flex;
+    display: grid;
+    grid-template-columns: 13% 1fr; // 4rem 1fr
     align-items: center;
     // grid-template-columns: 40% 60%;
-    padding-bottom: 0.3rem;
+    padding-bottom: 0.3rem; // gap between each item
 
     .display-list-item-index{
         // display: table-cell;
         background-color: rgb(231, 231, 231); // same as body's bg color
         color: hsl(0, 0%, 15%);
-        font-size: 4.3em;
-        border-right: 1.5vw solid transparent;
+        font-size: 3rem;
+        border-right: 0.5rem solid transparent;
+        // justify-self: left;
     }
 
     .display-list-item-data {
         display: grid;
-        grid-template-columns: 40vw 40vw;
+        // grid-template-columns: minmax(5rem, 20%) minmax(4rem, 25%);
+        grid-template-columns: 1fr 1fr;
         column-gap: 0.5rem;
         align-items: center;
         border-radius: 1rem;
@@ -120,13 +148,13 @@ export default {
         .display-list-item-person {
             // display: table-cell;
             font-size: 5rem;
-            padding-left: 3rem;
+            padding-left: 2rem;
             // border-left: 3vw solid transparent;
         }
 
         .display-list-item-game {
             // display: table-cell;
-            font-size: 3.5rem;
+            font-size: 2rem;
             // border-left: 18vw solid transparent; // old value was 1em
             // border-right: 10vw solid transparent;
             // vertical-align: middle;
