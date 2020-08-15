@@ -1,6 +1,6 @@
 <template>
-    <div class="columns is-centered" ref="columns">
-        <div class="column is-narrow">
+    <div class="">
+        <div class="">
             <div>
                 <div class="display-list-item"  v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                     <span class="display-list-item-index">{{ index + 1 }}.</span>
@@ -110,7 +110,7 @@ export default {
 }
 
 .smallest-display-text {
-    font-size: 2.5rem;
+    font-size: 3rem;
 }
 
 .display-container { // https://stackoverflow.com/a/51221889
@@ -220,7 +220,9 @@ export default {
 // padding: 0.05em;
 // margin-bottom: 1px;
 // width: 400px;
-display: flex;
+display: grid;
+grid-template-columns: 7% 80vw;
+justify-content: center;
 align-items: center;
 // grid-template-columns: 40% 60%;
 padding-bottom: 0.3rem;
@@ -230,11 +232,13 @@ padding-bottom: 0.3rem;
     color: hsl(0, 0%, 15%);
     font-size: 4.3em;
     border-right: 1.5vw solid transparent;
+    justify-self: right;
 }
 .display-list-item-data {
     display: grid;
-    grid-template-columns: 40vw 50vw;
+    grid-template-columns: minmax(150px, 30%) minmax(0, 1fr); // 40vw 50vw. minmax(100px, min-content) minmax(0, 1fr)
     // column-gap: 0.5rem;
+    // display: flex;
     align-items: center;
     border-radius: 1rem;
     .display-list-item-person {
@@ -245,6 +249,7 @@ padding-bottom: 0.3rem;
     }
     .display-list-item-game {
         // display: table-cell;
+        // padding-left: 20rem;
         font-size: 3.5rem;
         // border-left: 18vw solid transparent; // old value was 1em
         // border-right: 10vw solid transparent;
