@@ -244,13 +244,15 @@ padding-bottom: 0.3rem;
     .display-list-item-person {
         // display: table-cell;
         // font-size: 6rem;
-        padding-left: 3rem;
+        padding-left: 0rem;
+        justify-self: center;
         // border-left: 3vw solid transparent;
     }
     .display-list-item-game {
         // display: table-cell;
         // padding-left: 20rem;
         font-size: 3.5rem;
+        font-weight: 650 !important;
         // border-left: 18vw solid transparent; // old value was 1em
         // border-right: 10vw solid transparent;
         // vertical-align: middle;
