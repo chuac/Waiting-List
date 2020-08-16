@@ -241,6 +241,7 @@ body, html {
 
 .snooker {
     background-color: hsl(141, 71%, 48%);
+    border: 5px solid black;
 }
 
 .pool {
@@ -271,7 +272,7 @@ body, html {
 
 .pool-or-american {
     background-color: white;
-    border: 1px solid hsl(348, 100%, 61%);
+    border: 5px solid hsl(348, 100%, 61%);
     
     .list-item-game,
     .display-list-item-game {
@@ -280,7 +281,8 @@ body, html {
 }
 
 .pool-or-table-tennis {
-    background-color: hsl(189, 100%, 50%);
+    // background-color: hsl(189, 100%, 50%);
+    background-color: hsl(358, 100%, 83%); // peach colour
 }
 
 .american-pool {
