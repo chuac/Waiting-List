@@ -249,7 +249,8 @@ body, html {
 }
 
 .pool-or-snooker {
-    background-color: hsl(72, 98%, 50%);
+    // background-color: hsl(72, 98%, 50%);
+    background: linear-gradient(to right, hsl(204, 86%, 53%) 40%, hsl(141, 71%, 48%) 60%); // blue til 40% then gradient until 60% where green starts
 }
 
 .table-tennis {
