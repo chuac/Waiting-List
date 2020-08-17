@@ -2,12 +2,20 @@
     <div class="">
         <div class="">
             <div>
-                <div class="display-list-item"  v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
-                    <span class="display-list-item-index">{{ index + 1 }}.</span>
-                    <div class="display-list-item-data" v-bind:class="$root.gameTypeToClass(obj.gameTypes)">
-                        <span class="display-list-item-person has-text-weight-bold" v-bind:class="$root.displayFontSize(obj.person)">{{ obj.person }}</span>
-                        <span class="display-list-item-game has-text-weight-semibold">{{ obj.gameTypes | expandGameTypes | toAllCaps }}</span>
+                <div class="display-list-header">
+                    <div></div>
+                    <span>Waiting Number</span>
+                </div>
+                
+                <div v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
+                    <div class="display-list-item">
+                        <span class="display-list-item-index">{{ index + 1 }}.</span>
+                        <div class="display-list-item-data" v-bind:class="$root.gameTypeToClass(obj.gameTypes)">
+                            <span class="display-list-item-person has-text-weight-bold" v-bind:class="$root.displayFontSize(obj.person)">{{ obj.person }}</span>
+                            <span class="display-list-item-game has-text-weight-bold">{{ obj.gameTypes | expandGameTypes | toAllCaps }}</span>
+                        </div>
                     </div>
+                    
                 </div>
                 <!-- <ol>
                     <li>hi</li>
@@ -214,6 +222,15 @@ export default {
 //         }
 //     }
 
+.display-list-header {
+    font-size: 4rem;
+    font-weight: 600;
+
+    display: grid;
+    grid-template-columns: 7% 80vw; // recreate column alignment like display-list-item
+    justify-content: center;
+}
+
 .display-list-item {
 // width: 100%;
 // // background: white;
@@ -252,7 +269,6 @@ padding-bottom: 0.3rem;
         // display: table-cell;
         // padding-left: 20rem;
         font-size: 3.5rem;
-        font-weight: 650 !important;
         // border-left: 18vw solid transparent; // old value was 1em
         // border-right: 10vw solid transparent;
         // vertical-align: middle;
