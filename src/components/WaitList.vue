@@ -37,6 +37,9 @@
         <div class="column is-offset-1 is-narrow">
             <br>
             <ul>
+                <li class="any-li">
+                    <strong class="is-size-3">{{ getCountOfAny | pluralGroupsText }} waiting for Any</strong>
+                </li>
                 <li class="pool-li">
                     <strong class="is-size-3">{{ getCountOfPool | pluralGroupsText }} waiting for Pool</strong>
                 </li>
@@ -217,6 +220,7 @@ export default {
     computed: {
         ...mapGetters([
             'getWaitList',
+            'getCountOfAny',
             'getCountOfPool',
             'getCountOfSnooker',
             'getCountOfTableTennis',

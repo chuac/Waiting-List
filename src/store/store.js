@@ -42,6 +42,11 @@ export const store = new Vuex.Store({
                 return ((people.gameTypes === 't') || (people.gameTypes === 'pt') || (people.gameTypes === 'tu') || (people.gameTypes === 'st') || (people.gameTypes === 'a'))
             }).length);
         },
+        getCountOfAny: (state) => {
+            return (state.waitList.filter((people) => {
+                return ((people.gameTypes === 'a'))
+            }).length);
+        },
         getTTSMessage: (state) => {
             return state.TTSMessage;
         }

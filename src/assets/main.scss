@@ -244,8 +244,9 @@ $snooker: hsl(141, 71%, 48%);
 $pool: hsl(204, 86%, 53%);
 $table-tennis: hsl(48, 100%, 67%);
 $american-pool: orange;
+$any: hsl(314, 100%, 76%);
 $peach: hsl(358, 100%, 83%); // peach colour
-$pink: hsl(279, 86%, 78%); // pink
+$pink: hsl(279, 86%, 78%); // light pink
 
 .snooker {
     background-color: $snooker;
@@ -268,7 +269,7 @@ $pink: hsl(279, 86%, 78%); // pink
 }
 
 .table-tennis-or-american {
-    background: linear-gradient(to right, $table-tennis 40%, $american-pool 60%);
+    background: linear-gradient(to right, $table-tennis 40%, $american-pool 55%);
     // background-color: white;
     // border: 1px solid hsl(183, 100%, 24%);
 
@@ -298,40 +299,55 @@ $pink: hsl(279, 86%, 78%); // pink
 }
 
 .any {
-    background-color: hsl(314, 100%, 76%); // pink
+    background-color: $any; // pink
 }
 
-.pool-li:before { // styles the bullet points for UL on the control page. https://stackoverflow.com/a/31797858
-    background-color: hsl(204, 86%, 53%);
+.any-li:before { // styles the bullet points for UL on the control page. https://stackoverflow.com/a/31797858
+    background-color: $any;
     border-radius: 50%;
+    border: 2px solid $text;
     content: "";
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 2px;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
+}
+
+.pool-li:before { // styles the bullet points for UL on the control page
+    background-color: $pool;
+    border-radius: 50%;
+    border: 2px solid $text;
+    content: "";
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 2px;
+    height: 20px;
+    width: 20px;
 }
 
 .snooker-li:before { // styles the bullet points for UL on the control page
-    background-color: hsl(141, 71%, 48%);
+    background-color: $snooker;
     border-radius: 50%;
+    border: 2px solid $text;
     content: "";
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 2px;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
 }
 
 .table-tennis-li:before { // styles the bullet points for UL on the control page
-    background-color: hsl(48, 100%, 67%);
+    background-color: $table-tennis;
     border-radius: 50%;
+    border: 2px solid $text;
     content: "";
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 2px;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
 }
 
 @import "~bulma/bulma";
