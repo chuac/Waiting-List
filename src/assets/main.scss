@@ -78,6 +78,7 @@ body, html {
         // place-items: center;
         align-items: center; // align in the vertical axis
         border-radius: 1rem;
+        border: 2px solid black;
     }
 
     .handle {
@@ -239,55 +240,61 @@ body, html {
 //     // border-bottom-left-radius: 0.8rem;
 // }
 
+$snooker: hsl(141, 71%, 48%);
+$pool: hsl(204, 86%, 53%);
+$table-tennis: hsl(48, 100%, 67%);
+$american-pool: orange;
+$peach: hsl(358, 100%, 83%); // peach colour
+$pink: hsl(279, 86%, 78%); // pink
+
 .snooker {
-    background-color: hsl(141, 71%, 48%);
-    border: 5px solid black;
+    background-color: $snooker;
 }
 
 .pool {
-    background-color: hsl(204, 86%, 53%);
+    background-color: $pool;
 }
 
 .pool-or-snooker {
-    // background-color: hsl(72, 98%, 50%);
-    background: linear-gradient(to right, hsl(204, 86%, 53%) 40%, hsl(141, 71%, 48%) 60%); // blue til 40% then gradient until 60% where green starts
+    background: linear-gradient(to right, $pool 40%, $snooker 60%); // blue til 40% then gradient until 60% where green starts
 }
 
 .table-tennis {
-    background-color: hsl(48, 100%, 67%);
+    background-color: $table-tennis;
 }
 
 .snooker-or-table-tennis {
-    background-color: hsl(279, 86%, 78%);
+    background: linear-gradient(to right, $snooker 40%, $table-tennis 60%);
 }
 
 .table-tennis-or-american {
-    background-color: white;
-    border: 1px solid hsl(183, 100%, 24%);
+    background: linear-gradient(to right, $table-tennis 40%, $american-pool 60%);
+    // background-color: white;
+    // border: 1px solid hsl(183, 100%, 24%);
 
-    .list-item-game,
-    .display-list-item-game {
-        color: hsl(183, 100%, 24%); // text colour
-    }
+    // .list-item-game,
+    // .display-list-item-game {
+    //     color: hsl(183, 100%, 24%); // text colour
+    // }
 }
 
 .pool-or-american {
-    background-color: white;
-    border: 5px solid hsl(348, 100%, 61%);
+    background: linear-gradient(to right, $pool 40%, $american-pool 60%);
+    // background-color: white;
+    // border: 5px solid hsl(348, 100%, 61%);
     
-    .list-item-game,
-    .display-list-item-game {
-        color: hsl(348, 100%, 61%); // text colour
-    }
+    // .list-item-game,
+    // .display-list-item-game {
+    //     color: hsl(348, 100%, 61%); // text colour
+    // }
 }
 
 .pool-or-table-tennis {
-    // background-color: hsl(189, 100%, 50%);
-    background-color: hsl(358, 100%, 83%); // peach colour
+    background: linear-gradient(to right, $pool 40%, $table-tennis 60%);
 }
 
 .american-pool {
-    background-color: orange;
+    background-color: $american-pool;
 }
 
 .any {

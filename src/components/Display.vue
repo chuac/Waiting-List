@@ -225,6 +225,7 @@ export default {
 .display-list-header {
     font-size: 4rem;
     font-weight: 600;
+    padding-left: 1.5rem;
 
     display: grid;
     grid-template-columns: 7% 80vw; // recreate column alignment like display-list-item
@@ -258,10 +259,12 @@ padding-bottom: 0.3rem;
     // display: flex;
     align-items: center;
     border-radius: 1rem;
+    border: 4px solid black;
+
     .display-list-item-person {
         // display: table-cell;
         // font-size: 6rem;
-        padding-left: 0rem;
+        // padding-left: 0rem;
         justify-self: center;
         // border-left: 3vw solid transparent;
     }

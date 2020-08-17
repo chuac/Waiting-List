@@ -23,6 +23,7 @@
                                 <li><span class="is-italic has-text-weight-semibold">TU</span> for Table Tennis or American Pool</li>
                                 <li><span class="is-italic has-text-weight-semibold">PU</span> for Pool or American Pool</li>
                                 <li><span class="is-italic has-text-weight-semibold">PT</span> for Pool or Table Tennis</li>
+                                <li><span class="is-italic has-text-weight-semibold">ST</span> for Snooker or Table Tennis</li>
                             </ul>
                         </li>
                         <li>
