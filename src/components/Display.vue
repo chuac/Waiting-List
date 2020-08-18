@@ -2,9 +2,14 @@
     <div class="">
         <div class="">
             <div>
+                
                 <div class="display-list-header">
-                    <div></div>
-                    <span>Waiting Number</span>
+                    <figure class="image is-128x128 header-logo">
+                      <img src="/images/logo.png">
+                    </figure>
+                    <!-- <div></div> -->
+                    
+                    <span class="header-text">WAITING NUMBER</span>
                 </div>
                 
                 <div v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
@@ -228,8 +233,17 @@ export default {
     padding-left: 1.5rem;
 
     display: grid;
-    grid-template-columns: 7% 80vw; // recreate column alignment like display-list-item
-    justify-content: center;
+    grid-template-columns: 14% 80vw; // recreate column alignment like display-list-item
+    // justify-content: center;
+    // align-content: center;
+
+    .header-logo {
+        padding-top: 0.8rem;
+    }
+
+    .header-text {
+        align-self: center;
+    }
 }
 
 .display-list-item {
@@ -243,7 +257,7 @@ grid-template-columns: 7% 80vw;
 justify-content: center;
 align-items: center;
 // grid-template-columns: 40% 60%;
-padding-bottom: 0.3rem;
+padding-bottom: 0.2rem;
 .display-list-item-index{
     // display: table-cell;
     background-color: rgb(231, 231, 231); // same as body's bg color
