@@ -8,7 +8,7 @@
                         <div v-bind:class="$root.gameTypeToClass(obj.gameTypes)" class="list-item-data">
                             <i class="fa fa-align-justify fa-lg handle"></i>
                             <span class="list-item-person has-text-weight-bold" v-bind:class="$root.fontSize(obj.person)">{{ obj.person }}</span>
-                            <span class="list-item-game is-size-5 has-text-weight-semibold is-unselectable">
+                            <span class="list-item-game is-size-5 has-text-weight-semibold">
                                 {{ obj.gameTypes | expandGameTypes }} <br>
                                 <span v-if="obj.remarks" class="list-item-remarks">
                                     {{ obj.remarks }}
@@ -52,7 +52,7 @@
             </ul>
             <hr>
             <div v-on:click.stop="showHelperMessage = !showHelperMessage" class="helper-button">
-                <i class="far fa-question-circle fa-2x"></i>
+                <i class="far fa-question-circle fa-3x"></i>
                 <span class="helper-button-text">Help</span>
             </div>
             
@@ -435,7 +435,7 @@ form {
     color: hsl(252, 0%, 32%); // dark gray
 
     .helper-button-text {
-        font-size: 1em;
+        font-size: 1.5rem;
     }
 }
 .helper-button:hover {

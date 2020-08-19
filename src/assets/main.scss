@@ -69,7 +69,7 @@ body, html {
 
     .list-item-data {
         display: grid;
-        grid-template-columns: 1% minmax(2rem, 11.5rem) minmax(15rem, 35%) 10rem; //1% 37% 37% 25%, 1% 37% 40% 20rem
+        grid-template-columns: 1% 1fr 1.7fr 20%; //1% 37% 37% 25%, 1% 37% 40% 20rem
         // grid-template-columns: 1% 20% 20% 10%;
         // grid-template-rows: auto;
         // overflow: hidden;
@@ -84,6 +84,7 @@ body, html {
     .handle {
         // display: table-cell;
         margin-left: 1rem;
+        // margin-right: 0.2rem;
         cursor: move;
     }
 
@@ -93,12 +94,12 @@ body, html {
         // flex: 0.2;
         // margin-bottom: 0.1em;
         // align-self: center;
-        border-left: 2rem solid transparent;
-        // justify-self: start;
+        padding-left: 2rem;
+        // border-left: 2rem solid transparent;
+        justify-self: center;
         // border-bottom: 0.9em solid transparent;
         // border-top: 0.9em solid transparent;
         // display: table-cell;
-        
     }
 
     .list-item-game {
@@ -111,7 +112,7 @@ body, html {
         .list-item-remarks {
             // display: table-cell; // to make the div wrap tightly around the text
             background-color: rgb(231, 231, 231);
-            color: hsl(0, 0%, 15%);
+            color: $text;
             // padding: 0.1em;
             padding-left: 0.3em;
             padding-right: 0.3em;
@@ -129,15 +130,15 @@ body, html {
             // margin-bottom: 0px;
             // padding-top: 0.4rem;
             // border-top: 0.4rem solid transparent;
-            color: hsl(0, 0%, 15%);
+            color: $text;
         }
     }
 
     .list-item-control-buttons {
         justify-self: end;
+        padding-right: 1rem;
         // align-self: center;
         // float: right;
-        // padding-right: 1em;
         // display: table-cell;
         // border-left: 1em solid transparent;
         // border-right: 1rem solid transparent;
@@ -174,7 +175,7 @@ body, html {
             
         }
         .call-button:hover {
-            color: hsl(0, 0%, 15%);
+            color: $text;
         }
 
         .edit-button {
@@ -182,7 +183,7 @@ body, html {
             color: hsl(252, 0%, 32%); // dark gray
         }
         .edit-button:hover {
-            color: hsl(0, 0%, 15%);
+            color: $text;
         }
     }
     
@@ -227,7 +228,7 @@ body, html {
             color: hsl(252, 0%, 32%);
         }
         i:hover {
-            color: hsl(0, 0%, 15%);
+            color: $text;
         }
     }
 }
