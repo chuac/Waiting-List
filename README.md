@@ -7,5 +7,5 @@ A two-paged app for a local business where staff would use the **Control** page 
 **Vue** and **Vuex** to store the state of the waiting list in Local Storage. Using Vuex to share events between the two pages.
 
 ## Demo
-[Control Page](https://waitlist.chuac.me/)
-[Display Page](https://waitlist.chuac.me/display)
+- [Control Page](https://waitlist.chuac.me/)
+- [Display Page](https://waitlist.chuac.me/display)
