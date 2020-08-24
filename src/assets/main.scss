@@ -85,21 +85,15 @@ body, html {
         // display: table-cell;
         margin-left: 1rem;
         // margin-right: 0.2rem;
+        // margin-right: 2rem;
         cursor: move;
     }
 
     .list-item-person {
-        // align-self: flex-start;
-        // // flex-grow: 1;
-        // flex: 0.2;
-        // margin-bottom: 0.1em;
-        // align-self: center;
-        padding-left: 2rem;
-        // border-left: 2rem solid transparent;
+        // padding-left: 2rem; /////
+        margin-left: 2rem; // using padding-left would overlap the handle and make it unclickable at times
+
         justify-self: center;
-        // border-bottom: 0.9em solid transparent;
-        // border-top: 0.9em solid transparent;
-        // display: table-cell;
     }
 
     .list-item-game {
