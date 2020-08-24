@@ -228,12 +228,10 @@ export default {
 //     }
 
 .display-list-header {
-    font-size: 4rem;
-    font-weight: 600;
     padding-left: 1.5rem;
 
     display: grid;
-    grid-template-columns: 14% 80vw; // recreate column alignment like display-list-item
+    grid-template-columns: 14% 5%; // second column small to get text on two lines
     // justify-content: center;
     // align-content: center;
 
@@ -242,6 +240,9 @@ export default {
     }
 
     .header-text {
+        font-size: 2.5rem;
+        font-weight: 700;
+        padding-left: 4.5rem;
         align-self: center;
     }
 }
