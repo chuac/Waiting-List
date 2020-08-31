@@ -303,11 +303,7 @@ export default {
             this.$v.toEdit.gameTypes.$touch(); // make these inputs "dirty"
             this.$v.toEdit.person.$touch();
             this.$v.toEdit.remarks.$touch();
-            // console.log(this.$v.toEdit.person);
-            // if (this.$v.toEdit.person.$model === this.toEdit.person) {
-            //     console.log('yay');
-            //     this.$v.toEdit.person.$invalid = false;
-            // }
+
             if (this.$v.toEdit.gameTypes.$invalid || this.$v.toEdit.person.$invalid || this.$v.toEdit.remarks.$invalid) {
                 return; // code will stop here and show errors, if there are any (without hitting insertPerson)
             }
