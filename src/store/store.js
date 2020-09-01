@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
         waitList: [],
         peopleToCall: [],
         TTSMessage: '',
-        editTargetObjId: ''
+        editTargetObjId: '',
+        toDelete: {} // hold the person object to be deleted if the user doesn't click 'Undo'
     },
     getters: {
         getWaitList: (state) => {
@@ -59,6 +60,12 @@ export const store = new Vuex.Store({
             }]
             state.counter++;
         },
+        insertToDeletePerson: (state) => { // re-insert person into the waitlist since the undo button was clicked after a deletion intent
+            const { originalIndex, ...person } = state.toDelete; // destructure the toDelete person object
+            state.waitList.splice(originalIndex, 0, person);
+
+            state.toDelete = {}; // clear out toDelete
+        },
         editPerson: (state, payload) => {
             const { editTargetID, toEdit } = payload;
 
@@ -77,6 +84,17 @@ export const store = new Vuex.Store({
         },
         deletePerson: (state, payload) => {
             state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
+        },
+        deletePersonIntent: (state, payload) => {
+            // console.log(state.waitList);
+            // console.log(state.waitList[payload]);
+            let removed = state.waitList.splice(payload, 1);
+            state.toDelete = {
+                ...removed[0], // spread the object. splice will return the removed object(s) into an array
+                originalIndex: payload // hold the index of the object when it was in the displayed order (in case we need to insert it back into the waitList array)
+            };
+            console.log(state.toDelete);
+            //state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
         },
         clearList: (state) => {
             state.counter = 0;
@@ -114,11 +132,17 @@ export const store = new Vuex.Store({
         insertPerson: (context, payload) => {
             context.commit('insertPerson', payload);
         },
+        insertToDeletePerson: (context, payload) => {
+            context.commit('insertToDeletePerson', payload);
+        },
         editPerson: (context, payload) => {
             context.commit('editPerson', payload);
         },
         deletePerson: (context, payload) => {
             context.commit('deletePerson', payload);
+        },
+        deletePersonIntent: (context, payload) => {
+            context.commit('deletePersonIntent', payload);
         },
         clearList: (context) => {
             context.commit('clearList');
@@ -144,6 +168,6 @@ export const store = new Vuex.Store({
     },
     plugins: [
         createPersistedState(),
-        createMutationsSharer({ predicate: ["insertPerson", "editPerson", "deletePerson", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications", "updateTTSMessage"] })
+        createMutationsSharer({ predicate: ["insertPerson", "insertToDeletePerson", "editPerson", "deletePerson", "deletePersonIntent", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications", "updateTTSMessage"] })
     ],
 })

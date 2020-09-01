@@ -36,6 +36,7 @@
         </div>
         <div class="column is-offset-1 is-narrow">
             <br>
+            <!-- <button v-on:click="insertToDeletePerson()">Undo deletion</button> -->
             <ul>
                 <li class="any-li">
                     <strong class="is-size-3">{{ getCountOfAny | pluralGroupsText }} waiting for Any</strong>
@@ -238,8 +239,10 @@ export default {
     methods: {
         ...mapActions([
             'insertPerson',
+            'insertToDeletePerson',
             'editPerson',
             'deletePerson',
+            'deletePersonIntent',
             'clearList',
             'updateList',
             'addPersonToCall',
@@ -275,7 +278,8 @@ export default {
             this.reFocus();
         },
         handleDelete: function(index) {
-            this.deletePerson(index);
+            // this.deletePerson(index);
+            this.deletePersonIntent(index);
             this.resetDeleteTarget(); // reset the delete target after successfully deleting one item
         },
         firstDeleteClick: function(index) {
