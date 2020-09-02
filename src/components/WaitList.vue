@@ -36,7 +36,6 @@
         </div>
         <div class="column is-offset-1 is-narrow">
             <br>
-            <!-- <button v-on:click="insertToDeletePerson()">Undo deletion</button> -->
             <ul>
                 <li class="any-li">
                     <strong class="is-size-3">{{ getCountOfAny | pluralGroupsText }} waiting for Any</strong>
@@ -91,6 +90,7 @@
                 <hr>
                 <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-danger clear-list-button">Clear Waiting List</button>
             </form>
+            <undo-notification v-if="Object.keys(getToDelete).length !== 0"></undo-notification> <!-- only shows if getToDelete doesn't return an empty object -->
         </div>
         <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
             <div v-on:click="clearListConfirmation = !clearListConfirmation" class="modal-background"></div>
@@ -106,7 +106,7 @@
                 </article>
             </div>
         </div>
-
+        
         <text-to-speech v-if="fireTextToSpeech" v-bind:message="getTTSMessage" v-on:finished-speaking="fireTextToSpeech = false"/>
     </div>
 </template>
@@ -117,6 +117,7 @@ import draggable from 'vuedraggable';
 import { mapActions, mapGetters } from 'vuex';
 import { helpers, required, maxLength } from 'vuelidate/lib/validators';
 
+import UndoNotification from './UndoNotification.vue';
 import HelperMessage from './HelperMessage.vue';
 import TextToSpeech from './TextToSpeech.vue';
 import RelativeTime from './RelativeTime.vue';
@@ -165,6 +166,7 @@ const isEditPersonUnique = (val) => {
 export default {
     components: {
         draggable,
+        'undo-notification': UndoNotification,
         'helper-message': HelperMessage,
         'text-to-speech': TextToSpeech,
         'relative-time': RelativeTime
@@ -225,7 +227,8 @@ export default {
             'getCountOfPool',
             'getCountOfSnooker',
             'getCountOfTableTennis',
-            'getTTSMessage'
+            'getTTSMessage',
+            'getToDelete'
         ]),
         waitList: { // interaction between Vuex and draggable package
             get() {
@@ -394,15 +397,6 @@ ul {
     overflow: hidden; // to hide scrollbars for modal
 }
 
-form {
-    // margin-top: 2em;
-
-    input[type=checkbox] {
-        margin-right: 0.2em;
-    }
-
-}
-
 .add-to-waitlist-button {
     color: hsl(0, 0%, 15%);
     background-color: hsl(141, 53%, 53%);
@@ -441,10 +435,6 @@ form {
 .helper-button:hover {
         color: hsl(0, 0%, 15%);
 }
-
-// .edit-input {
-//     // width: 5em;
-// }
 
 .new-input {
     width: 10em;

@@ -12,12 +12,12 @@ export default {
     data () {
         return {
             relativeTime: null,
-            interval: null
+            interval: null // hold the setInterval timer ID to be cleared if needed
         }
     },
     methods: {
         getRelativeTime: function () {
-            this.relativeTime = moment(this.created_at).fromNow();
+            this.relativeTime = moment(this.created_at).fromNow(); // Moment.js package returns a relative time string
         }
     },
     created() {

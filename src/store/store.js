@@ -19,7 +19,7 @@ export const store = new Vuex.Store({
         getWaitList: (state) => {
             return state.waitList;
         },
-        getWaitListPaginate: (state) => (page, numPerPage) => {
+        getWaitListPaginate: (state) => (page, numPerPage) => { // not used
             return state.waitList.slice((page - 1) * numPerPage, page * numPerPage);
         },
         getPeopleToCall: (state) => {
@@ -50,6 +50,9 @@ export const store = new Vuex.Store({
         },
         getTTSMessage: (state) => {
             return state.TTSMessage;
+        },
+        getToDelete: (state) => {
+            return state.toDelete;
         }
     },
     mutations: {
