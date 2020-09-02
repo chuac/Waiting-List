@@ -96,7 +96,7 @@ export const store = new Vuex.Store({
                 ...removed[0], // spread the object. splice will return the removed object(s) into an array
                 originalIndex: payload // hold the index of the object when it was in the displayed order (in case we need to insert it back into the waitList array)
             };
-            console.log(state.toDelete);
+            // console.log(state.toDelete);
             //state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
         },
         clearToDelete: (state) => {
@@ -177,6 +177,6 @@ export const store = new Vuex.Store({
     },
     plugins: [
         createPersistedState(),
-        createMutationsSharer({ predicate: ["insertPerson", "insertToDeletePerson", "editPerson", "deletePerson", "deletePersonIntent", "clearList", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications", "updateTTSMessage"] })
+        createMutationsSharer({ predicate: ["insertPerson", "insertToDeletePerson", "editPerson", "deletePerson", "deletePersonIntent", "clearList", "clearToDelete", "updateList", "addPersonToCall", "removePersonToCall", "clearNotifications", "updateTTSMessage"] })
     ],
 })

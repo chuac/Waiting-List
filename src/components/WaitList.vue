@@ -90,7 +90,7 @@
                 <hr>
                 <button v-on:click.prevent="clearListConfirmation = !clearListConfirmation" class="button is-danger clear-list-button">Clear Waiting List</button>
             </form>
-            <undo-notification v-if="Object.keys(getToDelete).length !== 0"></undo-notification> <!-- only shows if getToDelete doesn't return an empty object -->
+            
         </div>
         <div v-bind:class="{'is-active': clearListConfirmation}" class="modal">
             <div v-on:click="clearListConfirmation = !clearListConfirmation" class="modal-background"></div>
@@ -108,6 +108,7 @@
         </div>
         
         <text-to-speech v-if="fireTextToSpeech" v-bind:message="getTTSMessage" v-on:finished-speaking="fireTextToSpeech = false"/>
+        <undo-notification v-if="(Object.keys(getToDelete).length !== 0) && (showUndoNotification)" v-on:close-notification="showUndoNotification = false"></undo-notification> <!-- only shows if getToDelete doesn't return an empty object -->
     </div>
 </template>
 
@@ -179,6 +180,7 @@ export default {
             checkedGameTypes: [],
             clearListConfirmation: false,
             showHelperMessage: false,
+            showUndoNotification: false,
             deleteTarget: -1, // initialise these targets to -1 index
             editTarget: -1,
             editTargetObjId: -1,
@@ -271,18 +273,18 @@ export default {
                 gameTypes: this.gameTypes.toLowerCase(),
                 remarks: this.remarks,
                 created_at: moment() // save current date & time that this person was inserted into the wait list
-                //gameTypes: this.checkedGameTypes.join(', ')
             });
             this.person = ''; // reset the input field to empty
             this.gameTypes = '';
             this.remarks = '';
             this.newPersonFormSubmitted = false;
-            // this.checkedGameTypes = []; // reset the checkboxes to empty
-            this.reFocus();
+            
+            this.reFocus(); // re-focus onto the first input field
         },
         handleDelete: function(index) {
-            // this.deletePerson(index);
-            this.deletePersonIntent(index);
+            // this.deletePerson(index); // no longer deleting a person straight away.
+            this.deletePersonIntent(index); // go through an intent to delete which can be reverted if user clicks an Undo button
+            this.showUndoNotification = true; // setting to true will show the UndoNotification component
             this.resetDeleteTarget(); // reset the delete target after successfully deleting one item
         },
         firstDeleteClick: function(index) {

@@ -1,7 +1,7 @@
 <template>
     <div class="notification is-success">
-        <button class="delete"></button>
-        Deleted {{ getToDelete.person }}
+        <button v-on:click="closeNotification()" class="delete"></button>
+        <span>Deleted {{ getToDelete.person }}</span>
         <button v-on:click="insertToDeletePerson()">UNDO</button>
     </div>
 </template>
@@ -24,7 +24,10 @@ export default {
         ...mapActions([
             'insertToDeletePerson',
             'clearToDelete'
-        ])
+        ]),
+        closeNotification: function() {
+            this.$emit('close-notification'); // emit this custom event when user clicks the X button
+        }
     },
     created() {
         this.timeout = setTimeout(() => {
@@ -41,6 +44,8 @@ export default {
 <style scoped lang="scss">
 div {
     position: fixed;
+    bottom: 1rem;
+    right: 1rem;
     
 }
 </style>
