@@ -17,7 +17,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'insertToDeletePerson'
+            'insertToDeletePerson',
+            'clearToDelete'
         ])
     }
 }

@@ -67,7 +67,7 @@ export const store = new Vuex.Store({
             const { originalIndex, ...person } = state.toDelete; // destructure the toDelete person object
             state.waitList.splice(originalIndex, 0, person);
 
-            state.toDelete = {}; // clear out toDelete
+            state.toDelete = {}; // clear out toDelete since we have re-inserted this person
         },
         editPerson: (state, payload) => {
             const { editTargetID, toEdit } = payload;
@@ -98,6 +98,9 @@ export const store = new Vuex.Store({
             };
             console.log(state.toDelete);
             //state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
+        },
+        clearToDelete: (state) => {
+            state.toDelete = {}; // clear toDelete when the undo notification expires
         },
         clearList: (state) => {
             state.counter = 0;
@@ -146,6 +149,9 @@ export const store = new Vuex.Store({
         },
         deletePersonIntent: (context, payload) => {
             context.commit('deletePersonIntent', payload);
+        },
+        clearToDelete: (context, payload) => {
+            context.commit('clearToDelete', payload);
         },
         clearList: (context) => {
             context.commit('clearList');
