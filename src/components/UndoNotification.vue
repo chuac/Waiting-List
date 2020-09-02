@@ -1,5 +1,5 @@
 <template>
-    <div class="notification is-success">
+    <div class="notification is-warning">
         <button v-on:click="closeNotification()" class="delete"></button>
         <span>Deleted {{ getToDelete.person }}</span>
         <button v-on:click="insertToDeletePerson()">UNDO</button>
@@ -46,6 +46,10 @@ div {
     position: fixed;
     bottom: 1rem;
     right: 1rem;
-    
+
+    span {
+        font-size: 2rem;
+        // color: black;
+    }
 }
 </style>

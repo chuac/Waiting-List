@@ -64,10 +64,15 @@ export const store = new Vuex.Store({
             state.counter++;
         },
         insertToDeletePerson: (state) => { // re-insert person into the waitlist since the undo button was clicked after a deletion intent
-            const { originalIndex, ...person } = state.toDelete; // destructure the toDelete person object
-            state.waitList.splice(originalIndex, 0, person);
+            if (Object.keys(state.toDelete).length !== 0) { // make sure toDelete isn't an empty object
+                const { originalIndex, ...person } = state.toDelete; // destructure the toDelete person object
+                state.waitList.splice(originalIndex, 0, person);
 
-            state.toDelete = {}; // clear out toDelete since we have re-inserted this person
+                state.toDelete = {}; // clear out toDelete since we have re-inserted this person
+            } else {
+                console.log('ERROR: Trying to read from an empty object!')
+            }
+            
         },
         editPerson: (state, payload) => {
             const { editTargetID, toEdit } = payload;
