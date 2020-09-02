@@ -10,6 +10,11 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
+    data() {
+        return {
+            timeout: null, // to store setTimeout ID,
+        }
+    },
     computed: {
         ...mapGetters([
             'getToDelete'
@@ -20,6 +25,14 @@ export default {
             'insertToDeletePerson',
             'clearToDelete'
         ])
+    },
+    created() {
+        this.timeout = setTimeout(() => {
+            this.clearToDelete();
+        }, 7000);
+    },
+    beforeDestroy() {
+        clearTimeout(this.timeout);
     }
 }
 </script>
