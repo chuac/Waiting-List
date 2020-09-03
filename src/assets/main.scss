@@ -166,7 +166,7 @@ body, html {
             margin-top: 3px;
             color: hsl(252, 0%, 32%); // dark gray
 
-            
+            cursor: pointer;
         }
         .call-button:hover {
             color: $text;
@@ -175,6 +175,8 @@ body, html {
         .edit-button {
             margin-right: 10px;
             color: hsl(252, 0%, 32%); // dark gray
+
+            cursor: pointer;
         }
         .edit-button:hover {
             color: $text;

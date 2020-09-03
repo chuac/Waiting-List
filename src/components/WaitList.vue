@@ -108,7 +108,10 @@
         </div>
         
         <text-to-speech v-if="fireTextToSpeech" v-bind:message="getTTSMessage" v-on:finished-speaking="fireTextToSpeech = false"/>
-        <undo-notification v-if="(Object.keys(getToDelete).length !== 0) && (showUndoNotification)" v-on:close-notification="showUndoNotification = false"></undo-notification> <!-- only shows if getToDelete doesn't return an empty object -->
+        <transition name="fade">
+            <undo-notification v-if="(Object.keys(getToDelete).length !== 0) && (showUndoNotification)" v-on:close-notification="showUndoNotification = false"></undo-notification> <!-- only shows if getToDelete doesn't return an empty object -->
+        </transition>
+        
     </div>
 </template>
 
@@ -407,6 +410,8 @@ ul {
     border-radius: 4px;
     font-size: 1.1em;
     font-weight: 500; // medium boldness
+
+    cursor: pointer;
 }
 
 .fa-desktop {
@@ -430,12 +435,24 @@ ul {
 
     color: hsl(252, 0%, 32%); // dark gray
 
+    cursor: pointer;
+
     .helper-button-text {
         font-size: 1.5rem;
     }
 }
 .helper-button:hover {
         color: hsl(0, 0%, 15%);
+}
+
+// Transitions for UndoNotification 
+.fade-enter-active, .fade-leave-active {
+    transition: all .5s ease;
+}
+
+.fade-enter, .fade-leave-to {
+    transform: translateX(-20px);
+    opacity: 0;
 }
 
 .new-input {
