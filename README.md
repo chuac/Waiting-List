@@ -1,10 +1,11 @@
-# Waiting List web app
+# Waiting List
 
 ## Description
-A two-page app for a local business where staff would use the **Control** page to make changes to the waiting list (like adding customers, removing them). The **Display** page would be open on a large TV for customers to view the dynamically updated waiting list.
+A two-page frontend app for a local business where staff can add customers and **Control** the queue on one page. The **Display** page would be open on a large TV for customers to view the dynamically updated waiting list. Also features Text-to-Speech at a click of a button. 
 
 ## Technicals
-**Vue** and **Vuex** to store the state of the waiting list in Local Storage. Using Vuex to share events between the two pages.
+**Vue.js** and **Vuex** to store the state of the waiting list in Local Storage. Using Vuex to share events between the two pages.
+**SpeechSynthesis** API to speak dynamically concatenated strings.
 
 ## Demo
 - [Control Page](https://waitlist.chuac.me/)
