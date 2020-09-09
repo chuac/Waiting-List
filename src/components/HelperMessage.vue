@@ -66,13 +66,12 @@
                         <button class="button is-small is-danger">Clear Waiting List</button> to clear all data.
                     </p>
                     <hr>
-                    <h4 class="title is-4 is-spaced">Opening the Display page</h4>
+                    <!-- <h4 class="title is-4 is-spaced">Opening the Display page</h4>
                     <p class="subtitle is-6 has-text-justified">
                         Click on the <i>display icon</i> <i class="fa fa-desktop"></i> to open the Display page
                         in another tab.
                     </p>
-                    
-                    <hr>
+                    <hr> -->
                 </div>
                 
             </section>

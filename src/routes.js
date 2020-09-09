@@ -1,10 +1,10 @@
-import WaitList from './components/WaitList.vue';
+import Control from './components/Control.vue';
 import Display from './components/Display.vue';
 
 export default [
     {
         path: '/',
-        component: WaitList
+        component: Control
     },
     {
         path: '/display',
