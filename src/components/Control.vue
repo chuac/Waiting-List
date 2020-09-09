@@ -1,7 +1,7 @@
 <template>
     <div class="columns is-centered" v-on:click="resetDeleteTarget(); handleEdit(editTargetObjId);">
         <div class="column is-offset-1 is-narrow">
-            <draggable v-model="waitList" ghost-class="ghost" @end="onEnd" handle=".handle">
+            <draggable v-model="waitList" ghost-class="ghost" handle=".handle">
                 <transition-group class="list-container" type="transition" name="wait-list">
                     <div class="list-item" v-for="(obj, index) in getWaitList" v-bind:key="obj.id">
                         <span class="list-item-index">{{ index + 1 }}.</span>
@@ -152,10 +152,6 @@ const isEditPersonUnique = (val) => {
     let currentEditTarget = store.state.editTargetObjId; // get the ID of the person the user is currently trying to update
     let obj = store.state.waitList.find((obj) => obj.person === val); // find a person by this name/number in the wait list
 
-    // if (val === store.state.waitList[id].person) {
-    //     return true;
-    // }
-    console.log(currentEditTarget);
     if (obj === undefined) { // no person found by that name in the waitlist means that new updated name/number is unique!
         return true;
     } else if (obj.id === currentEditTarget) { // if a person is found but has the same id as our current edit target, that means that we should ignore this "match", and allow the form to be submitted
@@ -164,8 +160,7 @@ const isEditPersonUnique = (val) => {
     return (val !== obj.person); // could just return false here?
 }
 
-//import { bus } from '../main';
-// import { gameTypeToClass } from '../main';
+
 
 export default {
     components: {
@@ -297,7 +292,6 @@ export default {
             this.deleteTarget = -1;
         },
         firstEditClick: function(index, objId) {
-            // this.$refs.editInputPerson.focus();
             let waitList = this.getWaitList;
             this.editTarget = index;
             this.editTargetObjId = objId; // the actual object's ID in the Vuex store
@@ -338,9 +332,9 @@ export default {
         resetShowHelper: function() {
             this.showHelperMessage = false;
         },
-        onEnd: function(event) {
-            console.log(event);
-        },
+        // onEnd: function(event) {
+        //     // console.log(event);
+        // },
         clickPerson: function(obj) {
             this.addPersonToCall({
                 person: obj.person,

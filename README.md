@@ -5,6 +5,9 @@ A two-page frontend app for a local business where staff can add customers and *
 
 ## Technicals
 **Vue.js** and **Vuex** to store the state of the waiting list in Local Storage. Using Vuex to share events between the two pages.
+
+**Vue.Draggable** to support drag-and-drop for list of customers in the Control page.
+
 **SpeechSynthesis** API to speak dynamically concatenated strings.
 
 ## Demo

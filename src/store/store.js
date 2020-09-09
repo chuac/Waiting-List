@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
-import createMutationsSharer from "vuex-shared-mutations"; // https://forum.vuejs.org/t/configure-vuex-persist-to-rehydrate-state-automatically-in-other-tabs-on-a-storage-event/50143/3
+import createMutationsSharer from 'vuex-shared-mutations'; // https://forum.vuejs.org/t/configure-vuex-persist-to-rehydrate-state-automatically-in-other-tabs-on-a-storage-event/50143/3
 
 Vue.use(Vuex);
 
@@ -94,14 +94,11 @@ export const store = new Vuex.Store({
             state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
         },
         deletePersonIntent: (state, payload) => {
-            // console.log(state.waitList);
-            // console.log(state.waitList[payload]);
             let removed = state.waitList.splice(payload, 1);
             state.toDelete = {
                 ...removed[0], // spread the object. splice will return the removed object(s) into an array
                 originalIndex: payload // hold the index of the object when it was in the displayed order (in case we need to insert it back into the waitList array)
             };
-            console.log(state.toDelete);
             //state.waitList.splice(payload, 1); // payload will hold the index (of person to delete) of the current wait list (in the displayed order)
         },
         clearToDelete: (state) => {
