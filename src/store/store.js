@@ -30,7 +30,7 @@ export const store = new Vuex.Store({
         },
         getCountOfPool: (state) => {
             return (state.waitList.filter((people) => {
-                return ((people.gameTypes === 'p') || (people.gameTypes === 'pu') || (people.gameTypes === 'u') || (people.gameTypes === 'tu') ||(people.gameTypes === 'pt') || (people.gameTypes === 'a'))
+                return ((people.gameTypes === 'p') || (people.gameTypes === 'ps') || (people.gameTypes === 'pu') || (people.gameTypes === 'u') || (people.gameTypes === 'tu') ||(people.gameTypes === 'pt') || (people.gameTypes === 'a'))
             }).length);
         },
         getCountOfSnooker: (state) => {
