@@ -291,7 +291,7 @@ export default {
         resetDeleteTarget: function() {
             this.deleteTarget = -1;
         },
-        firstEditClick: function(index, objId) {
+        firstEditClick: function(index, objId) { // pre-fill local variables with data from Vuex store
             let waitList = this.getWaitList;
             this.editTarget = index;
             this.editTargetObjId = objId; // the actual object's ID in the Vuex store

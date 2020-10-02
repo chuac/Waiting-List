@@ -82,7 +82,7 @@ export const store = new Vuex.Store({
                     return {
                         ...obj,
                         person: toEdit.person,
-                        gameTypes: toEdit.gameTypes,
+                        gameTypes: toEdit.gameTypes.toLowerCase(), // make sure lowercased gametypes
                         remarks: toEdit.remarks
                     };
                 } else {
